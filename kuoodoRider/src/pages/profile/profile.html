@@ -1,0 +1,52 @@
+<ion-header>
+
+  <ion-navbar>
+
+  </ion-navbar>
+  <div class="image">
+    <img padding src="{{userImage}}" (click)="presentActionSheet()">
+    <p no-margin class="icon-head">{{userName}}</p>
+  </div>
+
+
+</ion-header>
+
+
+<ion-content padding>
+  <div class="inputsec">
+    <div class="text">
+      <ion-grid>
+        <ion-row>
+          <ion-col col-4 no-padding>
+            <p no-margin>Personal Info</p>
+          </ion-col>
+          <ion-col col-8 no-padding>
+            <hr>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+
+    </div>
+    <ion-list>
+
+      <ion-item>
+        <ion-label stacked>ame</ion-label>
+        <ion-input type="text" [(ngModel)]="username" [disabled]="isUsername"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Email</ion-label>
+        <ion-input type="text" [(ngModel)]="email" [disabled]="isEmail"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Phone</ion-label>
+        <ion-input type="text" [(ngModel)]="phoneNumber" [disabled]="true"></ion-input>
+      </ion-item>
+      <!-- <ion-item>
+        <ion-button (click)="submit()">Update Info</ion-button>
+      </ion-item> -->
+    </ion-list>
+
+  </div>
+</ion-content>

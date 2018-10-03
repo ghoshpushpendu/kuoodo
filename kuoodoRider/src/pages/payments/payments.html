@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Payment</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <ion-list-header> Saved Cards </ion-list-header>
+    <ion-item *ngFor="let card of cards">
+      <ion-icon name="card"></ion-icon> <span class="cardNumber">{{card.number}}</span>
+      <ion-icon item-right name="trash" (click)="deleteCard(card.number)"></ion-icon>
+    </ion-item>
+    <ion-item> <button (click)="addCard()" ion-button icon-start>
+        <ion-icon name="add"></ion-icon> Add payment method
+      </button> </ion-item>
+  </ion-list>
+</ion-content>

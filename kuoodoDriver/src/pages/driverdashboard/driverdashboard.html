@@ -1,0 +1,18 @@
+<ion-content center>
+    <div class="status">
+        <ion-toggle float-left color="primary" [(ngModel)]="status" (ionChange)="changeStatus()"></ion-toggle>
+    </div>
+    <ion-fab class="menubtn" left top> <button ion-fab menuToggle>
+            <ion-icon ios="ios-menu" md="md-menu"></ion-icon>
+        </button> </ion-fab>
+    <div #map id="map"> </div>
+    <div class="footersec" [hidden]="!isStartRide"> <button ion-button full text-center class="acceptbtn" [hidden]="notArrived"
+            (click)="arrived()"> Arrived </button> <button ion-button text-center class="acceptbtn" *ngIf="!IsStartRideHidden"
+            (click)="presentPrompt()">Start Ride </button> <button ion-button text-center class="acceptbtn" *ngIf="!IsEndRideHidden"
+            (click)="endRide()">End Ride </button> </div> <audio id="ringtone" loop>
+        <source src="assets/audio/ringtone.mp3" type="audio/ogg"> </audio>
+    <ion-fab class="navigator" [hidden]="!isStartRide" small right bottom color="primary" (click)="showNavigator()">
+        <button ion-fab>
+            <ion-icon name="locate"></ion-icon>
+        </button> </ion-fab>
+</ion-content>

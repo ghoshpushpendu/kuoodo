@@ -1,0 +1,121 @@
+<!--
+  Generated template for the RegistrationPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<!-- <ion-header>
+
+  <ion-navbar>
+    <ion-title>registration</ion-title>
+  </ion-navbar>
+
+</ion-header> -->
+
+
+<ion-content>
+  <div class="contentsec">
+    <div class="logotext">
+      <img src="assets/image/logo.png" class="img-responsive logoimg">
+      <p no-margin class="logotext1">DRIVE</p>
+      <p no-margin class="logotextsub">Lets setup your account with Kuoodo</p>
+    </div>
+
+    <div class="middlesec">
+      <div class="inputsec">
+        <ion-list>
+          <ion-item>
+            <ion-label floating class="headlabel">Please Enter Your Email</ion-label>
+            <ion-input type="email" required name="email" [(ngModel)]="email" (keyup)="emailCleanMessage()" (keyup)="emailValidate()"></ion-input>
+
+          </ion-item>
+          <span class="error-message">
+            {{emailMessage}}
+          </span>
+        </ion-list>
+        <ion-grid>
+          <ion-row>
+
+            <ion-col col-6>
+              <ion-list>
+                <ion-item class="subheadlabel">
+                  <ion-label floating class="headlabel">First Name</ion-label>
+
+                  <ion-input type="text" required name="firstName" [(ngModel)]="firstName" (keyup)="firstNameCleanMessage()"></ion-input>
+                </ion-item>
+                <span class="error-message1">
+                  {{firstNameMessage}}
+                </span>
+              </ion-list>
+
+            </ion-col>
+
+            <ion-col col-6>
+              <ion-item>
+                <ion-label floating class="headlabel">Last Name</ion-label>
+
+                <ion-input type="text" required name="lastName" [(ngModel)]="lastName" (keyup)="lastNameCleanMessage()"></ion-input>
+              </ion-item>
+              <span class="error-message2">
+                {{lastNameMessage}}
+              </span>
+
+            </ion-col>
+
+          </ion-row>
+        </ion-grid>
+        <ion-fab>
+          <button ion-fab color="primary" class="button-circle button-next" [hidden]="showForm" (click)="registrationStepOne()">
+            <ion-icon ios="ios-arrow-forward" md="md-arrow-forward"></ion-icon>
+          </button>
+        </ion-fab>
+      </div>
+
+
+
+      <ion-grid class="alreadyacc">
+        <ion-row>
+          <ion-col col-8>
+            <p class="resendtxt">Already have an account?</p>
+
+          </ion-col>
+          <ion-col col-3>
+            <button ion-button pull-right class="sendrequest" (click)="loginpage()">Log in</button>
+
+          </ion-col>
+          <ion-col col-1>
+
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <!-- <div class="footersec">
+        <ion-grid class="inputsec1">
+
+          <ion-row>
+
+            <ion-col col-6 class="text-center">
+              <div class="fbsec">
+                <img src="assets/image/fb.png" class="img-responsive">
+
+                <div class="row">
+                  <button ion-button (click)="FBLogin()">Facebook</button>
+                </div>
+              </div>
+            </ion-col>
+            <ion-col col-6 class="text-center">
+              <div class="gsec">
+                <img src="assets/image/google.png" class="img-responsive">
+
+                <div class="row">
+                  <button ion-button (click)="GLogin()">Google</button>
+                </div>
+              </div>
+
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div> -->
+    </div>
+  </div>
+
+</ion-content>

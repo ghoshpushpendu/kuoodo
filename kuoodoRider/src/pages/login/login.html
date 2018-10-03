@@ -1,0 +1,83 @@
+<!--
+  Generated template for the LoginPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<!-- <ion-header>
+
+  <ion-navbar>
+    <ion-title>login</ion-title>
+  </ion-navbar>
+
+</ion-header> -->
+
+
+<ion-content>
+  <div class="heightsec">
+    <div class="headtext">
+      <img src="assets/image/logo.png" class="img-responsive logoimg" [hidden]="showForm">
+    </div>
+  </div>
+
+  <div class="emailhead">
+    <div class="emailcont">
+      <ion-list>
+
+        <!-- <ion-item>
+          
+          <ion-input type="text" placeholder="Enter your email"></ion-input>
+        </ion-item> -->
+          <ion-item>
+              <ion-label floating>  <svg item-start version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                width="20px" height="20px" viewBox="0 0 58.984 58.984" style="enable-background:new 0 0 58.984 58.984;"
+                xml:space="preserve">
+             <g>
+               <g id="_x31_3">
+                 <g>
+                   <path d="M53.146,6.105H5.837C2.619,6.105,0,8.729,0,11.954v35.08c0,3.226,2.619,5.846,5.837,5.846h47.312
+                     c3.218,0,5.836-2.62,5.836-5.846v-35.08C58.982,8.729,56.363,6.105,53.146,6.105z M56.523,47.031
+                     c0,1.865-1.518,3.387-3.379,3.387H5.837c-1.862,0-3.379-1.521-3.379-3.387V11.954c0-1.865,1.518-3.386,3.379-3.386h47.312
+                     c1.86,0,3.379,1.521,3.379,3.386L56.523,47.031L56.523,47.031z M38.029,29.059l12.104-12.123c0.48-0.479,0.48-1.26,0-1.74
+                     c-0.479-0.479-1.257-0.479-1.734,0L29.491,34.131L10.955,15.562c-0.479-0.479-1.257-0.479-1.737,0
+                     c-0.479,0.481-0.479,1.26,0,1.741l12.053,12.069L9.414,41.25c-0.479,0.479-0.479,1.26,0,1.736c0.24,0.24,0.554,0.361,0.869,0.361
+                     c0.315,0,0.629-0.121,0.869-0.361l11.854-11.873l5.617,5.627c0.24,0.239,0.554,0.36,0.869,0.36c0.315,0,0.629-0.121,0.869-0.36
+                     l5.932-5.94L48.46,42.986c0.24,0.24,0.556,0.361,0.869,0.361s0.628-0.121,0.869-0.361c0.479-0.479,0.479-1.26,0-1.736
+                     L38.029,29.059z"/>
+                 </g>
+               </g>
+             </g>
+             
+             </svg> Enter your email</ion-label>
+              <ion-input type="text" name="text" ></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label floating>  <svg item-start version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                  viewBox="0 0 297 297"  width="20px" height="20px" style="enable-background:new 0 0 297 297;" xml:space="preserve">
+               <g>
+                 <path d="M148.417,202.749c29.914,0,54.251-24.337,54.251-54.251s-24.337-54.251-54.251-54.251s-54.251,24.337-54.251,54.251
+                   S118.503,202.749,148.417,202.749z M148.417,124.915c13.004,0,23.583,10.579,23.583,23.583c0,13.004-10.579,23.583-23.583,23.583
+                   c-13.004,0-23.583-10.579-23.583-23.583C124.834,135.494,135.413,124.915,148.417,124.915z"/>
+                 <path d="M296.109,144.955c-0.457-0.852-11.467-21.108-35.149-41.427c-21.848-18.743-59.092-41.087-112.459-41.087
+                   s-90.612,22.344-112.46,41.087c-23.683,20.318-34.693,40.574-35.15,41.427c-1.186,2.21-1.188,4.866-0.006,7.079
+                   c0.455,0.853,11.426,21.113,35.091,41.436c21.828,18.744,59.069,41.089,112.525,41.089c53.456,0,90.696-22.345,112.524-41.09
+                   c23.665-20.321,34.635-40.583,35.09-41.436C297.297,149.821,297.295,147.165,296.109,144.955z M148.417,79.247
+                   c38.185,0,69.251,31.065,69.251,69.251s-31.066,69.251-69.251,69.251c-38.186,0-69.251-31.066-69.251-69.251
+                   S110.231,79.247,148.417,79.247z"/>
+               </g>
+               
+               </svg> Enter password</ion-label>
+                <ion-input type="password" name="password" ></ion-input>
+              </ion-item>
+      </ion-list>
+    </div>
+  </div>
+
+  <div class="btnhead">
+    <div class="btnsec">
+      <button ion-button ng-click="modal.show()">Signin</button>
+      <p>New User?signup</p>
+    </div>
+  </div>
+
+</ion-content>

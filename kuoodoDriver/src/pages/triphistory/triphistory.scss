@@ -1,0 +1,230 @@
+page-triphistory {
+    .scroll-content {
+        background: #eff2f9;
+    }
+    .toolbar-background-md {
+        border-color: #1d2c4d;
+        background: #1d2c4d;
+    }
+    .toolbar-title-md {
+        color: white;
+        font-size: 15px;
+        font-weight: 500;
+        font-family: 'Open Sans', sans-serif;
+    }
+    .card-md {
+     box-shadow: 0 2px 20px 3px rgba(0, 0, 0, 0.1);
+     border-radius:8px;
+     margin: 10px;
+     width: calc(100% - 25px);
+     left: 0;
+     margin: 15px auto;
+     right: 0;
+    }
+    .bar-button-md[icon-only] ion-icon {
+        color: white;
+    }
+    .back-button-icon-md{
+        color:white;
+    }
+    .card-header-md {
+        border-bottom: 1px solid #eff4fb;
+        background: #fdfeff;
+    }
+    // .card-md p {
+    //     line-height: 12px;
+      
+    // }
+    .item-md{
+        background-color: #fdfeff;
+    }
+    .label-md {
+        margin: 0px 8px 0px 0;
+    }
+    .item-md ion-avatar[item-start] {
+        margin: 0 12px 0 0px;
+    }
+    .item-md ion-avatar {
+        min-width: 40px;
+        min-height: 49px;
+    }
+    .item-md ion-avatar ion-img, .item-md ion-avatar img {
+        border-radius: 0;
+        width: 60px;
+        height: 60px;
+    }
+    .item-md [item-start], .item-md [item-end] {
+        margin: 0;
+    }
+.name{
+    p{
+        margin: 0;
+        font-weight: 600;
+        font-size: 16px;
+        color:#1d2c4d;
+        line-height: 12px;
+    }
+    span{
+        font-size:15px;
+        color:#1d2c4d;
+    }
+}
+.time{
+    margin: 0;
+    font-weight: 600;
+    font-size: 12px;
+    padding-right: 10px;
+    color:#1d2c4d;
+}
+.start{
+    position: relative;
+    margin-bottom:8px;
+ p{
+        font-size: 12px;
+        font-weight: 600;
+        color:#1d2c4d;
+        line-height: 10px;
+}
+span{
+    font-size:12px;
+    color:#1d2c4d;
+}
+}
+.end {
+    position: relative;
+p{
+    font-size: 12px;
+    font-weight: 600;
+    color:#1d2c4d;
+    line-height: 10px;
+}
+span{
+    font-size:12px;
+    color:#1d2c4d;
+}
+}
+
+.start:before{
+    content:'';
+    position: absolute;
+    height: 8px;
+    width:8px;
+    border-radius:50%;
+    background: #9ef255;
+    left:0;
+    top:8px;
+}
+.start:after{
+    content: '';
+    position: absolute;
+    height: 37px;
+    width: 1px;
+    border-radius: 50%;
+    background: #c5cbd7;
+    left: 3px;
+    top: 15px;
+}
+.end:before{
+    content:'';
+    position: absolute;
+    height: 8px;
+    width:8px;
+    border-radius:50%;
+    background: #1d2c4d;
+    left:0;
+    top:8px;
+}
+
+.footer {
+    border-top: 1px solid #eff4fb;
+
+p{
+    color:#3ccc7e;
+    font-size: 22px;
+    font-weight: 500;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+span{
+    vertical-align: text-top;
+    font-size: 13px;
+    margin-left: -5px;
+}
+}
+span.color2{
+    margin-top:17px;
+    font-weight: 600;
+}
+.color2{
+    color:#fc6d89 !important;
+}
+    // ios css
+    .toolbar-background-ios {
+        border-color: #1d2c4d;
+        background: #1d2c4d;
+    }
+    .toolbar-title-ios {
+        color: rgba(255, 255, 255, .9);
+        font-size: 14px;
+        font-weight: 500;
+        text-align: left;
+        font-family: 'Open Sans', sans-serif;
+    }
+    .card-header-ios {
+        border-bottom: 1px solid #eff4fb;
+        background: #fdfeff;
+    }
+    .card-ios {
+        box-shadow: 0 2px 20px 3px rgba(0, 0, 0, 0.1);
+        border-radius:8px;
+        margin: 10px;
+        width: calc(100% - 25px);
+        left: 0;
+        margin: 15px auto;
+        right: 0;
+       }
+       .bar-button-ios[icon-only] ion-icon {
+        color: white;
+    }
+    .back-button-icon-ios{
+        color:white;
+    }
+    .toolbar-ios ion-title {
+        padding: 0 10px 1px;
+    }
+    span.back-button-text.back-button-text-ios {
+        display: none;
+    }
+    // .card-ios p {
+    //     line-height: 12px;
+      
+    // }
+    .label-ios {
+        margin: 0px 8px 0px 0;
+        
+    }
+    .card .note-ios {
+        font-size: 12px;
+    }
+    .item-ios ion-avatar[item-start] {
+        margin: 0 12px 0 0px;
+    }
+    .item-ios ion-avatar {
+        min-width: 40px;
+        min-height: 49px;
+    }
+    .item-ios ion-avatar ion-img, .item-ios ion-avatar img {
+        border-radius: 0;
+        width: 60px;
+        height: 60px;
+    }
+    .item-ios [item-start], .item-ios [item-end] {
+        margin: 0;
+    }
+    .item-ios{
+        background-color: #fdfeff;
+    }
+    .list-ios > .item-block:last-child, .list-ios > .item-wrapper:last-child .item-block {
+     border-bottom: none; 
+    }
+}

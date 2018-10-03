@@ -1,0 +1,82 @@
+<!--
+  Generated template for the TriphistoryPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-toolbar>
+      <ion-title>Trip History</ion-title>
+      <!-- <ion-buttons end>
+        <button ion-button icon-only color="white">
+          <ion-icon name="search"></ion-icon>
+        </button>
+      </ion-buttons> -->
+    </ion-toolbar>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+
+  <!-- each trip -->
+  <!-- card  -->
+  <ion-card *ngFor="let trip of trips">
+    <!-- card header  -->
+    <ion-card-header no-padding>
+      <ion-list>
+        <ion-item no-padding class="name">
+          <!-- profile img -->
+          <ion-avatar item-start>
+            <img item-start src="https://openclipart.org/image/2400px/svg_to_png/190113/1389952697.png" />
+          </ion-avatar>
+          <!-- profile img -->
+          <!-- date html -->
+          <ion-note item-end class="time">{{(trip.createdDate)?trip.createdDate.substring(0,10):''}}</ion-note>
+          <!-- date html -->
+          <!-- profile name -->
+          <p>{{trip.driverId.firstName +' '+trip.driverId.lastName}}</p>
+          <span>{{trip.driverDetails.carName}}</span>
+          <!-- profile name -->
+        </ion-item>
+      </ion-list>
+    </ion-card-header>
+    <!-- card header css -->
+    <ion-card-content padding-top>
+      <!-- start time -->
+      <div class="start" padding-left>
+        <p no-margin>{{(trip.startTime)?trip.startTime.substring(15,25):''}}</p>
+        <span>{{trip.startLocation}}</span>
+      </div>
+      <!-- start time -->
+
+      <!-- end time -->
+      <div class="end" padding-left>
+        <p no-margin>{{(trip.endTime)?trip.endTime.substring(15,25):''}}</p>
+        <span>{{trip.endLocation}}</span>
+      </div>
+      <!-- end time -->
+    </ion-card-content>
+
+    <!-- footer card -->
+    <div class="footer" padding-horizontal>
+      <p float-left>
+        {{ trip.distance }}
+        <span *ngIf="trip.distance">Mile</span>
+      </p>
+      <p float-right>{{(trip.amount)?'$'+trip.amount:''}}</p>
+    </div>
+    <!-- footer card -->
+    <!-- <ion-card-footer>
+      Header
+    </ion-card-footer> -->
+  </ion-card>
+  <!-- card  end-->
+
+</ion-content>

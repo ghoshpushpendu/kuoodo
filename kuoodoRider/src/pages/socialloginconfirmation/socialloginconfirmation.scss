@@ -1,0 +1,115 @@
+page-socialloginconfirmation {
+  
+    // header and nav bar css
+    .header-md::after{
+        background-image: none;
+    }
+      // for ios
+      .header-ios .toolbar-ios:last-child .toolbar-background-ios {
+        border-width:0;
+       }
+
+    .toolbar-md {
+        min-height: 60px;
+    }
+
+    // scroll content background
+    .scroll-content{
+        background: #1d2c4d;
+    }
+
+    //display table and cell
+    .imdisplaytbl{
+        display: table;
+        width:100%;
+        height:100%;
+        .imdisplaytblcell{
+            display: table-cell;
+            vertical-align:middle;
+            width:100%;
+        }
+    }
+
+    // logo
+    h6{
+        color:#cfd2db;
+        font-family: 'Roboto', sans-serif;
+    }
+
+    // item 
+    .item{
+        background-color: #1d2c4d;
+        color:#cfd2db;
+        padding-left:0;
+    }
+    .item-input .label {
+        color: #cfd2db;
+    }
+     //ios
+     .label-ios{
+         font-size: 14px;
+     }
+    
+    .item-input-has-focus .label, .input-has-focus .label {
+            color:#cfd2db !important;
+    }
+    
+    .item.item-input.item-input-has-focus .item-inner,.item.item-input.input-has-focus .item-inner {
+            border-bottom-color:#cfd2db;
+            box-shadow: none;
+    }
+
+    // footertext
+    .imfootertext{
+        background: linear-gradient(to bottom, #ffffff 0%, #e6eaf7 100%);
+        margin: 65px 15px 10px;
+        border-radius: 10px;
+        padding: 10px 20px 20px;
+        position: relative;
+        a{
+            text-decoration: none;
+            color:#496dda;
+            font-family: 'Roboto', sans-serif;
+        }
+        p{
+            font-size: 13px;
+            font-family: 'Roboto', sans-serif;
+        }
+        img{
+            position: absolute;
+            bottom: 89%;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+        }
+        .proceedbtn {
+            padding: 11px;
+            position: absolute;
+            right: 17px;
+            bottom: 73%;
+            box-shadow: 0 6px 19px 0px rgba(50, 219, 100, 0.82);
+            height: 55px;
+            width: 55px;
+            z-index: 99;
+        }
+       
+    }
+     //ios
+     .content-ios .proceedbtn.fab-ios{
+        padding: 11px;
+        position: absolute;
+        right: 12px;
+        bottom: 78%;
+        box-shadow: 0 6px 19px 0px rgba(50, 219, 100, 0.82);
+        height: 50px;
+        width: 50px;
+        z-index: 99;
+    }
+    
+    
+ 
+
+
+
+
+}

@@ -1,0 +1,485 @@
+page-findcar {
+    .controls {
+        position: fixed;
+        top: 60px;
+        left: 0px;
+        right: 0px;
+        z-index: 9999 !important;
+    }
+    .info {
+        position: fixed;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        z-index: 9999 !important;
+    }
+    .header-md::after {
+        background: none;
+    }
+    .header-ios::after {
+        background: none;
+    }
+    ion-navbar.toolbar.toolbar-md {
+        background: #263b66;
+        text-align: center;
+        color: white;
+    }
+    ion-navbar.toolbar.toolbar-ios {
+        background: #263b66;
+        text-align: center;
+        color: white;
+    }
+    .toolbar-title-md {
+        color: white;
+    }
+    .toolbar-title-ios {
+        color: white;
+    }
+    .toolbar-background-md {
+        border-color: transparent;
+        background: #263b66;
+    }
+    .toolbar-background-ios {
+        border-color: transparent;
+        background: #263b66;
+    }
+    input {
+        border-bottom: 1px solid rgba(85, 85, 85, 0.5);
+        padding: 6px 15px 6px 10px;
+        margin-top: 5px;
+        width: 100%;
+        border-left: none;
+        border-right: none;
+        border-top: none;
+        color: #555;
+    }
+    input:focus {
+        border-color: #85e37c;
+    }
+    label {
+        color: #555;
+    }
+    .searchbar-input-container {
+        width: 24%;
+        left: 4em;
+    }
+    .searchbar-md .searchbar-input {
+        background-color: #79e16f;
+        border-radius: 30px;
+    }
+    .searchbar-md .searchbar-search-icon {
+        background-size: 21px;
+        background-image: url("../assets/image/search.png");
+    }
+    .list-md {
+        margin: 11px 0 16px;
+    }
+    .footersec {
+        position: relative;
+        border: 1px solid transparent;
+        border-radius: 13px;
+        background: white;
+    }
+    .mainfooter {
+        position: absolute;
+        width: 100%;
+        bottom: 18px;
+        padding: 16px;
+    }
+    .bar-button-default-md {
+        margin-top: 12px;
+        color: #ffffff;
+        display: block;
+        margin: 0;
+    }
+    .list-md .item-input:last-child {
+        border-bottom: 1px solid #dedede;
+    }
+    .list-md .item-block .item-inner {
+        border-bottom: 1px solid #dedede;
+    }
+    .bookingbtn {
+        background-color: rgba(120, 224, 110, 0.9);
+        border-radius: 15px;
+        right: 0;
+        left: 0;
+        bottom: 0px !important;
+        position: absolute;
+        font-weight: 400;
+        margin: 16px auto;
+        width: 50%;
+        padding-left: 10px;
+        padding-right: 10px;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        font-size: 1.6rem;
+        text-transform: inherit;
+        z-index: 9999999999999;
+        -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    }
+    #findcarsvg {
+        vertical-align: middle;
+        margin-right: 5px;
+    }
+    .alert-md .alert-title {
+        font-size: 19px !important;
+        font-weight: 300 !important;
+    }
+    .alert-md .alert-sub-title {
+        font-size: 19px;
+        font-weight: 300;
+    }
+    .alert-md .alert-message {
+        font-size: 19px;
+        font-weight: 300;
+    }
+    .button-circle {
+        font-size: 21px;
+        -webkit-box-shadow: 0px 4px 16px 9px rgba(120, 224, 110, 0.18);
+        box-shadow: 0px 4px 16px 9px rgba(120, 224, 110, 0.18);
+        padding: 28px 19px;
+        border-radius: 50%;
+        line-height: 27px;
+        background: #78e06e;
+    }
+    ion-input.yourlocation.input.input-md:before {
+        content: '';
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background: #78e06e;
+        left: 5px;
+        bottom: 17px;
+        border-radius: 50%;
+    }
+    ion-input.destination.input.input-md:before {
+        content: '';
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background: #aeaeae;
+        left: 5px;
+        bottom: 17px;
+        border-radius: 50%;
+    }
+    .item {
+        position: relative;
+    }
+    ion-label.yourlocation.label.label-md {
+        padding-left: 15px;
+        padding-top: 9px;
+        width: 101px;
+        overflow: visible;
+    }
+    ion-label.destination.label.label-md {
+        padding-left: 15px;
+        padding-bottom: 9px;
+        width: 101px;
+        overflow: visible;
+    }
+    .footersec::before {
+        content: '';
+        position: absolute;
+        width: 2px;
+        top: 39px;
+        height: 36px;
+        background: rgba(206, 202, 198, 0.52);
+        left: 9px;
+        z-index: 9;
+    }
+    .notificationbox {
+        border: 2px solid white;
+        border-radius: 4px;
+        width: 20px;
+        position: relative;
+        height: 20px;
+        float: right;
+        margin-top: 17px;
+    }
+    .notificationbox:before {
+        content: '2';
+        position: absolute;
+        width: 12px;
+        height: 16px;
+        color: white;
+        background: #f43f40;
+        left: 4px;
+        font-size: 13px;
+        bottom: 6px;
+        padding-left: 4px;
+        border-radius: 50%;
+    }
+    .label-md {
+        margin: 0;
+    }
+    ion-item.item.item-block.item-md.item-input.ylocation {
+        border-bottom: 1px solid rgba(238, 238, 238, 0.68);
+        background: -webkit-gradient(linear, left top, left bottom, from(white), to(#eeeeee));
+        background: linear-gradient(white, #eeeeee);
+    }
+    input.text-input.text-input-md {
+        color: black;
+    }
+    .item-input-has-focus .headlabel.label.label-md,
+    .input-has-focus .label-md {
+        color: rgba(255, 255, 255, 0.77);
+    }
+    .item-md.item-input.item-input-has-focus .item-inner,
+    .item-md.item-input.input-has-focus .item-inner {
+        border-bottom-color: #ffffff;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+    .item-md.item-input.item-input-has-focus:last-child,
+    .item-md.item-input.input-has-focus:last-child {
+        border-bottom-color: #ffffff;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+    @media only screen and (min-width: 768px) and (max-width: 1024px) {
+        .searchbar-input-container {
+            margin-left: 10em;
+        }
+        .header-ios::after {
+            background: none;
+        }
+        .searchbar-ios .searchbar-input {
+            background-color: #79e16f !important;
+            border-radius: 30px;
+            height: 35px;
+        }
+        .searchbar-ios .searchbar-search-icon {
+            background-size: 21px;
+            background-image: url("../assets/image/search.png");
+            background-size: 15px;
+            background-image: url(../assets/image/search.png);
+            left: 15px;
+            top: 12px;
+        }
+        .list-ios {
+            margin: 11px 0 16px;
+        }
+        .list-ios .item-input:last-child {
+            border: none;
+        }
+        .list-ios .item-block .item-inner {
+            border: none;
+        }
+        ion-input.yourlocation.input.input-ios:before {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #78e06e;
+            left: 5px;
+            bottom: 17px;
+            border-radius: 50%;
+        }
+        ion-input.destination.input.input-ios:before {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #aeaeae;
+            left: 5px;
+            bottom: 17px;
+            border-radius: 50%;
+        }
+        ion-label.yourlocation.label.label-ios {
+            padding-left: 15px;
+            padding-top: 9px;
+            width: 101px;
+            overflow: visible;
+        }
+        ion-label.destination.label.label-ios {
+            padding-left: 15px;
+            padding-bottom: 9px;
+            width: 101px;
+            overflow: visible;
+        }
+        ion-item.item.item-block.item-ios.item-input.ylocation {
+            border-bottom: 1px solid rgba(238, 238, 238, 0.68);
+            background: -webkit-gradient(linear, left top, left bottom, from(white), to(#eeeeee));
+            background: linear-gradient(white, #eeeeee);
+        }
+        .list-ios .item-input:last-child {
+            border: none;
+        }
+        .list-ios .item-block .item-inner {
+            border: none;
+        }
+        .list-ios>.item-block:first-child {
+            border-top: none;
+        }
+        .header-ios .toolbar-ios:last-child .toolbar-background-ios {
+            border-width: 0;
+        }
+        .bar-button-default-ios {
+            margin-top: 12px;
+            color: #555;
+            display: block;
+            margin: 0;
+        }
+    }
+    .header-ios .toolbar-ios:last-child .toolbar-background-ios {
+        border-width: 0;
+    }
+    .header-ios::after {
+        background: none;
+    }
+    .searchbar-ios .searchbar-input {
+        background-color: #79e16f !important;
+        border-radius: 30px;
+        height: 35px;
+    }
+    .searchbar-ios .searchbar-search-icon {
+        background-size: 15px;
+        background-image: url(../assets/image/search.png);
+        left: 15px;
+        top: 12px;
+    }
+    .list-ios {
+        margin: 11px 0 16px;
+    }
+    .list-ios .item-input:last-child {
+        border: none;
+    }
+    .list-ios .item-block .item-inner {
+        border: none;
+    }
+    ion-input.yourlocation.input.input-ios:before {
+        content: '';
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background: #78e06e;
+        left: 5px;
+        bottom: 17px;
+        border-radius: 50%;
+    }
+    ion-input.destination.input.input-ios:before {
+        content: '';
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background: #aeaeae;
+        left: 5px;
+        bottom: 17px;
+        border-radius: 50%;
+    }
+    ion-label.yourlocation.label.label-ios {
+        padding-left: 15px;
+        padding-top: 9px;
+        width: 101px;
+        overflow: visible;
+    }
+    ion-label.destination.label.label-ios {
+        padding-left: 15px;
+        padding-bottom: 9px;
+        width: 101px;
+        overflow: visible;
+    }
+    ion-item.item.item-block.item-ios.item-input.ylocation {
+        border-bottom: 1px solid rgba(238, 238, 238, 0.68);
+        background: -webkit-gradient(linear, left top, left bottom, from(white), to(#eeeeee));
+        background: linear-gradient(white, #eeeeee);
+    }
+    .list-ios .item-input:last-child {
+        border: none;
+    }
+    .list-ios .item-block .item-inner {
+        border: none;
+    }
+    .bar-button-default-ios {
+        color: white;
+        display: block;
+    }
+    .list-ios>.item-block:first-child {
+        border-top: none;
+    }
+    ion-app._gmaps_cdv_ .nav-decor {
+        background-color: transparent !important;
+    }
+    #map {
+        height: 100% !important;
+        z-index: 100 !important;
+    }
+    .card-md {
+        margin: 0px !important;
+        border-radius: 0px !important;
+        width: 100% !important;
+        background-color: rgba(255, 255, 255, 0.4) !important;
+    }
+    .card-content-md {
+        padding: 11px 13px !important;
+        font-size: 1.5rem !important;
+        line-height: 1.5 !important;
+        color: black !important;
+    }
+    .card-content-ios {
+        padding: 11px 13px !important;
+        font-size: 1.5rem !important;
+        line-height: 1.5 !important;
+        color: black !important;
+    }
+    .item {
+        padding-left: 0px !important;
+    }
+    .item-md.item-block .item-inner {
+        padding-right: 0px !important;
+    }
+    .item-ios.item-block .item-inner {
+        padding-right: 0px !important;
+    }
+    .origin {
+        position: relative !important;
+        top: 5px !important;
+    }
+    input {
+        border-bottom: none;
+    }
+    .driverInfo {
+        position: fixed;
+        bottom: 0px;
+        z-index: 99999 !important;
+    }
+    .qrCode {
+        position: fixed !important;
+        right: 0px !important;
+        left: 0px !important;
+        top: 47% !important;
+        bottom: 0px !important;
+        z-index: 99999999 !important;
+        padding-top: 20% !important;
+        padding-left: 20% !important;
+        background-color: white !important;
+    }
+    .menubtn button {
+        background-color: transparent;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        color: green;
+    }
+    .navigator button {
+        border: 3px solid green;
+        background-color: transparent;
+        /* box-shadow: none; */
+        color: green;
+    }
+    .origin .item-inner {
+        margin-left: 0px !important;
+    }
+    .destination .item-inner {
+        margin-left: 0px !important;
+    }
+    .origin ion-icon {
+        color: red !important;
+    }
+    .destination ion-icon {
+        color: red !important;
+    }
+    .destination .marker {
+        color: green !important;
+    }
+}

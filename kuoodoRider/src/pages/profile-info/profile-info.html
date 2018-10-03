@@ -1,0 +1,128 @@
+<!--
+  Generated template for the SocialloginconfirmationPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+<!-- header start -->
+<ion-header>
+  <!-- nav bar -->
+  <ion-navbar color="primary">
+    <ion-title>Profile Information</ion-title>
+  </ion-navbar>
+</ion-header>
+<!-- header end -->
+
+
+<ion-content>
+  <div class="imdisplaytbl">
+    <div class="imdisplaytblcell">
+      <!-- logo -->
+      <div class="logodiv" text-center>
+        <img src="assets/image/logo.png" />
+      </div>
+      <!-- heading text -->
+      <h6 text-center>Profile Information</h6>
+      <!-- input fields -->
+      <ion-grid padding-horizontal>
+        <ion-row padding-horizontal>
+          <ion-col>
+            <!-- first name -->
+            <ion-item>
+              <ion-label floating class="fontalign">First Name</ion-label>
+              <ion-input type="text" name="firstName" [(ngModel)]="firstName" (keyup)="firstNameCleanMessage()"></ion-input>
+            </ion-item>
+            <span class="error-message">
+              {{firstNameMessage}}
+            </span>
+          </ion-col>
+          <ion-col>
+            <!-- last name -->
+            <ion-item>
+              <ion-label floating class="fontalign">Last Name</ion-label>
+              <ion-input type="text" name="lastName" [(ngModel)]="lastName" (keyup)="lastNameCleanMessage()"></ion-input>
+            </ion-item>
+            <span class="error-message">
+              {{lastNameMessage}}
+            </span>
+          </ion-col>
+        </ion-row>
+        <ion-row padding-horizontal>
+          <ion-col>
+            <!-- email -->
+            <ion-item>
+              <ion-label floating>Email</ion-label>
+              <ion-input type="email" required name="email" [(ngModel)]="email" (keyup)="emailValidate()"></ion-input>
+            </ion-item>
+            <span class="error-message">
+              {{emailMessage}}
+            </span>
+          </ion-col>
+        </ion-row>
+        <ion-row padding-horizontal>
+          <!-- <ion-col>
+            <select [(ngModel)]="country">
+              <option *ngFor="let country of countries" value="{{country.callingCodes}}"> {{country.callingCodes}}
+              </option>
+            </select>
+          </ion-col>
+          <ion-col> -->
+            <!-- phone number -->
+            <ion-item *ngIf="isValid">
+              <ion-label floating>Mobile Number</ion-label>
+              <ion-input type="text" [disabled]="checkPhoneNumber" name="phoneNumber" [(ngModel)]="phoneNumber" (keyup)="phoneNumberCleanMessage()">{{phoneNumber}}</ion-input>
+            </ion-item>
+            <span class="error-message">
+              {{phoneNumberMessage}}
+            </span>
+          <!-- </ion-col> -->
+        </ion-row>
+        <ion-row padding-horizontal>
+          <ion-col>
+            <!-- phone number -->
+            <ion-item>
+              <ion-label floating>Password</ion-label>
+              <ion-input type="password" name="password" [(ngModel)]="password" (keyup)="passwordCleanMessage()"></ion-input>
+            </ion-item>
+            <span class="error-message">
+              {{passwordMessage}}
+            </span>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <!-- last confirmation text -->
+      
+      <div text-left class="imfootertext">
+       
+        <!-- <img src="assets/image/car.png" />
+        <div padding></div>
+        <p> By Continuing, I confirm that I have read and agree to the
+          <a href="">Terms & Conditions</a> and
+          <a href="">Privacy Policy</a>
+        </p> -->
+        <div padding class="f1">
+          <div class="footerhead">
+            <div class="footercontent">
+              <!-- <ion-fab>
+                <button ion-fab color="primary" class="button-circle button-next" [hidden]="showForm" (click)="registration()">
+                  <ion-icon ios="ios-arrow-forward" md="md-arrow-forward"></ion-icon>
+                </button>
+              </ion-fab> -->
+              <img src="assets/image/car.png" class="carimg">
+              <button ion-fab color="secondary" class="proceedbtn posalign" (click)="registration()">
+                <ion-icon ios="ios-arrow-forward" md="md-arrow-forward"></ion-icon>
+              </button>
+              <p> By Continuing, I confirm that I have read and agree to the
+                <span class="highlight">Terms & Conditions</span> and
+                <span class="highlight">Privacy Policy</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</ion-content>

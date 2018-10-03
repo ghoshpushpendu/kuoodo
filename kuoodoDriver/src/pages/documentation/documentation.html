@@ -1,0 +1,58 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Car documents</ion-title>
+
+    <!-- <ion-icon ios="ios-more" md="md-more" float-right padding-right></ion-icon> -->
+
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <div class="middlesec">
+    <div class="inputsec">
+      <div class="docsec">
+        <img [src]="url" />
+        <ion-item no-padding>
+          <ion-label stacked padding-top class="headlabel">Driving License</ion-label>
+
+          <ion-input type="file" (change)="drivingLicense($event)" [disabled]="checkdrivingLicense">{{DLFileName}}</ion-input>
+        </ion-item>
+      </div>
+      <div class="docsec">
+        <img [src]="urlOne" />
+        <ion-item no-padding>
+          <ion-label stacked padding-top class="headlabel">Vehicle Insurance</ion-label>
+
+          <ion-input type="file" (change)="vehicleInsurance($event)" [disabled]="checkvehicleInsurance"></ion-input>
+        </ion-item>
+      </div>
+      <div class="docsec">
+        <img [src]="urlTwo" />
+        <ion-item no-padding>
+          <ion-label stacked padding-top class="headlabel">Vehicle Registration</ion-label>
+          <!-- <ion-icon name="add" item-end></ion-icon> -->
+          <ion-input type="file" (change)="vehicleRegistration($event)" [disabled]="checkvehicleRegistration"></ion-input>
+        </ion-item>
+      </div>
+      <div class="docsec">
+        <img [src]="urlThree" />
+        <ion-item no-padding>
+          <ion-label stacked padding-top class="headlabel">Vehicle Permit</ion-label>
+          <ion-input type="file" (change)="vehiclePermit($event)" [disabled]="checkvehiclePermit"></ion-input>
+
+        </ion-item>
+      </div>
+    </div>
+
+  </div>
+  <!-- <div class="footercontent">
+    <button ion-button text-center class="sendrequest" [hidden]="showForm" (click)="upload()">Finish</button>
+  </div> -->
+  <div class="center">
+    <button ion-button color="secondary" (click)="DocUpload()">Link to driver</button>
+  </div>
+</ion-content>

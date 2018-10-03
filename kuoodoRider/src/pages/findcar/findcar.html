@@ -1,0 +1,53 @@
+
+<ion-content center>
+
+  <ion-fab class="menubtn" left top>
+    <button ion-fab menuToggle>
+      <ion-icon ios="ios-menu" md="md-menu"></ion-icon>
+    </button>
+  </ion-fab>
+
+  <ion-fab class="navigator" *ngIf="!rideMode" color="primary" bottom right (click)="setCurrentLocation()">
+    <button ion-fab>
+      <ion-icon ios="ios-locate" md="md-locate"></ion-icon>
+    </button>
+  </ion-fab>
+
+  <button *ngIf="!rideMode && nearestDrivers.length != 0" ion-button (click)="bookDriver()" class="bookingbtn">Find
+    and Book</button>
+
+  <ion-card *ngIf="rideMode" class="driverInfo">
+    <ion-item>
+      <ion-avatar item-start>
+        <img src="https://openclipart.org/image/2400px/svg_to_png/190113/1389952697.png">
+      </ion-avatar>
+      <h2>{{drivername}}</h2>
+      <p>{{phone}}</p>
+      <h2 item-end style="font: weight 700;">{{arrival_status}}</h2>
+    </ion-item>
+  </ion-card>
+
+  <div class="controls">
+    <ion-card class="origin">
+      <ion-item>
+        <ion-icon ios="ios-arrow-dropdown" md="md-arrow-dropdown" item-left></ion-icon>
+        <ion-card-content>
+          {{startAddress}}
+        </ion-card-content>
+      </ion-item>
+    </ion-card>
+    <ion-card class="destination">
+      <ion-item>
+        <ion-icon class="marker" ios="ios-arrow-dropdown" md="md-arrow-dropdown" item-left></ion-icon>
+        <input type="text" id="pac-input" placeholder="Destination" />
+        <ion-icon ios="ios-close-circle" md="md-close-circle" (click)="clearDestination()" item-right></ion-icon>
+      </ion-item>
+    </ion-card>
+  </div>
+  <div #map id="map"></div>
+
+  <div *ngIf="otp != ''" class="qrCode">
+    <qr-code [value]="otp" [size]="200"></qr-code>
+  </div>
+
+</ion-content>

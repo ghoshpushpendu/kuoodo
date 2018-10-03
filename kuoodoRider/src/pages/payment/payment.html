@@ -1,0 +1,103 @@
+<!--
+  Generated template for the PaymentPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-1>
+          <button ion-button menuToggle>
+                      <ion-icon name="menu"></ion-icon>
+                  </button>
+
+        </ion-col>
+        <ion-col col-5>
+          <p class="title">Make Payment</p>
+        </ion-col>
+        <ion-col col-3>
+          <div class="notificationbox"></div>
+        </ion-col>
+        <ion-col col-3>
+          <ion-searchbar class="searchicon"></ion-searchbar>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <div class="Farecontent">
+    
+  </div>
+
+  <!-- *****card detail sec ****** -->
+
+  <div class="middlesec">
+      <div class="subcontent">
+          <p no-margin class="rupees">127<span no-padding class="currency">$</span></p>
+          <p no-margin class="moneytext">Total Fare</p>
+        </div>
+    <div class="inputsec">
+      <ion-item>
+        <ion-label no-margin stacked class="headlabel">Card Number</ion-label>
+        <ion-input type="text"></ion-input>
+      </ion-item>
+
+
+      <ion-grid no-padding>
+
+        <ion-row no-padding>
+
+          <ion-col col-6 class="text-center">
+            <ion-item>
+              <ion-label stacked class="headlabel">Name on card</ion-label>
+              <ion-input type="text"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col col-6 class="text-center">
+
+
+            <ion-item>
+              <ion-label stacked class="headlabel">Valid upto</ion-label>
+              <ion-input type="text"></ion-input>
+            </ion-item>
+
+            <!--         
+          <ion-col col-4 class="text-center">
+            <ion-item no-padding>
+              <ion-label stacked class="headlabel"></ion-label>
+              <ion-input type="text"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col col-4 class="text-center">
+            <ion-item no-padding>
+              <ion-label stacked class="headlabel"></ion-label>
+              <ion-input type="text"></ion-input>
+            </ion-item>
+          </ion-col> -->
+
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <div no-padding no-margin class="imgsec"><img src="../assets/image/visa.png"></div>
+      <ion-fab>
+        <button ion-fab color="primary" class="button-circle button-next" [hidden]="showForm" (click)="findcarpage()">  <ion-icon ios="ios-arrow-forward" md="md-arrow-forward"></ion-icon></button>
+      </ion-fab>
+    </div>
+
+
+
+
+    <div class="footersec">
+      <p> You can also try alternative Payment methods</p>
+      <img src="../assets/image/paypal.png">
+    </div>
+  </div>
+</ion-content>

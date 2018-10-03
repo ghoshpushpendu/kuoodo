@@ -1,0 +1,62 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Driver Profile</ion-title>
+
+    <ion-icon ios="ios-more" md="md-more" float-right padding-right></ion-icon>
+
+  </ion-navbar>
+
+  <div class="image">
+    <img padding src="https://openclipart.org/image/2400px/svg_to_png/190113/1389952697.png">
+    <!-- <button ion-button class="edit" (click)="editProfile()">Edit Profile</button> -->
+    <!-- <button ion-button (click)="submit()">Submit</button> -->
+  </div>
+
+
+</ion-header>
+
+
+<ion-content padding>
+  <div class="inputsec">
+    <div class="text">
+      <ion-grid>
+        <ion-row>
+          <ion-col col-4 no-padding>
+            <p no-margin>Personal Info</p>
+          </ion-col>
+          <ion-col col-8 no-padding>
+            <hr>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+
+    </div>
+    <ion-list>
+
+      <ion-item>
+        <ion-label stacked>Name</ion-label>
+        <ion-input type="text" [(ngModel)]="username" [disabled]="isUsername"></ion-input>
+      </ion-item>
+
+      <!-- <ion-item>
+        <ion-label stacked>Email</ion-label>
+        <ion-input type="text" [(ngModel)]="email" [disabled]="isEmail"></ion-input>
+      </ion-item> -->
+      <ion-item>
+        <ion-label stacked>Phone</ion-label>
+        <ion-input type="text" [(ngModel)]="phoneNumber" [disabled]="true"></ion-input>
+      </ion-item>
+
+
+      <!-- <ion-item>
+        <ion-label stacked>Location</ion-label>
+        <ion-input type="text" [(ngModel)]="location" [disabled]="isLocation"></ion-input>
+      </ion-item> -->
+
+
+    </ion-list>
+
+  </div>
+</ion-content>

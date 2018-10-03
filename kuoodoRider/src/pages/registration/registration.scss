@@ -1,0 +1,277 @@
+page-registration {
+    .border-bottom-none .list-md .item-block .item-inner {
+        border-bottom: none !important;
+    }
+    .border-bottom-none .list-ios .item-block .item-inner {
+        border-bottom: none
+    }
+    .error-message {
+        position: absolute;
+        bottom: 10px;
+        left: 30px;
+        font-size: 15px;
+        color: #ffffff;
+        opacity: 0.8;
+    }
+    .item-md {
+        background: transparent;
+    }
+    .item-ios {
+        background: transparent;
+    }
+    .list-ios>.item-block:first-child {
+        border-top: none;
+    }
+    .list-md .item-input:last-child {
+        // border-bottom: 1px solid #dedede;
+        border: none;
+    }
+    .list-md>.item-block:last-child .item-inner {
+        border-bottom: 1px solid #dedede;
+    }
+    .logoimg {
+        display: table-cell;
+        margin: 7em auto;
+        vertical-align: middle;
+        box-shadow: 0px 6px 33px 8px rgba(29, 44, 77, 0.13);
+        background: white;
+        border-radius: 10px;
+    }
+    .scroll-content {
+        background: rgba(204, 204, 204, 0.29);
+    }
+    .inputsec {
+        background: #1d2c4d;
+        box-shadow: 0px 5px 18px 6px rgba(29, 44, 77, 0.19);
+        width: 100%;
+        position: relative;
+        border-radius: 15px; // margin-left: 1.7em;
+        padding: 20px 0 2.6em 15px;
+        .fab-ios-primary-activated {
+            background: #78e06e;
+        }
+    }
+    .inputsec1 {
+        background: #1d2c4d;
+        box-shadow: 0px 5px 18px 6px rgba(29, 44, 77, 0.19);
+        width: 100%;
+        border-radius: 15px;
+    }
+    p.forgotPassword {
+        color: rgba(255, 255, 255, .8);
+        font-size: 13px;
+        cursor: pointer;
+        padding-left: 17px;
+        margin-bottom: 0;
+    }
+    p.forgotPassword svg {
+        height: 16px;
+        width: 16px;
+        margin-right: 5px;
+        vertical-align: text-bottom;
+    }
+    .middlesec .headlabel {
+        font-size: 14px;
+    }
+    .input-wrapper .headlabel {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.76);
+    }
+    .item-label-stacked .text-input-md {
+        margin: 0;
+    }
+    .item-md.item-block .item-inner {
+        margin-right: 1em;
+    }
+    .border-none .item-md.item-block .item-inner {
+        border-bottom: none !important;
+    }
+    .inputsec select {
+        background: transparent;
+        border: none;
+        padding-right: 15px;
+        width: 100%;
+        margin-left: 15px;
+        padding-left: 0px;
+        margin-top: 24px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.76);
+        color: rgba(255, 255, 255, 0.8);
+    }
+    .list-md .border-none.item-block .item-inner {
+        border-bottom: none !important;
+    }
+    .selectgrid {
+        input.text-input.text-input-md {
+            margin: 0;
+        }
+        ion-input.input.input-md {
+            margin-top: 21px;
+        }
+        .item-md {
+            padding-left: 14px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.76);
+        }
+        option {
+            background: #ffffff;
+            color: #1d2c4d;
+            border: none;
+        }
+        option:hover {
+            color: #ffffff;
+            background: #1d2c4d;
+        }
+    }
+    .selectgrid {
+        input.text-input.text-input-ios {
+            margin: 0;
+            padding-left: 3em;
+        }
+        ion-input.input.input-ios {
+            margin-top: 21px;
+        }
+        .item-ios {
+            padding-left: 0;
+        }
+    }
+    p.resendtxt {
+        text-align: center;
+        font-size: 15px;
+        color: rgba(0, 0, 0, 0.79);
+        margin: 2.5em 0 2em 0;
+    }
+    p.icontxt {
+        text-align: center;
+        font-size: 15px;
+        margin: 6px;
+        color: white;
+    }
+    .middlesec {
+        position: absolute;
+        width: 100%;
+        // top: 245px;
+        padding: 20px;
+    }
+    .button-circle {
+        font-size: 21px; //   position: absolute;
+        //   bottom: -26px;
+        //   left: 11.5em;
+        -webkit-box-shadow: 0px 1px 11px 4px rgba(120, 224, 110, 0.27);
+        box-shadow: 0px 1px 11px 4px rgba(120, 224, 110, 0.27);
+        padding: 28px 19px;
+        border-radius: 50%;
+        line-height: 27px;
+        background: #78e06e;
+    }
+    ion-fab {
+        position: absolute;
+        z-index: 999;
+        right: 25px;
+        bottom: -25px;
+    }
+    .text-center {
+        text-align: center;
+    }
+    .inputpassword ion-input.input.input-md {
+        padding-top: 10px;
+    }
+    .footersec img {
+        height: 45px;
+        margin-top: 5px;
+    }
+    .fbsec {
+        margin-left: 18px;
+        .button-md,
+        .button-ios {
+            text-transform: inherit;
+            font-size: 14px;
+            color: #ffffff;
+            font-weight: 300;
+            box-shadow: none;
+        }
+    }
+    .gsec {
+        margin-right: 18px;
+        .button-md,
+        .button-ios {
+            text-transform: inherit;
+            font-size: 14px;
+            color: #ffffff;
+            font-weight: 300;
+            box-shadow: none;
+        }
+    }
+    input.text-input.text-input-md {
+        color: rgba(255, 255, 255, 0.76);
+    }
+    .item-input-has-focus .headlabel.label.label-md,
+    .input-has-focus .label-md {
+        color: rgba(255, 255, 255, 0.77);
+    }
+    .item-md.item-input.item-input-has-focus .item-inner,
+    .item-md.item-input.input-has-focus .item-inner {
+        border-bottom-color: #ffffff;
+        box-shadow: none;
+    }
+    .item-md.item-input.item-input-has-focus:last-child,
+    .item-md.item-input.input-has-focus:last-child {
+        border-bottom-color: #ffffff;
+        box-shadow: none;
+    }
+    @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+        .contentsec {
+            height: 55%;
+        }
+        .middlesec {
+            top: 470px;
+        }
+        .inputsec {
+            padding-right: 18px;
+        }
+        ion-label.headlabel.label.label-ios {
+            font-size: 18px;
+        }
+        p.resendtxt {
+            margin: 5em 0 3.5em 0;
+            font-size: 22px;
+        }
+        input.text-input.text-input-ios {
+            color: rgba(255, 255, 255, 0.76);
+        }
+        ion-fab {
+            top: 165px;
+        }
+    } //  @media only screen 
+    //  and (min-device-width : 320px) 
+    //  and (max-device-width : 568px) { 
+    button.button-circle.button-next.fab.fab-ios.fab-ios-primary {
+        position: absolute;
+        right: 0px;
+        bottom: 0px;
+    }
+    input.text-input.text-input-ios {
+        color: rgba(255, 255, 255, 0.76);
+    }
+}
+
+//  .middlesec .list-ios .item-block .item-inner {
+//     border-bottom: none !important;
+// }
+.nochoose {
+    color: #fff;
+    padding-left: 22px;
+    font-weight: 300;
+}
+
+.fbsec button {
+    display: block;
+    margin: 0 auto;
+}
+
+.gsec button {
+    margin-top: 0;
+}
+
+.gsec button {
+    display: block;
+    margin: 0 auto;
+}

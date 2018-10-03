@@ -1,0 +1,95 @@
+<!--
+  Generated template for the SearchlocationPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      <p class="colorWhite">Basic Info</p>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding>
+  <div class="middlesec">
+    <div class="inputsec">
+      <ion-list>
+        <ion-item padding-right>
+          <ion-label floating class="headlabel">Mobile Number</ion-label>
+          <ion-input type="number" required name="phoneNumber" [(ngModel)]="phoneNumber" (keyup)="phoneNumberCleanMessage()"></ion-input>
+        </ion-item>
+      </ion-list>
+      <ion-list>
+        <ion-item padding-right>
+          <ion-label floating class="headlabel">Password</ion-label>
+          <ion-input type="password" required name="password" [(ngModel)]="password" (keyup)="passwordCleanMessage()"></ion-input>
+        </ion-item>
+        <span class="error-message">
+          {{passwordMessage}}
+        </span>
+      </ion-list>
+      <ion-list>
+        <ion-item padding-right>
+          <ion-label floating class="headlabel">Confirm password</ion-label>
+
+          <ion-input type="password" required name="confirmPassword" [(ngModel)]="confirmPassword" (keyup)="confirmPasswordCleanMessage()"
+            (keyup)="passwordValidation()"></ion-input>
+        </ion-item>
+        <span class="error-message">
+          {{confirmPasswordMessage}}
+        </span>
+      </ion-list>
+      <ion-list>
+        <ion-item padding-right>
+          <ion-label floating class="headlabel">Location</ion-label>
+
+          <ion-input type="text" required name="location" [(ngModel)]="location" (keyup)="locationCleanMessage()"></ion-input>
+          <!-- <ion-icon name="locate" item-end></ion-icon> -->
+
+        </ion-item>
+        <span class="error-message">
+          {{locationMessage}}
+        </span>
+      </ion-list>
+
+      <ion-list>
+        <ion-item padding-right>
+          <ion-label floating class="headlabel">Car Name</ion-label>
+          <ion-input type="text" required [(ngModel)]="car.carName"></ion-input>
+        </ion-item>
+      </ion-list>
+
+      <ion-list>
+        <ion-item padding-right>
+          <ion-label floating class="headlabel">Car Number</ion-label>
+          <ion-input type="text" required [(ngModel)]="car.carNumber"></ion-input>
+        </ion-item>
+      </ion-list>
+
+      <ion-list>
+        <ion-item padding-right>
+          <ion-label class="headlabel">Car Type</ion-label>
+          <ion-select [(ngModel)]="car.carType" multiple="false">
+            <ion-option *ngFor="let option of carTypes" value="{{option.value}}">{{ option.text }}</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+
+    </div>
+
+  </div>
+  <div class="footerhead">
+    <div class="footercontent">
+      <ion-fab (click)="completeRegistration()">
+        <button ion-fab color="primary" class="button-circle button-next" [hidden]="showForm">
+          <ion-icon ios="ios-arrow-forward" md="md-arrow-forward"></ion-icon>
+        </button>
+      </ion-fab>
+      <img src="assets/image/car.png" class="carimg">
+      <p> By Continuing, I confirm that I have read and agree to the Terms & Conditions and Privacy Policy </p>
+    </div>
+  </div>
+</ion-content>

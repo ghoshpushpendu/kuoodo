@@ -1,0 +1,27 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>rating</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+
+  <ion-list>
+
+    <ion-item>
+      <!-- <rating [(ngModel)]="rate" readOnly="false" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half" starIconName="star"
+        nullable="false"></rating> -->
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Comment</ion-label>
+      <ion-input [(ngModel)]="review" type="text"></ion-input>
+    </ion-item>
+
+  </ion-list>
+
+  <button (click)="rateDriver()" color="light" ion-button full>rate</button>
+
+
+</ion-content>

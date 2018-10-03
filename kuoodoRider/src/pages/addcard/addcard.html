@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>addcard</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-item>
+        <ion-input type="number" [(ngModel)]="card.number" placeholder="Card Number"></ion-input>
+        <ion-icon item-right name="camera"> </ion-icon>
+      </ion-item>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-input type="number" [(ngModel)]="card.expmonth" placeholder="Expiration month"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item>
+          <ion-input type="number" [(ngModel)]="card.expyear" placeholder="expiration year"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-item>
+        <ion-input type="number" [(ngModel)]="card.cvv" placeholder="CVV"></ion-input>
+      </ion-item>
+    </ion-row>
+    <ion-row>
+      <ion-item>
+        <ion-input type="text" [(ngModel)]="card.country" placeholder="Country"></ion-input>
+      </ion-item>
+    </ion-row>
+    <ion-row>
+      <ion-item>
+        <ion-input type="text" [(ngModel)]="card.name" placeholder="name"></ion-input>
+      </ion-item>
+    </ion-row>
+  </ion-grid> <button ion-button full (click)="addCard()">Next</button>
+</ion-content>

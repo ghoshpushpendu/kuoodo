@@ -1,0 +1,79 @@
+// http://ionicframework.com/docs/theming/
+
+
+// App Global Sass
+// --------------------------------------------------
+// Put style rules here that you want to apply globally. These
+// styles are for the entire app and not just one component.
+// Additionally, this file can be also used as an entry point
+// to import other Sass files to be included in the output CSS.
+//
+// Shared Sass variables, which can be used to adjust Ionic's
+// default Sass variables, belong in "theme/variables.scss".
+//
+// To declare rules for a specific mode, create a child rule
+// for the .md, .ios, or .wp mode classes. The mode class is
+// automatically applied to the <body> element in the app.
+.toolbar-background-md {
+    
+    background: #263b66;
+    
+}
+.toolbar-background-ios {
+    
+    background: #263b66;
+    
+}
+.image{
+    text-align: center;
+}
+.image img{
+    border-radius:50%;
+    height:110px;
+}
+.image p{
+    color: rgba(255, 255, 255, 0.84);
+    margin-top: 0;
+}
+button.item.item-block.item-md{
+    background: transparent;
+    color: rgba(255, 255, 255, 0.89);
+}
+button.item.item-block.item-ios{
+    background: transparent;
+    color: rgba(255, 255, 255, 0.89);
+}
+.scroll-content {
+    background: #1d2c4d;
+}
+.menusec .item-md.item-block .item-inner {
+    border-bottom: none;
+}
+.menusec .item-ios.item-block .item-inner {
+    border-bottom: none;
+}
+.list-ios > .item-block:first-child {
+    border-top: none;
+}
+.list-ios > .item-block:last-child, .list-ios > .item-wrapper:last-child .item-block {
+    border-bottom: none;
+}
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px)  { 
+    .menusec .item-ios.item-block .item-inner {
+        border-bottom: none;
+    }
+    button.item.item-block.item-ios{
+        background: transparent;
+        color: rgba(255, 255, 255, 0.89);
+    }
+    .toolbar-background-ios {
+        
+        background: #263b66;
+        
+    }
+    .header-ios .toolbar-ios:last-child .toolbar-background-ios {
+        border-width: 0;
+    }
+}

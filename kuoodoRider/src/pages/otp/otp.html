@@ -1,0 +1,86 @@
+<!--
+  Generated template for the OtpPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="bodycolor" padding>
+  <div class="contentsec">
+    <!-- <ion-item class="inputsec">
+        <ion-label stacked class="resendtxt">Enter OTP</ion-label>
+     
+      <ion-input type="password"></ion-input>
+    </ion-item>
+    -->
+    <ion-item class="inputsec1">
+      <ion-label stacked class="headlabel">Enter OTP
+
+      </ion-label>
+
+      <ion-input type="number" name="otp" [(ngModel)]="otp" (keyup)="cleanMessage()"></ion-input>
+
+    </ion-item>
+    <span class="error-message">
+      {{OTPmessage}}
+    </span>
+    <button ion-button class="verifybtn" (click)="verifyOTP()">Verify</button>
+  </div>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-8>
+
+        <p class="resendtxt">Did not get your OTP?</p>
+      </ion-col>
+      <ion-col col-4>
+        <button ion-button class="resendbtn" (click)="resendOTP()">Re Send</button>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <!-- <ion-grid>
+      <p class="resendtxt">Your Good Name</p>
+      <ion-row>
+      <ion-col>
+        <ion-item class="inputsec">
+          <ion-label floating class="headlabel">First Name</ion-label>
+
+          <ion-input type="text" name="firstName" [(ngModel)]="firstName"></ion-input>
+        </ion-item>
+
+        </ion-col>
+        <ion-col col-6>
+          <ion-item class="inputsec">
+            <ion-label floating class="headlabel">Last Name</ion-label>
+
+            <ion-input type="text" name="lastName" [(ngModel)]="lastName"></ion-input>
+          </ion-item>
+
+        </ion-col>
+      </ion-row>
+    </ion-grid> -->
+  <div class="f1">
+    <div class="footerhead">
+      <div class="footercontent">
+        <!-- <ion-fab>
+          <button ion-fab color="primary" class="button-circle button-next" [hidden]="showForm" (click)="registration()">
+            <ion-icon ios="ios-arrow-forward" md="md-arrow-forward"></ion-icon>
+          </button>
+        </ion-fab> -->
+        <img src="assets/image/car.png" class="carimg">
+        <p> By Continuing, I confirm that I have read and agree to the
+          <span class="highlight">Terms & Conditions</span> and
+          <span class="highlight">Privacy Policy</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</ion-content>
