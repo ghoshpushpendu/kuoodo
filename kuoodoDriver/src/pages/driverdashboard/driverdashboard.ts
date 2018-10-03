@@ -290,7 +290,9 @@ export class DriverdashboardPage {
       }
       this.appService.acceptRide(data, (error, data) => {
         loader.dismiss();
+        _base.IsStartRideHidden = true;
         _base.isStartRide = true;
+        _base.notArrived = false;
 
         let start = new LatLng(parseFloat(_base.startLatitude), parseFloat(_base.endLongitude));
         let end = new LatLng(parseFloat(_base.userStartLatitude), parseFloat(_base.userStartLongitude));
@@ -435,6 +437,7 @@ export class DriverdashboardPage {
       let loc = new LatLng(this.response.coords.latitude, this.response.coords.longitude);
       this.locationUpdate(locationData);
       this.createMarkar(loc, res.coords.accuracy);
+
     });
   }
 

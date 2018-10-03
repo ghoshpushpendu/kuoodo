@@ -15,6 +15,9 @@ export class PaymentPage {
   constructor(public appservice: AppService, public navCtrl: NavController, public navParams: NavParams) {
     this.driverId = this.navParams.get("driverID");
     this.payAmount = this.navParams.get("paymentAmount");
+    this.appservice.changePaymentStatus({
+      status: "success"
+    });
   }
 
 }

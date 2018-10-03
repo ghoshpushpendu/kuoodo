@@ -113,19 +113,26 @@ export class FindcarPage {
 
     this.socket.on("accepted", (data) => {
       let userID = data.userId._id;
-      console.log("rider request has been accepted");
-      // console.log("Ride has been accepted");
+      console.log(data);
+      console.log(data.userId);
+      console.log(data.userId._id);
+      console.log("Ride has been accepted", userID);
+      console.log("Current userID", _base.id);
       if (userID == _base.id) {
+        console.log("Vitore gachhe .......");
         _base.waitingLoader.dismiss();
         _base.showToast("Ride request has been accepted");
+        console.log("ride request has been accepted");
         _base.rideMode = true;
 
         //subscribe to driver location update
         _base.socket.on(_base.driverId + "-location", (data) => {
           console.log(data.lat);
           console.log(data.lng);
+          _base.showDriver(data.lat, data.lng);
         })
-
+      } else {
+        console.log("Baire gachhe ! .....");
       }
     });
 
@@ -149,6 +156,7 @@ export class FindcarPage {
         _base.otp = _base.tempOtp;
         _base.arrival_status = "arrived";
         _base.showToast("Driver has arrived");
+        _base.showJourneyRoute();
       }
     });
 
@@ -199,6 +207,19 @@ export class FindcarPage {
 
     this.id = this.localStorageProvider.getUserId();
     this.checkRideStatus();
+  }
+
+  showDriver(lat: any, lng: any) {
+    let start = new LatLng(this.startLatitude, this.startLongitude);
+    let end = new LatLng(lat, lng);
+    this.showRoute(start, end);
+  }
+
+  showJourneyRoute() {
+    let _base = this;
+    let start = new LatLng(_base.startLatitude, _base.startLongitude);
+    let end = new LatLng(_base.endingLatitude, _base.endingLongitude);
+    _base.showRoute(start, end);
   }
 
   calculateFare() {
@@ -306,7 +327,7 @@ export class FindcarPage {
       this.response = res;
       this.startLatitude = res.coords.latitude;
       this.startLongitude = res.coords.longitude;
-      var latlng = { lat: parseFloat(this.startLatitude), lng: parseFloat(this.startLongitude) };
+      var latlng = new LatLng(res.coords.latitude, res.coords.longitude);
       let geocoder = new google.maps.Geocoder;
       geocoder.geocode({ 'location': latlng }, function (results, status) {
         if (status === 'OK') {
@@ -324,7 +345,8 @@ export class FindcarPage {
       let loc = new LatLng(res.coords.latitude, res.coords.longitude);
       let endingLoc = new LatLng(this.endingLatitude, this.endingLongitude)
       this.createMarkar(loc, res.coords.accuracy);
-      if (this.directionsService) {
+
+      if (Object.getOwnPropertyNames(this.directionsService).length != 0) {
         this.showRoute(loc, endingLoc);
       }
 
