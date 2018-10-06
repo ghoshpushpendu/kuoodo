@@ -79,4 +79,8 @@ export class TriphistoryPage {
     });
   }
 
+  pop(){
+    this.navCtrl.pop();
+  }
+
 }

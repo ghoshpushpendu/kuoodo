@@ -434,13 +434,13 @@ export class DocumentationPage {
     this.loading();
     this.loader.present();
     _base.appService.getCar(userid, (error, data) => {
+      _base.loader.dismiss();
       if (error) {
         console.log("Error :");
         _base.message = "Can't get documents";
         _base.showToast('top');
       }
       else if (data) {
-
         _base.drivingLicenseImageId = (data.result[1].drivingLicense.length) ? data.result[1].drivingLicense[data.result[1].drivingLicense.length - 1] : '';
         _base.vehicleRegistrationImageId = (data.result[1].vechileRegistration.length) ? data.result[1].vechileRegistration[data.result[1].vechileRegistration.length - 1] : '';
         _base.vehicleInsurenceImageId = (data.result[1].vehicleInsurance.length) ? data.result[1].vehicleInsurance[data.result[1].vehicleInsurance.length - 1] : '';
@@ -450,11 +450,6 @@ export class DocumentationPage {
         _base.urlOne = this.httpService.url + "user/fileShow?imageId=" + _base.vehicleRegistrationImageId;
         _base.urlTwo = this.httpService.url + "user/fileShow?imageId=" + _base.vehicleInsurenceImageId;
         _base.urlThree = this.httpService.url + "user/fileShow?imageId=" + _base.vehiclePermitImageId;
-
-        setTimeout(function () {
-          _base.loader.dismiss();
-        }, 2000);
-
       }
     });
   }

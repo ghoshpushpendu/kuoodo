@@ -6,8 +6,10 @@ import { LocalStorageProvider } from '../app.localStorage';
 import { AppService } from '../app.providers';
 import { HttpService } from '../app.httpService';
 import { Device } from '@ionic-native/device';
+import { Network } from '@ionic-native/network';
 
 declare var navigator;
+declare var google;
 
 @Component({
   templateUrl: 'app.html',
@@ -47,7 +49,8 @@ export class MyApp {
     private httpService: HttpService,
     private appService: AppService,
     private device: Device,
-    public loadingCtrl: LoadingController
+    public loadingCtrl: LoadingController,
+    public network: Network
   ) {
 
     let _base = this;
@@ -136,10 +139,6 @@ export class MyApp {
       this.base = 'http://mitapi.memeinfotech.com:5040/';
     }
 
-    platform.ready().then(() => {
-
-    });
-
   }
 
   initializeApp() {
@@ -188,24 +187,22 @@ export class MyApp {
     toast.present(toast);
   }
 
-
   checkInternet() {
     let _base = this;
-    var connection = navigator.connection;
     let loading: any;
-    connection.addEventListener('change', function () {
-      if (navigator.onLine) {
-        if (loading != undefined) {
-          loading.dismiss();
-        }
-        let message = "Connected to network";
-        _base.showToast(message);
-      } else {
-        loading = _base.loadingCtrl.create({
-          content: 'Waiting for connection ...'
-        });
-        loading.present();
+    let disconnectSub = _base.network.onDisconnect().subscribe(() => {
+      loading = _base.loadingCtrl.create({
+        content: 'Waiting for connection ...'
+      });
+      loading.present();
+    });
+
+    let connectSub = _base.network.onConnect().subscribe(() => {
+      if (loading != undefined) {
+        loading.dismiss();
       }
+      let message = "Connected to network";
+      _base.showToast(message);
     });
   }
 

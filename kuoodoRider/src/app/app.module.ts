@@ -7,10 +7,10 @@ import { MyApp } from './app.component';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { LocalStorageProvider } from '../app.localStorage';
-import { GoogleMaps } from '@ionic-native/google-maps';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Ionic2RatingModule } from 'ionic2-rating';
 import { Device } from '@ionic-native/device';
+import { Network } from '@ionic-native/network';
 
 
 @NgModule({
@@ -32,8 +32,8 @@ import { Device } from '@ionic-native/device';
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     LocalStorageProvider,
-    GoogleMaps,
     Geolocation,
+    Network,
     LocalStorageProvider,
     Device
   ]

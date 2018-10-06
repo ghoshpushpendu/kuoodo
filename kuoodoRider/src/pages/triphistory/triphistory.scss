@@ -227,4 +227,10 @@ span.color2{
     .list-ios > .item-block:last-child, .list-ios > .item-wrapper:last-child .item-block {
      border-bottom: none; 
     }
+    .menubtn button {
+        background-color: transparent;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        color: green;
+    }
 }

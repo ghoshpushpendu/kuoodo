@@ -91,4 +91,8 @@ export class TriphistoryPage {
     this.loader.present();
   }
 
+  pop(){
+    this.navCtrl.pop();
+  }
+
 }

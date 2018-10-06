@@ -6,12 +6,12 @@ import { MyApp } from './app.component';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { LocalStorageProvider } from '../app.localStorage';
-import { GoogleMaps } from '@ionic-native/google-maps';
 import { Geolocation } from '@ionic-native/geolocation';
 import { AppService } from './../app.providers';
 import { HttpService } from './../app.httpService';
 import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { Network } from '@ionic-native/network';
 
 
 @NgModule({
@@ -31,12 +31,12 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
     StatusBar,
     SplashScreen,
     LocalStorageProvider,
-    GoogleMaps,
     Geolocation,
     AppService,
     HttpService,
     LaunchNavigator,
     BarcodeScanner,
+    Network,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })

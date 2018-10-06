@@ -1,19 +1,10 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { NavController, ModalController, NavParams, Platform, LoadingController, AlertController, Events, IonicPage } from 'ionic-angular';
-import {
-  GoogleMaps,
-  GoogleMapsEvent,
-  MarkerOptions,
-  LatLng,
-  PolylineOptions,
-  GoogleMapOptions
-} from '@ionic-native/google-maps';
 import { Geolocation, GeolocationOptions } from '@ionic-native/geolocation';
 import { AppService } from '../../app.providers';
 import { HttpService } from '../../app.httpService';
 import { LocalStorageProvider } from '../../app.localStorage';
 import { ToastController } from 'ionic-angular';
-import { Observable } from 'rxjs/Observable';
 import * as io from "socket.io-client";
 import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
@@ -57,8 +48,8 @@ export class DriverdashboardPage {
   userEndLatitude: any;
   userEndLongitude: any;
 
-  public userStartLoc: LatLng;
-  public userEndLoc: LatLng;
+  public userStartLoc: any;
+  public userEndLoc: any;
 
   public alert: any;
 
@@ -120,7 +111,6 @@ export class DriverdashboardPage {
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    private _googleMaps: GoogleMaps,
     private _geoLoc: Geolocation,
     private appService: AppService,
     private httpservice: HttpService,
@@ -294,8 +284,8 @@ export class DriverdashboardPage {
         _base.isStartRide = true;
         _base.notArrived = false;
 
-        let start = new LatLng(parseFloat(_base.startLatitude), parseFloat(_base.endLongitude));
-        let end = new LatLng(parseFloat(_base.userStartLatitude), parseFloat(_base.userStartLongitude));
+        let start = new google.maps.LatLng(parseFloat(_base.startLatitude), parseFloat(_base.endLongitude));
+        let end = new google.maps.LatLng(parseFloat(_base.userStartLatitude), parseFloat(_base.userStartLongitude));
 
         console.log(start, end);
 
@@ -401,7 +391,7 @@ export class DriverdashboardPage {
 
   mapViewAndDriverShow() {
     let _base = this;
-    let loc: LatLng;
+    let loc: any;
     this.initMap();
   }
 
@@ -434,7 +424,7 @@ export class DriverdashboardPage {
 
       let locationData = res.coords;
 
-      let loc = new LatLng(this.response.coords.latitude, this.response.coords.longitude);
+      let loc = new google.maps.LatLng(this.response.coords.latitude, this.response.coords.longitude);
       this.locationUpdate(locationData);
       this.createMarkar(loc, res.coords.accuracy);
 
@@ -449,13 +439,13 @@ export class DriverdashboardPage {
   }
 
 
-  moveCamera(loc: LatLng) {
+  moveCamera(loc: any) {
     this.map.setCenter(loc);
   }
   /* 
   Create marker for driver
   */
-  createMarkar(loc: LatLng, accuracy: number) {
+  createMarkar(loc: any, accuracy: number) {
 
     let _base = this;
 
@@ -484,7 +474,7 @@ export class DriverdashboardPage {
   /* 
   Create marker for User
   */
-  createUserMarkar(loc: LatLng) {
+  createUserMarkar(loc: any) {
     let _base = this;
 
     var icon = {
@@ -555,8 +545,8 @@ export class DriverdashboardPage {
           _base.notArrived = false;
           _base.IsStartRideHidden = false;
           _base.IsEndRideHidden = true;
-          let start = new LatLng(parseFloat(_base.userStartLatitude), parseFloat(_base.userStartLongitude));
-          let end = new LatLng(parseFloat(_base.userEndLatitude), parseFloat(_base.userEndLongitude));
+          let start = new google.maps.LatLng(parseFloat(_base.userStartLatitude), parseFloat(_base.userStartLongitude));
+          let end = new google.maps.LatLng(parseFloat(_base.userEndLatitude), parseFloat(_base.userEndLongitude));
           console.log(start, end);
           _base.showRoute(start, end);
         }
