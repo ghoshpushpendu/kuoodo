@@ -4,6 +4,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { LocalStorageProvider } from '../app.localStorage';
 import { AppService } from './../app.providers';
+import { Network } from '@ionic-native/network';
 
 declare var navigator;
 
@@ -33,7 +34,8 @@ export class MyApp {
     private appService: AppService,
     public events: Events,
     public toastCtrl: ToastController,
-    public loadingCtrl: LoadingController) {
+    public loadingCtrl: LoadingController,
+    private network: Network) {
 
     let driverId = localStorage.getItem("driverId");
     console.log(driverId);
@@ -56,7 +58,7 @@ export class MyApp {
     this.checkInternet();
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
-      // this.splashScreen.hide();
+      this.splashScreen.hide();
     });
   }
 
@@ -85,21 +87,21 @@ export class MyApp {
 
   checkInternet() {
     let _base = this;
-    var connection = navigator.connection;
     let loading: any;
-    connection.addEventListener('change', function () {
-      if (navigator.onLine) {
-        if (loading != undefined) {
-          loading.dismiss();
-        }
-        let message = "Connected to network";
-        _base.showToast(message);
-      } else {
-        loading = _base.loadingCtrl.create({
-          content: 'Waiting for connection ...'
-        });
-        loading.present();
+
+    let disconnectSub = _base.network.onDisconnect().subscribe(() => {
+      loading = _base.loadingCtrl.create({
+        content: 'Waiting for connection ...'
+      });
+      loading.present();
+    });
+
+    let connectSub = _base.network.onConnect().subscribe(() => {
+      if (loading != undefined) {
+        loading.dismiss();
       }
+      let message = "Connected to network";
+      _base.showToast(message);
     });
   }
 

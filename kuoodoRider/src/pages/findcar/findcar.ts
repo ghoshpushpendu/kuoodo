@@ -5,16 +5,7 @@ import { AlertController, LoadingController } from 'ionic-angular';
 import { HttpService } from '../../app.httpService';
 
 declare var google;
-import {
-  GoogleMaps,
-  GoogleMap,
-  GoogleMapsEvent,
-  MarkerOptions,
-  LatLng,
-  GoogleMapOptions,
-  PolylineOptions,
-  Marker
-} from '@ionic-native/google-maps';
+
 import { AppService } from '../../app.providers';
 import { LocalStorageProvider } from '../../app.localStorage';
 import * as io from "socket.io-client";
@@ -90,14 +81,12 @@ export class FindcarPage {
     public navCtrl: NavController,
     public modalCtrl: ModalController,
     public navParams: NavParams,
-    private _googleMaps: GoogleMaps,
     private _geoLoc: Geolocation,
     private httpService: HttpService,
     private appService: AppService,
     private localStorageProvider: LocalStorageProvider,
     private alertCtrl: AlertController,
     public toastCtrl: ToastController,
-    public googlemaps: GoogleMaps,
     public loadingCtrl: LoadingController) {
 
     let _base = this;
@@ -210,15 +199,15 @@ export class FindcarPage {
   }
 
   showDriver(lat: any, lng: any) {
-    let start = new LatLng(this.startLatitude, this.startLongitude);
-    let end = new LatLng(lat, lng);
+    let start = new google.maps.LatLng(this.startLatitude, this.startLongitude);
+    let end = new google.maps.LatLng(lat, lng);
     this.showRoute(start, end);
   }
 
   showJourneyRoute() {
     let _base = this;
-    let start = new LatLng(_base.startLatitude, _base.startLongitude);
-    let end = new LatLng(_base.endingLatitude, _base.endingLongitude);
+    let start = new google.maps.LatLng(_base.startLatitude, _base.startLongitude);
+    let end = new google.maps.LatLng(_base.endingLatitude, _base.endingLongitude);
     _base.showRoute(start, end);
   }
 
@@ -286,9 +275,6 @@ export class FindcarPage {
     Google map autocomplete function call
     */
     this.autocompleteText();
-
-    let loc: LatLng;
-
     /*
     Initialize the google map
     */
@@ -319,7 +305,7 @@ export class FindcarPage {
     console.log("map loaded");
 
     let loader = _base.loadingCtrl.create({
-      content: 'Searching location...'
+      content: 'Searching location.... Please turn on your location service if not'
     });
     loader.present();
     _base.getLocation().then((res) => {
@@ -327,7 +313,7 @@ export class FindcarPage {
       this.response = res;
       this.startLatitude = res.coords.latitude;
       this.startLongitude = res.coords.longitude;
-      var latlng = new LatLng(res.coords.latitude, res.coords.longitude);
+      var latlng = new google.maps.LatLng(res.coords.latitude, res.coords.longitude);
       let geocoder = new google.maps.Geocoder;
       geocoder.geocode({ 'location': latlng }, function (results, status) {
         if (status === 'OK') {
@@ -342,8 +328,8 @@ export class FindcarPage {
         }
       });
 
-      let loc = new LatLng(res.coords.latitude, res.coords.longitude);
-      let endingLoc = new LatLng(this.endingLatitude, this.endingLongitude)
+      let loc = new google.maps.LatLng(res.coords.latitude, res.coords.longitude);
+      let endingLoc = new google.maps.LatLng(this.endingLatitude, this.endingLongitude)
       this.createMarkar(loc, res.coords.accuracy);
 
       if (Object.getOwnPropertyNames(this.directionsService).length != 0) {
@@ -397,7 +383,7 @@ export class FindcarPage {
       _base.endingLatitude = latitude;
       var longitude = address.geometry.location.lng();
       _base.endingLongitude = longitude;
-      let loc = new LatLng(_base.endingLatitude, _base.endingLongitude);
+      let loc = new google.maps.LatLng(_base.endingLatitude, _base.endingLongitude);
       _base.createDestinationMarker(loc);
     });
   }
@@ -436,7 +422,7 @@ export class FindcarPage {
   Google map camera property
   */
 
-  moveCamera(loc: LatLng) {
+  moveCamera(loc: any) {
     this.map.setCenter(loc, 14);
   }
 
@@ -444,7 +430,7 @@ export class FindcarPage {
   Marker creation in google map on starting latitude and longitude
   */
 
-  createMarkar(loc: LatLng, accuracy: number) {
+  createMarkar(loc:any, accuracy: number) {
 
     let _base = this;
 
@@ -470,7 +456,7 @@ export class FindcarPage {
     }
   }
 
-  createDestinationMarker(loc: LatLng) {
+  createDestinationMarker(loc: any) {
     // console.clear();
     let _base = this;
     const image = {
@@ -480,19 +466,19 @@ export class FindcarPage {
         height: 50
       }
     };
-    let markarOptions: MarkerOptions = {
+    let markarOptions = {
       position: loc
     };
     if (_base.destinationmarker) {
       _base.destinationmarker.setPosition(loc);
-      let start = new LatLng(_base.startLatitude, _base.startLongitude);
-      let end = new LatLng(_base.endingLatitude, _base.endingLongitude);
+      let start = new google.maps.LatLng(_base.startLatitude, _base.startLongitude);
+      let end = new google.maps.LatLng(_base.endingLatitude, _base.endingLongitude);
       _base.showRoute(start, end);
     } else {
 
       _base.destinationmarker = new google.maps.Marker(markarOptions);
-      let start = new LatLng(_base.startLatitude, _base.startLongitude);
-      let end = new LatLng(_base.endingLatitude, _base.endingLongitude);
+      let start = new google.maps.LatLng(_base.startLatitude, _base.startLongitude);
+      let end = new google.maps.LatLng(_base.endingLatitude, _base.endingLongitude);
       _base.showRoute(start, end);
     }
   }
@@ -506,17 +492,17 @@ export class FindcarPage {
     // this.map.moveCamera(options);
   }
 
-  moveMarker(start: LatLng, end: LatLng, marker: Marker) {
-    let fraction = 0;
-    let direction = 1;
-    let interval = setInterval(function () {
-      fraction += 0.01 * direction;
-      if (fraction >= 1) {
-        clearInterval(interval);
-      }
-      marker.setPosition(new google.maps.geometry.spherical.interpolate(start, end, fraction));
-    }, 50);
-  }
+  // moveMarker(start: LatLng, end: LatLng, marker: Marker) {
+  //   let fraction = 0;
+  //   let direction = 1;
+  //   let interval = setInterval(function () {
+  //     fraction += 0.01 * direction;
+  //     if (fraction >= 1) {
+  //       clearInterval(interval);
+  //     }
+  //     marker.setPosition(new google.maps.geometry.spherical.interpolate(start, end, fraction));
+  //   }, 50);
+  // }
 
   showRoute(origin, destination) {
 
@@ -556,7 +542,7 @@ export class FindcarPage {
   Marker creation on google map to show the available driver after search
   */
 
-  createMarkarOne(loc: LatLng, driverDetails: any) {
+  createMarkarOne(loc: any, driverDetails: any) {
     let _base = this;
 
     var icon = {
@@ -827,7 +813,6 @@ export class FindcarPage {
   searchDrivers() {
 
     let _base = this;
-    let loc: LatLng;
     var data = {
       latitude: this.startLatitude,
       longitude: this.startLongitude
@@ -853,7 +838,7 @@ export class FindcarPage {
                   let driverID = data.driverDetails[i]._id;
                   var lat = location[1];
                   var lon = location[0];
-                  let loc = new LatLng(lat, lon);
+                  let loc = new google.maps.sLatLng(lat, lon);
                   _base.createMarkarOne(loc, data.driverDetails[i]);
                 }
               });

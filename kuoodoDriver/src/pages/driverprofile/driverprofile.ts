@@ -1,15 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ActionSheetController, Events, IonicPage } from 'ionic-angular';
+import { NavController, NavParams, LoadingController,ActionSheetController, Events, IonicPage } from 'ionic-angular';
 import { HttpService } from '../../app.httpService';
 import { AppService } from '../../app.providers';
 import { LocalStorageProvider } from '../../app.localStorage';
 
-/**
- * Generated class for the DriverprofilePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -43,6 +37,7 @@ export class DriverprofilePage {
     private httpService: HttpService,
     private appService: AppService,
     public actionSheetCtrl: ActionSheetController,
+    public loadingCtrl: LoadingController,
     public events: Events) {
 
     /*
@@ -58,7 +53,12 @@ export class DriverprofilePage {
     */
 
     if (this.id) {
+      let loader = this.loadingCtrl.create({
+        content: 'Fetching profile... '
+      });
+      loader.present();
       this.appService.getProfile(this.id, (error, data) => {
+        loader.dismiss();
         if (error) {
           console.log("Error in fetching profile :", error);
         } else {
