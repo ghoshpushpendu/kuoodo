@@ -8,7 +8,7 @@ import 'rxjs/add/operator/catch';
 @Injectable()
 export class HttpService {
     //provide the base url
-    public url = 'http://ec2-54-215-168-165.us-west-1.compute.amazonaws.com:5040/';
+    public url = 'https://kuoodo.snapbase.online/';
     // private url = 'http://localhost:5020/';
     //request headers
     private headerOptions = new RequestOptions({
