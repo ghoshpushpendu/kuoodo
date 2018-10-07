@@ -81,25 +81,7 @@ export class MyApp {
 
       });
 
-    this.appService.PaymentStutus
-      .subscribe(function (success) {
-        console.log("inside payment subscription", success);
-        if (success) {
-          let length = Object.keys(success).length;
-          if (length != 0) {
-            let paymentStatus = success;
-            if (paymentStatus.status == 'success') {
-              _base.nav.setRoot("RatingPage", {
-                bookingDetails: _base.bookingDetails
-              });
-            } else {
-              _base.nav.setRoot("PaymentPage", _base.paymentInfo);
-            }
-          }
-        }
-      }, function (error) {
-        console.log("Error :" + error);
-      });
+
 
     // rating status
     _base.appService.ratingStatus

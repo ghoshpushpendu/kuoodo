@@ -8,7 +8,6 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { LocalStorageProvider } from '../app.localStorage';
 import { Geolocation } from '@ionic-native/geolocation';
-import { Ionic2RatingModule } from 'ionic2-rating';
 import { Device } from '@ionic-native/device';
 import { Network } from '@ionic-native/network';
 
@@ -20,8 +19,7 @@ import { Network } from '@ionic-native/network';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    HttpModule,
-    Ionic2RatingModule
+    HttpModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

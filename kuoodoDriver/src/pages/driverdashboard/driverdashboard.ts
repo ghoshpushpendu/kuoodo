@@ -171,27 +171,29 @@ export class DriverdashboardPage {
     });
 
     //getting payment data
-    _base.socket.on("payment", (data) => {
-      let driverId = data.driverId;
-      if (driverId == _base.id) {
-        if (data.status == "success") {
-          _base.map.clear();
-          _base.marker = null;
-          _base.destinationmarker = null;
-          _base.userStartLatitude = null;
-          _base.userStartLongitude = null;
-          _base.userEndLatitude = null;
-          _base.userEndLongitude = null;
-          _base.isStartRide = false;
-          _base.isEndRide = false;
-          // _base.isAcceptRideHidden = true;
-          _base.IsStartRideHidden = true;
-          _base.IsEndRideHidden = true;
-          _base.waitingLoader.dismiss();
-          alert("User has paid the payment");
-        }
-      }
-    });
+    // _base.socket.on("payment", (data) => {
+    //   let driverId = data.driverId;
+    //   console.log("payment data", data);
+    //   console.log(_base.id);
+    //   if (driverId == _base.id) {
+    //     if (data.status == "success") {
+    //       _base.marker = null;
+    //       _base.destinationmarker = null;
+    //       _base.userStartLatitude = null;
+    //       _base.userStartLongitude = null;
+    //       _base.userEndLatitude = null;
+    //       _base.userEndLongitude = null;
+    //       _base.isStartRide = false;
+    //       _base.isEndRide = false;
+    //       // _base.isAcceptRideHidden = true;
+    //       _base.IsStartRideHidden = true;
+    //       _base.IsEndRideHidden = true;
+    //       _base.waitingLoader.dismiss();
+    //       // _base.clearTrip();
+    //       alert("User has paid the payment");
+    //     }
+    //   }
+    // });
   }
 
 
@@ -287,7 +289,8 @@ export class DriverdashboardPage {
         let start = new google.maps.LatLng(parseFloat(_base.startLatitude), parseFloat(_base.endLongitude));
         let end = new google.maps.LatLng(parseFloat(_base.userStartLatitude), parseFloat(_base.userStartLongitude));
 
-        console.log(start, end);
+        console.log(parseFloat(_base.startLatitude), parseFloat(_base.endLongitude));
+        console.log(parseFloat(_base.userStartLatitude), parseFloat(_base.userStartLongitude));
 
         _base.showRoute(start, end);
 
@@ -374,19 +377,6 @@ export class DriverdashboardPage {
       }
     });
 
-    /*
-      Network check
-    */
-
-    if (document.URL.includes('https://') || document.URL.includes('http://')) {
-      this.base = "http://127.0.0.1:3001/";
-    }
-    else {
-      this.base = 'http://mitapi.memeinfotech.com:5040/';
-    }
-
-    this.platform.ready().then(() => {
-    });
   }
 
   mapViewAndDriverShow() {
@@ -542,7 +532,7 @@ export class DriverdashboardPage {
         if (data.error) {
           _base.showToast(data.message);
         } else {
-          _base.notArrived = false;
+          _base.notArrived = true;
           _base.IsStartRideHidden = false;
           _base.IsEndRideHidden = true;
           let start = new google.maps.LatLng(parseFloat(_base.userStartLatitude), parseFloat(_base.userStartLongitude));
@@ -552,6 +542,18 @@ export class DriverdashboardPage {
         }
       }
     });
+  }
+
+  clearTrip() {
+    this.isStartRide = false;
+    this.isEndRide = true;
+    this.ridingStatus = false;
+    this.ridingStatusComplete = false;
+    this.isPathDraw = false;
+    this.IsStartRideHidden = true;
+    this.IsEndRideHidden = true;
+    this.directionsDisplay.setMap(null);
+    this.destinationmarker.serMap(null);
   }
 
   /*
@@ -689,6 +691,25 @@ export class DriverdashboardPage {
   }
 
 
+  clearall() {
+    let _base = this;
+    _base.marker = null;
+    _base.destinationmarker = null;
+    _base.userStartLatitude = null;
+    _base.userStartLongitude = null;
+    _base.userEndLatitude = null;
+    _base.userEndLongitude = null;
+    _base.isStartRide = false;
+    _base.isEndRide = false;
+    // _base.isAcceptRideHidden = true;
+    _base.IsStartRideHidden = true;
+    _base.IsEndRideHidden = true;
+    this.directionsDisplay.setMap(null);
+    this.destinationmarker.serMap(null);
+    alert("Ride has been completed");
+  }
+
+
   /*
   Driver End Riding
   */
@@ -705,14 +726,16 @@ export class DriverdashboardPage {
         console.log("Error in Driver end ride :", error);
       }
       else if (data) {
+
         console.log("Data in Driver end ride :", data);
         _base.isEndRide = true;
         _base.IsEndRideHidden = true;
         _base.IsStartRideHidden = true;
-        _base.waitingLoader = _base.loadingCtrl.create({
-          content: 'Please wait for user payment ...'
-        });
-        _base.waitingLoader.present();
+        _base.clearall();
+        // _base.waitingLoader = _base.loadingCtrl.create({
+        //   content: 'Please wait for user payment ...'
+        // });
+        // _base.waitingLoader.present();
       }
     });
   }

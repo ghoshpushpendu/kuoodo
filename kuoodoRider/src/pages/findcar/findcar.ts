@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { NavController, NavParams, ModalController, IonicPage, ToastController } from 'ionic-angular';
+import { NavController, NavParams, ModalController, IonicPage, ToastController, Loading } from 'ionic-angular';
 import { Geolocation, GeolocationOptions } from '@ionic-native/geolocation';
 import { AlertController, LoadingController } from 'ionic-angular';
 import { HttpService } from '../../app.httpService';
@@ -119,6 +119,7 @@ export class FindcarPage {
           console.log(data.lat);
           console.log(data.lng);
           _base.showDriver(data.lat, data.lng);
+
         })
       } else {
         console.log("Baire gachhe ! .....");
@@ -166,6 +167,7 @@ export class FindcarPage {
       let driverID = data.driverId._id;
       if (userID == _base.id) {
         _base.showToast("Ride has completed");
+        // _base.clearTrip();
         let price = data.price;
         _base.nav.setRoot("PaymentPage", {
           "driverID": driverID,
@@ -178,10 +180,10 @@ export class FindcarPage {
     this.appService.PaymentStutus.subscribe(function (payment) {
       if (payment) {
         if (payment.status == "success") {
-          location.reload();
-          _base.socket.emit("payment", {
-            driverId: _base.driverId
-          });
+          // location.reload();
+          // _base.socket.emit("payment", {
+          //   driverId: _base.driverId
+          // });
           _base.nav.setRoot("RatingPage", {
             "driverName": _base.drivername,
             "driverid": _base.driverId
@@ -211,8 +213,16 @@ export class FindcarPage {
     _base.showRoute(start, end);
   }
 
-  calculateFare() {
-
+  clearTrip() {
+    this.endingLatitude = null;
+    this.endingLongitude = null;
+    this.endAddress = null;
+    this.driverId = null;
+    this.rideMode = false;
+    this.arrival_status = "arriving";
+    this.directionsDisplay.setMap(null);
+    this.destinationmarker.serMap(null);
+    this.getLocation();
   }
 
   checkRideStatus() {
@@ -345,17 +355,14 @@ export class FindcarPage {
   }
 
   //calculate and draw route
-  calculateAndDisplayRoute(start, end) {
-    let _base = this;
-    const mapi = _base.map;
-    this.directionsDisplay.setMap(mapi);
+  calculateMaps(start, end) {
     this.directionsService.route({
       origin: start,
       destination: end,
       travelMode: 'DRIVING'
     }, (response, status) => {
       if (status === 'OK') {
-        _base.directionsDisplay.setDirections(response);
+        console.log(response);
       } else {
         console.log('Directions request failed due to ' + status);
       }
@@ -430,16 +437,10 @@ export class FindcarPage {
   Marker creation in google map on starting latitude and longitude
   */
 
-  createMarkar(loc:any, accuracy: number) {
+  createMarkar(loc: any, accuracy: number) {
 
     let _base = this;
 
-    var icon = {
-      url: "https://hoodmaps.com/assets/self-map-marker.png", // url
-      scaledSize: new google.maps.Size(50, 50), // scaled size
-      origin: new google.maps.Point(0, 0), // origin
-      anchor: new google.maps.Point(18, 37) // anchor
-    };
 
     let markarOptions = {
       position: loc,
@@ -544,13 +545,6 @@ export class FindcarPage {
 
   createMarkarOne(loc: any, driverDetails: any) {
     let _base = this;
-
-    var icon = {
-      url: "https://i.stack.imgur.com/wN5QD.png", // url
-      scaledSize: new google.maps.Size(40, 40), // scaled size
-      origin: new google.maps.Point(0, 0), // origin
-      anchor: new google.maps.Point(0, 0) // anchor
-    };
 
     let markarOptions = {
       position: loc,
@@ -817,6 +811,8 @@ export class FindcarPage {
       latitude: this.startLatitude,
       longitude: this.startLongitude
     }
+    let loading;
+
     this.appService.searchDriver(data, (error, data) => {
 
       if (error) {
@@ -838,7 +834,7 @@ export class FindcarPage {
                   let driverID = data.driverDetails[i]._id;
                   var lat = location[1];
                   var lon = location[0];
-                  let loc = new google.maps.sLatLng(lat, lon);
+                  let loc = new google.maps.LatLng(lat, lon);
                   _base.createMarkarOne(loc, data.driverDetails[i]);
                 }
               });
@@ -925,13 +921,6 @@ export class FindcarPage {
     });
     toast.present();
   }
-
-
-  // clear a trip and ready for new one
-  clearTrip() {
-
-  }
-
 
 }
 

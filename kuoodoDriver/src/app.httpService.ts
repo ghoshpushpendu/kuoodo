@@ -194,7 +194,7 @@ export class HttpService {
 
 
     public arrive(data: any) {
-        return this.http.put(this.url + "booking/bookingId", data, this.headerOptions)
+        return this.http.put(this.url + "booking/arrive", data, this.headerOptions)
             .map((response: Response) => response.json())
             .catch((error: any) => Observable.throw(error.json() || `Server error`));
     }
