@@ -103,7 +103,8 @@ export class MyApp {
     this.userId = this.localStorageProvider.getUserId();
 
     if (this.userId) {
-      _base.rootPage = "FindcarPage";
+      // _base.rootPage = "FindcarPage";
+      _base.rootPage = "PaymentPage"
     }
 
 

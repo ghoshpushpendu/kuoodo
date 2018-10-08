@@ -1,10 +1,9 @@
 page-payment {
-    .header-md::after{
+    .header-md::after {
         background: none;
     }
-    .scroll-content{
+    .scroll-content {
         // display: table;
-       
         width: 100%;
         margin-top: 0 !important;
         position: relative;
@@ -26,247 +25,119 @@ page-payment {
     }
     .searchbar-input-container {
         width: 24%;
-       left: 3em;
-     
-   }
-   .title{
-       color:white;
-       font-size: 17px;
-       text-align: center;
-       margin-top: 10px;
-   }
-   .searchbar-md .searchbar-input{
-       background-color: #79e16f;
-       border-radius:30px;
-   }
-   .searchbar-ios .searchbar-input{
-    background-color: #79e16f!important;
-    border-radius:30px;
-    height:35px;
-}
-   .searchbar-ios .searchbar-search-icon{
-       background-size: 15px;
-       background-image:url('../assets/image/search.png') ;
-       left: 15px;
-       top: 12px;
-   }
-   .bar-button-default-ios{
-    color:white;
-}
-.list-ios > .item-block:first-child {
- border-top: none; 
-}
-.header-ios .toolbar-ios:last-child .toolbar-background-ios{
-    border-width:0;
-}
-   .searchbar-md .searchbar-search-icon{
-    background-size: 21px;
-    background-image:url('../assets/image/search.png') ;
-}
-   .notificationbox{
-    border: 2px solid white;
-    border-radius: 4px;
-    width: 20px;
-    position:relative;
-    height: 20px;
-    float: right;
-    margin-top: 9px;
-   }
-   .notificationbox:before{
-    content: '2';
-    position: absolute;
-    width: 12px;
-    height: 16px;
-    color: white;
-    background: #f43f40;
-    left: 4px;
-    font-size: 13px;
-    bottom: 6px;
-    padding-left: 4px;
-    border-radius: 50%;
-
-  }
-  .Farecontent {
-    background-image:url('../assets/image/back.jpg') ;
-    background-size:100% 100%;
-    height:345px;
-    display: table;
-    width: 100%;
-    position: relative;
-    background-image: url('../assets/image/back.jpg');
-    text-align: center;
-    margin: 0 auto;
-    vertical-align: middle;
-}
-.rupees{
-    font-size: 43px;
-    font-weight: 800;
-    color: #39db64;
-}
-.currency{
-    color:white;
-    font-size: 24px;
-}
-.moneytext{
-    color:white;
-    font-size: 18px;
-}
-.inputsec{
-    background: #39db64;
-    box-shadow: 0px 5px 18px 6px rgba(29, 44, 77, 0.19);
-    width: 100%;
-    position: relative;
-    border-radius: 6px;
-    padding: 20px 0 0em 15px;
-    
-}
-.input-wrapper .headlabel {
-    font-size: 14px;
-    color: rgba(255, 255, 255, 0.76);
-    overflow: visible !important;
-}
-.label-md{
-    margin: 18px 8px 13px 0;
-}
-.item-label-stacked .text-input-md{
-    margin-top:0;
-}
-.subcontent{
- text-align: center;
-    margin: 0 auto;
-    padding-bottom: 4em;
-    vertical-align: middle;
-}
-ion-item.item.item-block.item-md.item-input.item-label-stacked {
-    background: transparent;
-    padding-right: 14px;
-}
-.item-md.item-block .item-inner {
-    padding-right: 8px;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.9);
-}
-ion-item.item.item-block.item-ios.item-input.item-label-stacked {
-    background: transparent;
-    padding-right: 14px;
-}
-.item-ios.item-block .item-inner {
-    padding-right: 8px;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.9);
-}
-.imgsec img {
-    height: 80px;
-}
-.button-circle{
-    font-size: 21px;
-
-    -webkit-box-shadow: 0px 4px 16px 9px rgba(120, 224, 110, 0.18);
-    box-shadow: 0px 4px 16px 9px rgba(29, 44, 77, 0.13);
-    padding: 28px 19px;
-    border-radius: 50%;
-    line-height: 27px;
-    background: #1d2c4d;
- 
- }
- ion-fab {
-    position: absolute;
-    z-index: 999;
-    bottom: -23px;
-    right: 22px;
-}
- .footersec{
-     text-align: center;
-     padding-top: 3em;
- }
- .footersec p {font-size: 15px;
- color: rgba(0, 0, 0, 0.77);
- }
- .footersec img{
-    height: 100px;
-    width: 120px;
- }
- .middlesec {
-    position: absolute;
-    top: 7em;
-    width:100%;
-    padding:0 20px;
-}
-input.text-input.text-input-ios {
-    color: rgba(255, 255, 255, 0.76);
-}
-input.text-input.text-input-md {
-    color: rgba(255, 255, 255, 0.76);
-}
-.item-input-has-focus .headlabel.label.label-md, .input-has-focus .label-md { 
-    color: rgba(255, 255, 255, 0.77);  
-}
-.item-md.item-input.item-input-has-focus .item-inner,.item-md.item-input.input-has-focus .item-inner {   
- border-bottom-color:#ffffff;     
- box-shadow: none;   
- }   
- .item-md.item-input.item-input-has-focus:last-child, .item-md.item-input.input-has-focus:last-child {    
-  border-bottom-color:#ffffff;      
-  box-shadow: none;   
- }
- @media only screen 
- and (min-device-width : 768px) 
- and (max-device-width : 1024px)  {
-    .header-ios::after{
-        background: none;
+        left: 3em;
     }
-    .scroll-content{
-        // display: table;
-       
-        width: 100%;
-        margin-top: 0 !important;
-        position: relative;
-        height: 100%;
+    .title {
+        color: white;
+        font-size: 17px;
+        text-align: center;
+        margin-top: 10px;
     }
-    .searchbar-ios .searchbar-input{
-        background-color: #79e16f!important;
-        border-radius:30px;
-        height:35px;
+    .searchbar-md .searchbar-input {
+        background-color: #79e16f;
+        border-radius: 30px;
     }
-    .searchbar-input-container{
-        margin-left:7em;
+    .searchbar-ios .searchbar-input {
+        background-color: #79e16f !important;
+        border-radius: 30px;
+        height: 35px;
     }
-    .searchbar-ios .searchbar-search-icon{
+    .searchbar-ios .searchbar-search-icon {
         background-size: 15px;
-        background-image:url('../assets/image/search.png') ;
-        background-size: 15px;
-        background-image: url(../assets/image/search.png);
+        background-image: url('../assets/image/search.png');
         left: 15px;
         top: 12px;
     }
-    ion-navbar.toolbar.toolbar-ios {
-        background: transparent;
+    .bar-button-default-ios {
+        color: white;
     }
-    .toolbar-background-ios {
-        border-color: transparent;
-        background: transparent;
+    .list-ios>.item-block:first-child {
+        border-top: none;
     }
-    .header-ios::after{
-        background: none;
+    .header-ios .toolbar-ios:last-child .toolbar-background-ios {
+        border-width: 0;
     }
-    .searchbar-ios .searchbar-input{
-        background-color: #79e16f;
-        border-radius:30px;
-    }
-    .searchbar-ios .searchbar-search-icon{
+    .searchbar-md .searchbar-search-icon {
         background-size: 21px;
-        background-image:url('../assets/image/search.png') ;
+        background-image: url('../assets/image/search.png');
     }
-    .label-ios{
+    .notificationbox {
+        border: 2px solid white;
+        border-radius: 4px;
+        width: 20px;
+        position: relative;
+        height: 20px;
+        float: right;
+        margin-top: 9px;
+    }
+    .notificationbox:before {
+        content: '2';
+        position: absolute;
+        width: 12px;
+        height: 16px;
+        color: white;
+        background: #f43f40;
+        left: 4px;
+        font-size: 13px;
+        bottom: 6px;
+        padding-left: 4px;
+        border-radius: 50%;
+    }
+    .Farecontent {
+        background-size: 100% 100%;
+        height: 345px;
+        display: table;
+        width: 100%;
+        position: relative;
+        text-align: center;
+        margin: 0 auto;
+        vertical-align: middle;
+    }
+    .rupees {
+        font-size: 43px;
+        font-weight: 800;
+        color: black;
+    }
+    .currency {
+        color: grey;
+        font-size: 24px;
+    }
+    .moneytext {
+        color: green;
+        font-size: 18px;
+    }
+    .inputsec {
+        background: #39db64;
+        box-shadow: 0px 5px 18px 6px rgba(29, 44, 77, 0.19);
+        width: 100%;
+        position: relative;
+        border-radius: 6px;
+        padding: 20px 0 0em 15px;
+    }
+    .input-wrapper .headlabel {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.76);
+        overflow: visible !important;
+    }
+    .label-md {
         margin: 18px 8px 13px 0;
     }
-    .item-label-stacked .text-input-ios{
-        margin-top:0;
-        color:white;
+    .item-label-stacked .text-input-md {
+        margin-top: 0;
     }
-    .subcontent{
-     text-align: center;
+    .subcontent {
+        text-align: center;
         margin: 0 auto;
         padding-bottom: 4em;
         vertical-align: middle;
+    }
+    ion-item.item.item-block.item-md.item-input.item-label-stacked {
+        background: transparent;
+        padding-right: 14px;
+    }
+    .item-md.item-block .item-inner {
+        padding-right: 8px;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.9);
     }
     ion-item.item.item-block.item-ios.item-input.item-label-stacked {
         background: transparent;
@@ -276,21 +147,140 @@ input.text-input.text-input-md {
         padding-right: 8px;
         border-bottom: 2px solid rgba(255, 255, 255, 0.9);
     }
-    .Farecontent{
-        height:450px;
+    .imgsec img {
+        height: 80px;
     }
-    .middlesec{
-        top:14em;
+    .button-circle {
+        font-size: 21px;
+        -webkit-box-shadow: 0px 4px 16px 9px rgba(120, 224, 110, 0.18);
+        box-shadow: 0px 4px 16px 9px rgba(29, 44, 77, 0.13);
+        padding: 28px 19px;
+        border-radius: 50%;
+        line-height: 27px;
+        background: #1d2c4d;
     }
-    .title {
-        color: black;
+    ion-fab {
+        position: absolute;
+        z-index: 999;
+        bottom: -23px;
+        right: 22px;
+    }
+    .footersec {
+        text-align: center;
+        padding-top: 3em;
     }
     .footersec p {
-        font-size: 19px;
-        margin-top: 4em;
+        font-size: 15px;
+        color: rgba(0, 0, 0, 0.77);
     }
-    .bar-button-default-ios{
-        color:black;
+    .footersec img {
+        height: 100px;
+        width: 120px;
     }
- }
+    .middlesec {
+        position: absolute;
+        top: 7em;
+        width: 100%;
+        padding: 0 20px;
+    }
+    input.text-input.text-input-ios {
+        color: rgba(255, 255, 255, 0.76);
+    }
+    input.text-input.text-input-md {
+        color: rgba(255, 255, 255, 0.76);
+    }
+    .item-input-has-focus .headlabel.label.label-md,
+    .input-has-focus .label-md {
+        color: rgba(255, 255, 255, 0.77);
+    }
+    .item-md.item-input.item-input-has-focus .item-inner,
+    .item-md.item-input.input-has-focus .item-inner {
+        border-bottom-color: #ffffff;
+        box-shadow: none;
+    }
+    .item-md.item-input.item-input-has-focus:last-child,
+    .item-md.item-input.input-has-focus:last-child {
+        border-bottom-color: #ffffff;
+        box-shadow: none;
+    }
+    @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+        .header-ios::after {
+            background: none;
+        }
+        .scroll-content {
+            // display: table;
+            width: 100%;
+            margin-top: 0 !important;
+            position: relative;
+            height: 100%;
+        }
+        .searchbar-ios .searchbar-input {
+            background-color: #79e16f !important;
+            border-radius: 30px;
+            height: 35px;
+        }
+        .searchbar-input-container {
+            margin-left: 7em;
+        }
+        .searchbar-ios .searchbar-search-icon {
+            background-size: 15px; // background-image: url('../assets/image/search.png');
+            background-size: 15px; // background-image: url(../assets/image/search.png);
+            left: 15px;
+            top: 12px;
+        }
+        ion-navbar.toolbar.toolbar-ios {
+            background: transparent;
+        }
+        .toolbar-background-ios {
+            border-color: transparent;
+            background: transparent;
+        }
+        .header-ios::after {
+            background: none;
+        }
+        .searchbar-ios .searchbar-input {
+            background-color: #79e16f;
+            border-radius: 30px;
+        }
+        .searchbar-ios .searchbar-search-icon {
+            background-size: 21px; // background-image: url('../assets/image/search.png');
+        }
+        .label-ios {
+            margin: 18px 8px 13px 0;
+        }
+        .item-label-stacked .text-input-ios {
+            margin-top: 0;
+            color: white;
+        }
+        .subcontent {
+            text-align: center;
+            margin: 0 auto;
+            padding-bottom: 4em;
+            vertical-align: middle;
+        }
+        ion-item.item.item-block.item-ios.item-input.item-label-stacked {
+            background: transparent;
+            padding-right: 14px;
+        }
+        .item-ios.item-block .item-inner {
+            padding-right: 8px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.9);
+        }
+        .Farecontent {
+            height: 450px;
+        }
+        .middlesec {
+            top: 14em;
+        }
+        .title {
+            color: black;
+        }
+        .footersec p {
+            font-size: 19px;
+            margin-top: 4em;
+        }
+        .bar-button-default-ios {
+            color: black;
+        }
+    }
 }

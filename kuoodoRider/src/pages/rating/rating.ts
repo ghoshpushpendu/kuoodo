@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, Platform, NavParams } from 'ionic-angular';
 import { AppService } from '../../app.providers';
 
 @IonicPage({ name: 'RatingPage' })
@@ -15,7 +15,7 @@ export class RatingPage {
   public driverName: string = "";
   public date: string = "";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public http: AppService) {
+  constructor(public navCtrl: NavController, public platform: Platform, public navParams: NavParams, public http: AppService) {
     this.driverName = localStorage.getItem("driverName");
     this.driverid = localStorage.getItem("driverid");
   }
@@ -48,7 +48,9 @@ export class RatingPage {
           _base.http.changeRatingStatus({
             status: 'success'
           });
-          _base.navCtrl.setRoot("FindcarPage");
+          alert("Thank you for using kuoodo");
+          _base.platform.exitApp();
+          // _base.navCtrl.setRoot("FindcarPage");
         }
       });
 

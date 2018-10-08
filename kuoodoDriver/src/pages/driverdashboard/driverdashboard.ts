@@ -632,6 +632,7 @@ export class DriverdashboardPage {
 
           _base.navigate();
 
+
           _base.price = parseInt(_base.distance) * (_base.getPerMilePrice(_base.carDetails.carType))
           _base.IsEndRideHidden = false;
           _base.IsStartRideHidden = true;

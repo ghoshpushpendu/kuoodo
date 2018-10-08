@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { NavController, NavParams, ModalController, IonicPage, ToastController, Loading } from 'ionic-angular';
+import { NavController, NavParams, ModalController, IonicPage, ToastController } from 'ionic-angular';
 import { Geolocation, GeolocationOptions } from '@ionic-native/geolocation';
 import { AlertController, LoadingController } from 'ionic-angular';
 import { HttpService } from '../../app.httpService';

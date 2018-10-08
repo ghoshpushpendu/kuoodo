@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, IonicPage, NavParams } from 'ionic-angular';
+import { NavController, IonicPage, LoadingController, NavParams } from 'ionic-angular';
 import { AppService } from '../../app.providers';
 
 @IonicPage({ name: 'PaymentPage' })
@@ -10,14 +10,26 @@ import { AppService } from '../../app.providers';
 export class PaymentPage {
 
   public driverId: any;
-  public payAmount: any;
+  public payAmount: any = 20;
 
-  constructor(public appservice: AppService, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public loadingCtrl: LoadingController, public appservice: AppService, public navCtrl: NavController, public navParams: NavParams) {
     this.driverId = this.navParams.get("driverID");
     this.payAmount = this.navParams.get("paymentAmount");
-    this.appservice.changePaymentStatus({
-      status: "success"
+
+    let _base = this;
+
+    let loading = this.loadingCtrl.create({
+      content: 'Making automatic payment...'
     });
+
+    loading.present();
+
+    setTimeout(function () {
+      _base.appservice.changePaymentStatus({
+        status: "success"
+      });
+      loading.dismiss();
+    }, 3000);
   }
 
 }
