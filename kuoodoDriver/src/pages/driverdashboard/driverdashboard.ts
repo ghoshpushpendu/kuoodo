@@ -8,6 +8,7 @@ import { ToastController } from 'ionic-angular';
 import * as io from "socket.io-client";
 import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 
 declare var google;
 declare var navigator;
@@ -107,6 +108,12 @@ export class DriverdashboardPage {
   vibrate: number;
   public notArrived: boolean = true;
   directionsDisplay: any = new google.maps.DirectionsRenderer;
+  riderName: string;
+  arrivingDistance: any;
+  arrivingDuration: any;
+  riderNumber: any;
+  autocancel: any;
+  confirmalert: any;
 
 
   constructor(public navCtrl: NavController,
@@ -122,7 +129,8 @@ export class DriverdashboardPage {
     public events: Events,
     private launchNavigator: LaunchNavigator,
     public modalCtrl: ModalController,
-    private barcodeScanner: BarcodeScanner) {
+    private barcodeScanner: BarcodeScanner,
+    private slimLoadingBarService: SlimLoadingBarService) {
 
     let _base = this;
 
@@ -152,8 +160,35 @@ export class DriverdashboardPage {
         _base.userEndLoc = booking.endLocation;
         _base.bookingId = booking._id;
         _base.distance = booking.distance;
-        _base.presentConfirm();
-        _base.playRingtone();
+        _base.riderName = booking.userId.firstName + ' ' + booking.userId.lastName;
+        _base.riderNumber = booking.userId.phoneNumber;
+
+        let end = new google.maps.LatLng(_base.userStartLatitude, _base.userStartLongitude);
+        let start = new google.maps.LatLng(_base.startLatitude, _base.endLongitude);
+
+        console.log("start", start);
+        console.log("end", end);
+
+        var directionsService = new google.maps.DirectionsService();
+
+        var request = {
+          origin: start,
+          destination: end,
+          travelMode: google.maps.TravelMode.DRIVING
+        };
+
+        directionsService.route(request, function (response, status) {
+          console.log(response);
+          if (status == google.maps.DirectionsStatus.OK) {
+            let distance = response.routes[0].legs[0].distance.text;
+            let duration = response.routes[0].legs[0].duration.text;
+            _base.arrivingDistance = distance;
+            _base.arrivingDuration = duration;
+            _base.presentConfirm();
+            _base.playRingtone();
+            _base.autoCancel();
+          }
+        });
       }
     });
 
@@ -169,31 +204,39 @@ export class DriverdashboardPage {
         _base.carDetails = data.result[0];
       }
     });
+  }
 
-    //getting payment data
-    // _base.socket.on("payment", (data) => {
-    //   let driverId = data.driverId;
-    //   console.log("payment data", data);
-    //   console.log(_base.id);
-    //   if (driverId == _base.id) {
-    //     if (data.status == "success") {
-    //       _base.marker = null;
-    //       _base.destinationmarker = null;
-    //       _base.userStartLatitude = null;
-    //       _base.userStartLongitude = null;
-    //       _base.userEndLatitude = null;
-    //       _base.userEndLongitude = null;
-    //       _base.isStartRide = false;
-    //       _base.isEndRide = false;
-    //       // _base.isAcceptRideHidden = true;
-    //       _base.IsStartRideHidden = true;
-    //       _base.IsEndRideHidden = true;
-    //       _base.waitingLoader.dismiss();
-    //       // _base.clearTrip();
-    //       alert("User has paid the payment");
-    //     }
-    //   }
-    // });
+  autoCancel() {
+    let _base = this;
+    let counter = 0;
+    _base.autocancel = setInterval(function () {
+      counter++;
+      if (counter == 10) {
+        _base.confirmalert.dismiss();
+        _base.pauseRingtone();
+        _base.cancelRide();
+        _base.completeLoading();
+        _base.clearAutoCancel();
+      } else {
+        _base.loadBar(100 / counter);
+      }
+    }, 1000);
+  }
+
+  clearAutoCancel() {
+    clearInterval(this.autocancel);
+  }
+
+  loadBar(prcnt) {
+    this.slimLoadingBarService.progress = prcnt;
+  }
+
+  stopLoading() {
+    this.slimLoadingBarService.stop();
+  }
+
+  completeLoading() {
+    this.slimLoadingBarService.complete();
   }
 
 
@@ -215,9 +258,10 @@ export class DriverdashboardPage {
 
   presentConfirm() {
     let _base = this;
-    let alert = this.alertController.create({
-      title: 'Confirm booking',
-      message: 'Do you want to accept this ride ?',
+    let message = "From : " + _base.userStartLoc + ", To :" + _base.userEndLoc + ", Distance :" + _base.distance + " and the the Rider is " + _base.arrivingDistance + " and " + _base.arrivingDuration + " away"
+    _base.confirmalert = this.alertController.create({
+      title: _base.riderName + '( ' + _base.riderNumber + ')',
+      message: message,
       buttons: [
         {
           text: 'Reject',
@@ -225,6 +269,8 @@ export class DriverdashboardPage {
           handler: () => {
             _base.pauseRingtone();
             _base.cancelRide();
+            _base.completeLoading();
+            _base.clearAutoCancel();
           }
         },
         {
@@ -232,11 +278,13 @@ export class DriverdashboardPage {
           handler: () => {
             _base.pauseRingtone();
             _base.acceptRide();
+            _base.completeLoading();
+            _base.clearAutoCancel();
           }
         }
       ]
     });
-    alert.present();
+    _base.confirmalert.present();
   }
 
   lunchNavigator(start: any, end: any) {

@@ -76,6 +76,8 @@ export class FindcarPage {
   socket: SocketIOClient.Socket;
   polyline: any;
   driverSearch: number;
+  arrivingDistance: any;
+  arrivingDuration: any;
 
   constructor(public nav: NavController,
     public navCtrl: NavController,
@@ -675,117 +677,53 @@ export class FindcarPage {
         alert("Server error . Try again");
       }
       else if (!data.error) {
-        var message = data.message;
-        let BookData = {
-          userId: _base.id,
-          bookingID: bookData._id,
-          firstName: _base.userData.firstName,
-          lastName: _base.userData.lastName,
-          img: (_base.userData.profileImage) ? _base.userData.profileImage : '',
-          pickUpLocation: {
-            latitude: _base.startLatitude,
-            longitude: _base.startLongitude
-          },
-          destination: {
-            latitude: JSON.stringify(_base.endingLatitude),
-            longitude: JSON.stringify(_base.endingLongitude)
-          }
-        };
+
         _base.driverId = data.result.driverId._id;
         _base.phone = data.result.driverId.phoneNumber;
         _base.tempOtp = bookData.code;
 
-        /*
-        Getting driver's starting latitude and longitude
-        */
 
-        var driverStartingLatitude = data.result.pickUpLocation.latitude;
-        var driverStartingLongitude = data.result.pickUpLocation.longitude;
+        _base.drivername = data.result.driverId.firstName + " " + data.result.driverId.lastName;
+        localStorage.setItem("driverName", _base.drivername);
+        let location = data.result.driverId.location;
 
-        /*
-        Convert the driver's starting latitude and longitude to location
-        */
+        console.log(_base.startLatitude, _base.startLongitude);
+        console.log(location[1], location[0]);
 
-        var latlng = { lat: parseFloat(driverStartingLatitude), lng: parseFloat(driverStartingLongitude) };
-        let geocoder = new google.maps.Geocoder;
-        geocoder.geocode({ 'location': latlng }, function (results, status) {
-          if (status === 'OK') {
-            if (results[0]) {
-              let address = results[0].formatted_address;
-              _base.driverCompleteStartAddress = address;
-            } else {
-              console.log('No results found');
-            }
-          } else {
-            console.log('Geocoder failed due to: ' + status);
+
+        let end = new google.maps.LatLng(_base.startLatitude, _base.startLongitude);
+        let start = new google.maps.LatLng(location[1], location[0]);
+
+        console.log("start", start);
+        console.log("end", end);
+
+        var directionsService = new google.maps.DirectionsService();
+
+        var request = {
+          origin: start,
+          destination: end,
+          travelMode: google.maps.TravelMode.DRIVING
+        };
+
+        directionsService.route(request, function (response, status) {
+          console.log(response);
+          if (status == google.maps.DirectionsStatus.OK) {
+            let distance = response.routes[0].legs[0].distance.text;
+            let duration = response.routes[0].legs[0].duration.text;
+            _base.arrivingDistance = distance;
+            _base.arrivingDuration = duration;
           }
         });
 
-        /*
-      Getting driver's ending latitude and longitude
-      */
 
-        var driverDestinationLatitude = data.result.destination.latitude;
-        var driverDestinationLongitude = data.result.destination.longitude;
-
-        /*
-        Convert the driver's ending latitude and longitude to location
-        */
-
-
-
-        var alatlng = { lat: parseFloat(driverDestinationLatitude), lng: parseFloat(driverDestinationLongitude) };
-        geocoder.geocode({ 'location': alatlng }, function (results, status) {
-          if (status === 'OK') {
-            if (results[0]) {
-              let address = results[0].formatted_address;
-              _base.driverCompleteStartAddress = address;
-              // console.log(address);
-            } else {
-              console.log('No results found');
-            }
-          } else {
-            console.log('Geocoder failed due to: ' + status);
-          }
+        _base.rideMode = true;
+        _base.waitingLoader = _base.loadingCtrl.create({
+          content: 'Please wait for driver confirmation...'
         });
 
-        if (_base.driverId) {
-          localStorage.setItem("driverid", _base.driverId);
-          _base.appService.getProfile(_base.driverId, (error, data) => {
-            if (error) {
-              console.log("Error after get profile of driver :");
-              console.log(error);
-            }
-            else if (data) {
-              _base.drivername = data.user.firstName + " " + data.user.lastName;
-              localStorage.setItem("driverName", _base.drivername);
+        _base.waitingLoader.present();
+        _base.stopSearch();
 
-              //send Driver details with app conmonent with shared service after booking
-              _base.appService.addBookingInfo({
-                // name: _base.drivername,
-                id: data.user._id,
-                // profileImage: (data.user.profileImage) ? data.user.profileImage : '',
-                pickUpLocation: {
-                  latitude: _base.startLatitude,
-                  longitude: _base.startLongitude
-                },
-                destination: {
-                  latitude: JSON.stringify(_base.endingLatitude),
-                  longitude: JSON.stringify(_base.endingLongitude)
-                }
-              });
-
-              _base.rideMode = true;
-              // _base.presentToast("Driver Name :" + _base.drivername + " Phone : " + _base.phone);
-              _base.waitingLoader = _base.loadingCtrl.create({
-                content: 'Please wait for driver confirmation...'
-              });
-
-              _base.waitingLoader.present();
-              _base.stopSearch();
-            }
-          });
-        }
       } else if (data.error) {
         this.message = data.message;
         alert(this.message);

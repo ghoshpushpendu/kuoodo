@@ -482,4 +482,10 @@ page-findcar {
     .destination .marker {
         color: green !important;
     }
+    ion-spinner * {
+        width: 28px;
+        height: 28px;
+        stroke: #444;
+        fill: #222;
+    }
 }

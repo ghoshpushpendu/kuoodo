@@ -11,7 +11,6 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { Device } from '@ionic-native/device';
 import { Network } from '@ionic-native/network';
 
-
 @NgModule({
   declarations: [
     MyApp
