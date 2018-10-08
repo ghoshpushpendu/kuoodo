@@ -39,11 +39,11 @@
         </ion-card-content>
       </ion-item>
     </ion-card>
-    <ion-card class="destination">
+    <ion-card class="destination" (click)="showAddressModal()">
       <ion-item>
         <ion-icon class="marker" ios="ios-arrow-dropdown" md="md-arrow-dropdown" item-left></ion-icon>
-        <ion-input (click)="showAddressModal()" [(ngModel)]="endAddress" type="text" placeholder="Pick an address"></ion-input>
-        <ion-icon ios="ios-close-circle" md="md-close-circle" (click)="clearDestination()" item-right></ion-icon>
+        <ion-input [(ngModel)]="endAddress" type="text" placeholder="Pick an address"></ion-input>
+        <!-- <ion-icon ios="ios-close-circle" md="md-close-circle" (click)="clearDestination()" item-right></ion-icon> -->
       </ion-item>
     </ion-card>
   </div>

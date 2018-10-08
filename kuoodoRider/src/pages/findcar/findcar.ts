@@ -225,7 +225,7 @@ export class FindcarPage {
 
   showDriver(lat: any, lng: any) {
     let start = new google.maps.LatLng(this.startLatitude, this.startLongitude);
-    let end = new google.maps.LatLng(lat, lng);
+    let end = new google.maps.LatLng(lng, lat);
     this.showRoute(start, end);
   }
 
