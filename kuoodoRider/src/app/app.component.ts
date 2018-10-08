@@ -104,7 +104,7 @@ export class MyApp {
 
     if (this.userId) {
       // _base.rootPage = "FindcarPage";
-      _base.rootPage = "PaymentPage"
+      _base.rootPage = "FindcarPage"
     }
 
 

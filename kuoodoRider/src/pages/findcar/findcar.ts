@@ -79,6 +79,10 @@ export class FindcarPage {
   arrivingDistance: any;
   arrivingDuration: any;
 
+  address: any = {
+    place: ''
+  };
+
   constructor(public nav: NavController,
     public navCtrl: NavController,
     public modalCtrl: ModalController,
@@ -202,6 +206,23 @@ export class FindcarPage {
     this.checkRideStatus();
   }
 
+  showAddressModal() {
+    let modal = this.modalCtrl.create("AutocompletePage");
+    let _base = this;
+    modal.onDidDismiss(data => {
+      if (Object.keys(data).length != 0) {
+        _base.endAddress = data.location;
+        _base.endingLatitude = data.lat;
+        _base.endingLongitude = data.lng;
+        let loc = new google.maps.LatLng(_base.endingLatitude, _base.endingLongitude);
+        _base.createDestinationMarker(loc);
+      } else {
+        console.log("no data");
+      }
+    });
+    modal.present();
+  }
+
   showDriver(lat: any, lng: any) {
     let start = new google.maps.LatLng(this.startLatitude, this.startLongitude);
     let end = new google.maps.LatLng(lat, lng);
@@ -283,13 +304,6 @@ export class FindcarPage {
       }
     });
 
-    /*
-    Google map autocomplete function call
-    */
-    this.autocompleteText();
-    /*
-    Initialize the google map
-    */
     this.initMap();
   }
 
@@ -371,32 +385,6 @@ export class FindcarPage {
     });
   }
 
-  /*
-  Google map autocomplete area to take the location and 
-  ending latitude and longitude
-  */
-
-  autocompleteText() {
-
-    var input = (<HTMLInputElement>document.getElementById('pac-input'));
-
-    let autocomplete = new google.maps.places.Autocomplete(input);
-
-    let _base = this;
-
-    autocomplete.addListener('place_changed', function () {
-      var address = autocomplete.getPlace();
-      var place = address.formatted_address;
-      _base.endAddress = place;
-      var latitude = address.geometry.location.lat();
-      _base.endingLatitude = latitude;
-      var longitude = address.geometry.location.lng();
-      _base.endingLongitude = longitude;
-      let loc = new google.maps.LatLng(_base.endingLatitude, _base.endingLongitude);
-      _base.createDestinationMarker(loc);
-    });
-  }
-
   clearDestination() {
     this.endAddress = null;
     this.endingLatitude = null;
@@ -407,8 +395,6 @@ export class FindcarPage {
       lng: this.startLongitude
     });
     this.moveCamera(loc);
-    let input = <HTMLInputElement>document.getElementById("pac-input");
-    input.value = "";
   }
 
   /*
