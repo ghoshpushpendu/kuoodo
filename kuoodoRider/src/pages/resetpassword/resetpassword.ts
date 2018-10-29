@@ -20,8 +20,8 @@ export class ResetpasswordPage {
     public api: HttpService,
     public toastCtrl: ToastController, public loadingCtrl: LoadingController) {
     // GET PHONENUMBER FROM URL PARAM
-    this.phoneNumber = navParams.get('phoneNumber');
-    console.log(this.phoneNumber.phone);
+    // this.phoneNumber = navParams.get('phoneNumber');
+    // console.log(this.phoneNumber.phone);
   }
 
   ionViewDidLoad() {

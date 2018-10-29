@@ -1,4 +1,12 @@
 page-registration {
+    img {
+        display: block;
+        &.logo {
+            width: 30%;
+            max-width: 150px;
+            margin: 2.5rem auto;
+        }
+    }
     .border-bottom-none .list-md .item-block .item-inner {
         border-bottom: none !important;
     }
@@ -38,7 +46,7 @@ page-registration {
         border-radius: 10px;
     }
     .scroll-content {
-        background: rgba(204, 204, 204, 0.29);
+        // background: rgba(204, 204, 204, 0.29);
     }
     .inputsec {
         background: #1d2c4d;
@@ -147,8 +155,7 @@ page-registration {
     }
     .middlesec {
         position: absolute;
-        width: 100%;
-        // top: 245px;
+        width: 100%; // top: 245px;
         padding: 20px;
     }
     .button-circle {

@@ -242,7 +242,7 @@ export class FindcarPage {
     this.endAddress = null;
     this.driverId = null;
     this.rideMode = false;
-    this.arrival_status = "arriving";
+    this.arrival_status = "";
     this.directionsDisplay.setMap(null);
     this.destinationmarker.serMap(null);
     this.getLocation();

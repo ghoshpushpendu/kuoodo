@@ -6,34 +6,34 @@
 
 
 <ion-content>
-  <div class="heightsec">
-    <div class="headtext">
-      <img src="assets/image/logo.png" class="img-responsive logoimg" [hidden]="showForm">
 
+  <img src="assets/image/logo.png" class="logo">
 
-      <div class="emailhead">
-        <div class="emailcont">
-          <ion-list>
-            <ion-item *ngIf="isPhoneNumber">
-              <ion-label floating>Mobile no</ion-label>
-              <ion-input type="number" [(ngModel)]="phone" name="phoneNumber"></ion-input>
-            </ion-item>
-            <ion-item *ngIf="isCode">
-              <ion-label floating> Enter your OTP</ion-label>
-              <ion-input type="number" [(ngModel)]="code" name="otp"></ion-input>
-              <span>{{otpmessage}}</span>
-            </ion-item>
-          </ion-list>
-        </div>
-      </div>
-
-      <div class="btnhead">
-        <div class="btnsec">
-          <button ion-button *ngIf="isPhoneNumber" (click)="sendOTP()">Send OTP</button>
-          <button ion-button *ngIf="isCode" (click)="verifyOTP()">Verify OTP</button>
-        </div>
-
-      </div>
+  <!-- <div class="heightsec"> -->
+  <!-- <div class="headtext"> -->
+  <div class="emailhead">
+    <div class="emailcont">
+      <ion-list>
+        <ion-item *ngIf="isPhoneNumber">
+          <ion-label floating>Mobile no</ion-label>
+          <ion-input type="number" [(ngModel)]="phone" name="phoneNumber"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="isCode">
+          <ion-label floating> Enter your OTP</ion-label>
+          <ion-input type="number" [(ngModel)]="code" name="otp"></ion-input>
+          <span>{{otpmessage}}</span>
+        </ion-item>
+      </ion-list>
     </div>
   </div>
+
+  <div class="btnhead">
+    <div class="btnsec">
+      <button ion-button *ngIf="isPhoneNumber" (click)="sendOTP()">send code</button>
+      <button ion-button *ngIf="isCode" (click)="verifyOTP()">verify code</button>
+    </div>
+
+  </div>
+  <!-- </div> -->
+  <!-- </div> -->
 </ion-content>

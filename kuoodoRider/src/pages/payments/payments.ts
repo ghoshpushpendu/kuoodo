@@ -82,10 +82,8 @@ export class PaymentsPage {
         _base.showToast("can not delete card");
       }
       else {
-        if (data) {
-          _base.showToast("card has been deleted");
-          _base.getCards();
-        }
+        _base.showToast("card has been deleted");
+        _base.getCards();
       }
     });
   }
