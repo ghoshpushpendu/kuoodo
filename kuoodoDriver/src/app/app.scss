@@ -1,79 +1,190 @@
-// http://ionicframework.com/docs/theming/
+@import url('https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i');
+* {
+    font-family: 'Montserrat', sans-serif;
+}
 
+a {
+    text-decoration: none !important;
+}
 
-// App Global Sass
-// --------------------------------------------------
-// Put style rules here that you want to apply globally. These
-// styles are for the entire app and not just one component.
-// Additionally, this file can be also used as an entry point
-// to import other Sass files to be included in the output CSS.
-//
-// Shared Sass variables, which can be used to adjust Ionic's
-// default Sass variables, belong in "theme/variables.scss".
-//
-// To declare rules for a specific mode, create a child rule
-// for the .md, .ios, or .wp mode classes. The mode class is
-// automatically applied to the <body> element in the app.
-.toolbar-background-md {
-    
-    background: #263b66;
-    
+/* bg color */
+
+.bg-green {
+    background: #54b61e !important;
 }
-.toolbar-background-ios {
-    
-    background: #263b66;
-    
+
+.bg-light {
+    background: #f5f4f4 !important;
 }
-.image{
-    text-align: center;
+
+.bg-blue {
+    background: #2553b4 !important;
 }
-.image img{
-    border-radius:50%;
-    height:110px;
+
+.bg-white {
+    background: #fff !important;
 }
-.image p{
-    color: rgba(255, 255, 255, 0.84);
-    margin-top: 0;
+
+.bg-yellow {
+    background: #ffca28 !important;
 }
-button.item.item-block.item-md{
-    background: transparent;
-    color: rgba(255, 255, 255, 0.89);
+
+.bg-black {
+    background: #000 !important;
+    ;
 }
-button.item.item-block.item-ios{
-    background: transparent;
-    color: rgba(255, 255, 255, 0.89);
+
+.bg-red {
+    background: #ff1e1e;
 }
+
+/* font color */
+
+.text-black {
+    color: #000 !important;
+}
+
+.text-dark {
+    color: #282828 !important;
+}
+
+.text-light {
+    color: #8e8e8e !important;
+}
+
+.text-white {
+    color: #fff !important;
+}
+
+.text-green {
+    color: #54b61e !important;
+}
+
+.text-red {
+    color: #ff0000 !important;
+}
+
+/* button style */
+
+.btn {
+    font-weight: 500 !important;
+    text-transform: none !important;
+}
+
+.btn.round {
+    border-radius: 5px !important;
+}
+
+.shadow-green {
+    box-shadow: 0px 14px 25px rgba(84, 182, 30, 0.6)
+}
+
+.shadow-blue {
+    box-shadow: 0px 14px 25px rgba(37, 83, 180, 0.5)
+}
+
+.shadow-black {
+    box-shadow: 0px 14px 25px rgba(0, 0, 0, 0.2)
+}
+
+.shadow-black {
+    box-shadow: 0px 14px 25px rgba(0, 0, 0, 0.2)
+}
+
+.shadow-red {
+    box-shadow: 0px 14px 25px rgba(182, 30, 30, 0.59);
+}
+
+/* header color */
+
+.header {
+    .toolbar-background {
+        background: #54b61e !important;
+    }
+    button {
+        ion-icon {
+            color: #fff !important;
+        }
+    }
+    .toolbar-title {
+        color: #fff !important;
+    }
+}
+
+/* menu css */
+
+.menu {
+    &.heading {
+        padding: 5rem 1.5rem !important;
+        background: url(../assets/imgs/menu-bg.png) !important;
+        background-size: cover !important;
+        background-position: center !important;
+        ion-item {
+            background: transparent !important;
+        }
+        ion-avatar {
+            width: 60px ! important;
+            height: 60px ! important;
+            img {
+                border-radius: 10px !important;
+                width: 100% !important;
+                height: 100% !important;
+            }
+        }
+        ion-list {
+            margin-bottom: 0 ! important;
+        }
+    }
+    ion-item {
+        border: none ! important;
+    }
+    ion-avatar {
+        text-align: center;
+        ion-icon {
+            font-size: 3rem;
+        }
+    }
+}
+
+.form {
+    .item-inner {
+        border: none ! important;
+        box-shadow: none ! important;
+        border-bottom: 1px solid #ccc !important;
+    }
+}
+
 .scroll-content {
-    background: #1d2c4d;
+    overflow: hidden;
+    overflow-y: auto;
 }
-.menusec .item-md.item-block .item-inner {
-    border-bottom: none;
+
+.bg-img {
+    background: url(../assets/imgs/home-bg.jpg) ! important;
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
 }
-.menusec .item-ios.item-block .item-inner {
-    border-bottom: none;
+
+.scroll-bar-indicator {
+    display: none;
 }
-.list-ios > .item-block:first-child {
-    border-top: none;
+
+.back-button-text {
+    display: none;
 }
-.list-ios > .item-block:last-child, .list-ios > .item-wrapper:last-child .item-block {
-    border-bottom: none;
-}
-@media only screen 
-and (min-device-width : 768px) 
-and (max-device-width : 1024px)  { 
-    .menusec .item-ios.item-block .item-inner {
-        border-bottom: none;
-    }
-    button.item.item-block.item-ios{
-        background: transparent;
-        color: rgba(255, 255, 255, 0.89);
-    }
-    .toolbar-background-ios {
-        
-        background: #263b66;
-        
-    }
-    .header-ios .toolbar-ios:last-child .toolbar-background-ios {
-        border-width: 0;
-    }
+
+.mymap {
+    z-index: -1 !important;
+    background: none !important;
+    width: 100% !important;
+    height: 100% !important;
+    top: 0 !important;
+    left: 0 !important;
+    position: fixed !important;
 }
