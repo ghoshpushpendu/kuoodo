@@ -215,4 +215,22 @@ export class AppService {
         });
     };
 
+    //get pending payments
+    public getPendingPayments(params, callback) {
+        this.httpService.getPendingPayments(params).subscribe(function (data) {
+            callback(false, data);
+        }, function (error) {
+            callback(true, error || 'HTTP fail.');
+        });
+    };
+
+    //charge card
+    public chargeCard(params, callback) {
+        this.httpService.chargeCard(params).subscribe(function (data) {
+            callback(false, data);
+        }, function (error) {
+            callback(true, error || 'HTTP fail.');
+        });
+    };
+
 }

@@ -3,7 +3,17 @@
     <ion-title>Payment</ion-title>
   </ion-navbar>
 </ion-header>
-<ion-content>
+<ion-content center class="card-background-page">
+
+  <ion-card>
+    <img src="https://gadgetstouse.com/wp-content/uploads/2018/02/cabs-without-apps-696x392.png" />
+    <div class="card-title">{{pendingAmount}} USD</div>
+    <div class="card-subtitle">Payment pending</div>
+  </ion-card>
+
+  <button ion-button block *ngIf="pendingAmount != '0'" (click)="makePayment()">Pay Now</button>
+
+
   <ion-list>
     <ion-list-header> Saved Cards </ion-list-header>
     <ion-item *ngFor="let card of cards">

@@ -173,4 +173,18 @@ export class HttpService {
             .catch((error: any) => Observable.throw(error.json() || `Server error`));
     };
 
+    // get pending payments
+    public getPendingPayments(userID) {
+        return this.http.get(this.url + "booking/getpending?userId=" + userID, this.headerOptions)
+            .map((response: Response) => response.json())
+            .catch((error: any) => Observable.throw(error.json() || `Server error`));
+    };
+
+    //charge the card
+    public chargeCard(userId) {
+        return this.http.post(this.url + "cards/charge", { userId: userId }, this.headerOptions)
+            .map(function (response) { return response.json(); })
+            .catch((error: any) => Observable.throw(error.json() || `Server error`));
+    };
+
 }
