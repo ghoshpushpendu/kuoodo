@@ -233,4 +233,13 @@ export class AppService {
         });
     };
 
+    //charge card
+    public getCabTypes(callback) {
+        this.httpService.getCabTypes().subscribe(function (data) {
+            callback(false, data);
+        }, function (error) {
+            callback(true, error || 'HTTP fail.');
+        });
+    };
+
 }

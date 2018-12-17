@@ -79,6 +79,8 @@ export class FindcarPage {
   arrivingDistance: any;
   arrivingDuration: any;
 
+  cabTypes: any = [];
+
   address: any = {
     place: ''
   };
@@ -204,6 +206,7 @@ export class FindcarPage {
 
     this.id = this.localStorageProvider.getUserId();
     this.checkRideStatus();
+    this.getCabTypes();
   }
 
   showAddressModal() {
@@ -518,10 +521,40 @@ export class FindcarPage {
         _base.directionsDisplay.setDirections(response);
         _base.directionsDisplay.setMap(_base.map);
         _base.distance = response.routes[0].legs[0].distance.text;
+        let distance = response.routes[0].legs[0].distance.value;
+        let duration = response.routes[0].legs[0].duration.value;
+        _base.calculate(distance, duration);
       } else {
         _base.endAddress = null;
         alert("Unexpected destination");
       }
+    });
+  }
+
+
+  // calculate price between source and deistination
+
+  calculate(distance, duration) {
+    console.log("distance", distance);
+    console.log("duration", duration);
+    let mileDistance = distance * 0.000621371;
+    let minuteDuration = duration / 60;
+    let _base = this;
+    _base.cabTypes.forEach(element => {
+      let minutes = parseFloat(element.perMinutes);
+      let miles = parseFloat(element.perMile);
+      let minimum = parseFloat(element.minimum);
+      let maximum = parseFloat(element.maximum);
+      let service = parseFloat(element.serviceFee);
+      let initial = parseFloat(element.initialCost);
+      let cost = initial + service + mileDistance * mileDistance + minuteDuration * minutes;
+      let maxCost = 0;
+      if (cost < minimum) {
+        cost = 5;
+      } else if (cost > maximum) {
+        cost = 0;
+      }
+      element.cost = Math.ceil(cost);
     });
   }
 
@@ -844,6 +877,25 @@ export class FindcarPage {
       duration: 3000
     });
     toast.present();
+  }
+
+
+  //  get cab types
+  getCabTypes() {
+    let _base = this;
+    let loading = this.loadingCtrl.create({ content: 'Getting cab types...' });
+    loading.present();
+    _base.appService.getCabTypes((error, data) => {
+      loading.dismiss();
+      if (error) {
+        console.log("Internet connection error , getting cab types");
+      } else {
+        if (data) {
+          console.log("All cab types", data.results);
+          _base.cabTypes = data.results;
+        }
+      }
+    });
   }
 
 }

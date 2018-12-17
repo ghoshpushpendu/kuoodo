@@ -187,4 +187,12 @@ export class HttpService {
             .catch((error: any) => Observable.throw(error.json() || `Server error`));
     };
 
+    // get pending payments
+    public getCabTypes() {
+        return this.http.get(this.url + "booking/getcabtypes", this.headerOptions)
+            .map((response: Response) => response.json())
+            .catch((error: any) => Observable.throw(error.json() || `Server error`));
+    };
+
+
 }

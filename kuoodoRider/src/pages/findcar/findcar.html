@@ -6,14 +6,11 @@
     </button>
   </ion-fab>
 
-  <ion-fab class="navigator" *ngIf="!rideMode" color="primary" bottom right (click)="setCurrentLocation()">
+  <ion-fab small class="navigator" *ngIf="!rideMode" color="primary" middle right (click)="setCurrentLocation()">
     <button ion-fab>
       <ion-icon ios="ios-locate" md="md-locate"></ion-icon>
     </button>
   </ion-fab>
-
-  <button *ngIf="!rideMode && nearestDrivers.length != 0" ion-button (click)="bookDriver()" class="bookingbtn">Find
-    and Book</button>
 
   <ion-card *ngIf="rideMode" class="driverInfo">
     <ion-item>
@@ -30,28 +27,93 @@
     </ion-item>
   </ion-card>
 
-  <div class="controls">
-    <ion-card class="origin">
-      <ion-item>
-        <ion-icon ios="ios-arrow-dropdown" md="md-arrow-dropdown" item-left></ion-icon>
-        <ion-card-content>
-          {{startAddress}}
-        </ion-card-content>
-      </ion-item>
-    </ion-card>
-    <ion-card class="destination" (tap)="showAddressModal()">
-      <ion-item>
-        <ion-icon class="marker" ios="ios-arrow-dropdown" md="md-arrow-dropdown" item-left></ion-icon>
-        <ion-input disabled="true" [(ngModel)]="endAddress" type="text" placeholder="Pick an address"></ion-input>
-        <!-- <ion-icon ios="ios-close-circle" md="md-close-circle" (click)="clearDestination()" item-right></ion-icon> -->
-      </ion-item>
-    </ion-card>
-  </div>
+
+  <ion-card class="shadow-black controls">
+    <ion-card-content>
+      <div class="shadow-black border-radius">
+        <ion-row>
+          <ion-col class="location-icon">
+            <strong class="bg-green"></strong>
+          </ion-col>
+          <ion-col class="pad-0">
+            <ion-item class="bg-white border-bottom">
+              <!-- <ion-label text-right>From</ion-label> -->
+              <ion-input type="text" class="" disabled="true" placeholder="location from" [(ngModel)]="startAddress"></ion-input>
+              <ion-icon name="md-locate" class="text-black"></ion-icon>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="location-icon">
+            <strong class="bg-yellow"></strong>
+          </ion-col>
+          <ion-col class="pad-0">
+            <ion-item class="bg-white" (tap)="showAddressModal()">
+              <!--  <ion-label text-right>To</ion-label> -->
+              <ion-input disabled="true" type="text" class="" [(ngModel)]="endAddress" placeholder="location to"></ion-input>
+              <ion-icon name="md-locate" class="text-black"></ion-icon>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
   <div #map id="map"></div>
 
   <div *ngIf="otp != ''" class="qrCode">
     <qr-code [value]="otp" [size]="200"></qr-code>
     <p>Please ask the driver to scan it while starting ride</p>
+  </div>
+
+
+  <!-- choose cab -->
+  <div class="card-box">
+    <ion-card class="text-black">
+      <ion-card-header>
+
+        <small text-left class="mr-a">
+          <ion-icon padding-right name="md-card" class="text-green"></ion-icon>
+          Pay by card
+        </small>
+        <span text-center class="mx-a">Choose Cab Type</span>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="cab-scroll bg-white">
+          <div class="cab-container">
+            <div class="cab-type" *ngFor="let cab of cabTypes;let i = index">
+              <div [ngClass]="{'img-box': true, 'active': (i == 1)}">
+                <!-- <img src="assets/imgs/car-1.png"> -->
+                <img src="assets/economy.png" src="{{'assets/'+cab.name+'.png'}}">
+                <ion-badge item-end class="bg-green">2 mins</ion-badge>
+              </div>
+              <h4 class="text-black ">{{cab.name}}</h4>
+              <small class="text-light " *ngIf="cab.cost">${{cab.cost}} - ${{cab.cost+5}}</small>
+            </div>
+            <!-- <div class="cab-type">
+              <div class="img-box active">
+                <img src="assets/imgs/car-1.png">
+                <ion-badge item-end class="bg-green">2 mins</ion-badge>
+              </div>
+              <h4 class="text-black ">GoMeOnly</h4>
+              <small class="text-light ">$45 - $50</small>
+            </div> -->
+          </div>
+        </div>
+        <ion-row padding-left padding-right>
+          <ion-col col-2>
+            <!-- <button ion-button full class="bg-green  shadow-green full">
+              <ion-icon name="md-time"></ion-icon>
+            </button> -->
+          </ion-col>
+          <ion-col col-10>
+            <button ion-button full *ngIf="!rideMode && nearestDrivers.length != 0" ion-button (click)="bookDriver()"
+              class="bg-green shadow-green full">REQUEST CAB</button>
+          </ion-col>
+        </ion-row>
+
+      </ion-card-content>
+    </ion-card>
   </div>
 
 </ion-content>
