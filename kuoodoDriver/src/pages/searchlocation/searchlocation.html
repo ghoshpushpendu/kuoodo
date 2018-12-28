@@ -73,7 +73,7 @@
         <ion-item padding-right>
           <ion-label class="headlabel">Car Type</ion-label>
           <ion-select [(ngModel)]="car.carType" multiple="false">
-            <ion-option *ngFor="let option of carTypes" value="{{option.value}}">{{ option.text }}</ion-option>
+            <ion-option *ngFor="let option of carTypes" value="{{option.name}}">{{ option.name }}</ion-option>
           </ion-select>
         </ion-item>
       </ion-list>

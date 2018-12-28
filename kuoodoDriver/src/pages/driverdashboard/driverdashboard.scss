@@ -154,9 +154,8 @@ page-driverdashboard {
         height: 100%;
     }
     ion-card {
-        max-height: 200px;
-        overflow: scroll;
-        position: absolute;
+        // max-height: 200px;
+        overflow: scroll; // position: absolute;
         z-index: 1;
     }
     .footersec {
@@ -313,5 +312,55 @@ page-driverdashboard {
     }
     .navigator button ion-icon {
         color: green;
+    } // rider info
+    .card-box {
+        position: fixed;
+        bottom: 10px;
+        width: calc(100% - 2rem);
+        left: 1rem;
+        z-index: 999;
+        .card {
+            border-radius: 10px 10px 0 0 !important;
+        }
+        small.text-light {
+            color: #626262 !important;
+        }
+        ion-card-content {
+            padding: 0 5px 5px !important;
+        }
+    }
+    .card-box {
+        .passanger-info.heading {
+            background: transparent !important;
+            padding: 0 !important;
+            ion-avatar {
+                width: 45px !important;
+                height: 45px !important;
+            }
+            h2 {
+                font-size: 1.4rem;
+                font-weight: 600;
+                padding-bottom: 4px;
+            }
+            p {
+                font-size: 1rem;
+            }
+            .item-inner {
+                border-bottom: 0 !important;
+            }
+            img {
+                border-radius: 10px !important;
+            }
+            .item-block:last-child {
+                border: none !important;
+            }
+        }
+        .rateing {
+            padding-left: 4px;
+            ion-icon {
+                font-size: 1.3rem !important;
+                padding: 0 2px;
+            }
+        }
     }
 }

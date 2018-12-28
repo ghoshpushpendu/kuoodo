@@ -32,32 +32,14 @@ export class SearchlocationPage {
   option: any = "+1";
 
   public car: any = {
-    'carType': 'standard',
+    'carType': 'Economy',
     'carNumber': '',
     'carName': '',
     'userId': ''
   };
 
 
-  public carTypes = [{
-    'text': 'Standard',
-    'value': 'standard'
-  }, {
-    'text': 'Standard Plus',
-    'value': 'standard_plus'
-  }, {
-    'text': 'Premium',
-    'value': 'premium'
-  }, {
-    'text': 'Premium Plus',
-    'value': 'premium_plus'
-  }, {
-    'text': 'Sport',
-    'value': 'sport'
-  }, {
-    'text': 'Sport Plus',
-    'value': 'sport_plus'
-  }];
+  public carTypes: any;
 
   constructor(public nav: NavController,
     public navCtrl: NavController,
@@ -73,6 +55,8 @@ export class SearchlocationPage {
     this.email = this.navParams.get("email");
     this.firstName = this.navParams.get("firstName");
     this.lastName = this.navParams.get("lastName");
+
+    this.fetchCarTypes();
 
   }
 
@@ -213,4 +197,27 @@ export class SearchlocationPage {
     });
     toast.present(toast);
   }
+
+  // fetch car types
+  fetchCarTypes() {
+    this.loadingMessage = "Fetching car types..";
+    this.loading();
+    this.loader.present();
+    let _base = this;
+    this.appService.getCabTypes((error, data) => {
+      //Dismiss the loader
+      this.loader.dismiss();
+      if (error) {
+        console.log("Error", error);
+      }
+      else {
+        if (!data.error) {
+          console.log("Success", data);
+          _base.carTypes = data.results;
+        }
+      }
+    });
+  }
+
+
 }

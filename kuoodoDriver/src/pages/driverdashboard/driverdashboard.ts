@@ -37,6 +37,8 @@ export class DriverdashboardPage {
   bookingId: any;
   response: any;
 
+  rideRequest: any = false;
+
   loadingMessage: any;
   loader: any;
 
@@ -152,6 +154,7 @@ export class DriverdashboardPage {
       console.log("present toast", booking);
       if (driverID == _base.id) {
         console.log("present toast");
+        _base.rideRequest = true;
         _base.userStartLatitude = booking.pickUpLocation.latitude;
         _base.userStartLongitude = booking.pickUpLocation.longitude;
         _base.userEndLatitude = booking.destination.latitude;
@@ -184,7 +187,7 @@ export class DriverdashboardPage {
             let duration = response.routes[0].legs[0].duration.text;
             _base.arrivingDistance = distance;
             _base.arrivingDuration = duration;
-            _base.presentConfirm();
+            _base.rideRequest = true;
             _base.playRingtone();
             _base.autoCancel();
           }
@@ -200,8 +203,12 @@ export class DriverdashboardPage {
     /** get current driver car info **/
     _base.appService.getCar(this.id, (error, data) => {
       if (!error) {
-        delete data.result[0].userId;
-        _base.carDetails = data.result[0];
+        console.log("Data just printed", data);
+        if (!data.user.drivingLicense) {
+          _base.navCtrl.push("DocumentationPage");
+        } else {
+          _base.carDetails = data.user;
+        }
       }
     });
   }
@@ -212,7 +219,7 @@ export class DriverdashboardPage {
     _base.autocancel = setInterval(function () {
       counter++;
       if (counter == 10) {
-        _base.confirmalert.dismiss();
+        _base.rideRequest = false;
         _base.pauseRingtone();
         _base.cancelRide();
         _base.completeLoading();
@@ -256,35 +263,20 @@ export class DriverdashboardPage {
     // navigator.vibrate(0);
   }
 
-  presentConfirm() {
-    let _base = this;
-    let message = "From : " + _base.userStartLoc + ", To :" + _base.userEndLoc + ", Distance :" + _base.distance + " and the the Rider is " + _base.arrivingDistance + " and " + _base.arrivingDuration + " away"
-    _base.confirmalert = this.alertController.create({
-      title: _base.riderName + '( ' + _base.riderNumber + ')',
-      message: message,
-      buttons: [
-        {
-          text: 'Reject',
-          role: 'cancel',
-          handler: () => {
-            _base.pauseRingtone();
-            _base.cancelRide();
-            _base.completeLoading();
-            _base.clearAutoCancel();
-          }
-        },
-        {
-          text: 'Accept',
-          handler: () => {
-            _base.pauseRingtone();
-            _base.acceptRide();
-            _base.completeLoading();
-            _base.clearAutoCancel();
-          }
-        }
-      ]
-    });
-    _base.confirmalert.present();
+  acceptRideRequest() {
+    this.rideRequest = false;
+    this.pauseRingtone();
+    this.cancelRide();
+    this.completeLoading();
+    this.clearAutoCancel();
+  }
+
+  cancelRideRequest() {
+    this.rideRequest = false;
+    this.pauseRingtone();
+    this.acceptRide();
+    this.completeLoading();
+    this.clearAutoCancel();
   }
 
   lunchNavigator(start: any, end: any) {
@@ -436,7 +428,7 @@ export class DriverdashboardPage {
   initMap() {
     let _base = this;
     let options = {
-      zoom: 16, center: { lat: -25.344, lng: 131.036 }, disableDefaultUI: true, mapTypeId: 'terrain', gestureHandling: 'none',
+      zoom: 19, center: { lat: -25.344, lng: 131.036 }, disableDefaultUI: true, mapTypeId: 'terrain', gestureHandling: 'none',
       zoomControl: false
     };
     _base.map = new google.maps.Map(document.getElementById('map'), options);
@@ -455,6 +447,7 @@ export class DriverdashboardPage {
     let _base = this;
     console.log("map ready");
     this.getLocation().subscribe((res) => {
+      console.log(res);
       this.response = res;
 
       this.startLatitude = res.coords.latitude;

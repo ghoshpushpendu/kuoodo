@@ -51,6 +51,7 @@ export class OtpPage {
     this.location = this.navParams.get("location");
     this.password = this.navParams.get("password");
     this.car = this.navParams.get("car");
+    this.email = this.navParams.get("email");
     console.log(this.deviceID, this.phoneNumber, this.firstName, this.lastName, this.location, this.password, this.car);
   }
 
@@ -103,13 +104,17 @@ export class OtpPage {
                 phoneNumber: this.phoneNumber,
                 password: this.password,
                 location: this.location,
-                role: "Driver"
+                role: "Driver",
+                carName: this.car.carName,
+                carNumber: this.car.carNumber,
+                carType: this.car.carType
               }
+
+              console.log(data);
 
 
               this.appService.userRegistration(data, (error, data) => {
                 //Dismiss the loader
-                this.loader.dismiss();
                 if (error) {
                   this.loader.dismiss();
                   this.message = data.message;
@@ -122,19 +127,12 @@ export class OtpPage {
                     this.events.publish('data', data.user);
                     this.localStorageProvider.setDriverId(data.user._id);
                     this.id = data.user._id;
-                    if (this.id) {
-                      // update driver car info
-                      this.car.userId = this.id;
-                      this.appService.addCar(this.car, (error, success) => {
-                        this.loader.dismiss();
-                        if (error) {
-                          alert('Error adding car');
-                        } else {
-                          this.navCtrl.setRoot("DriverdashboardPage");
-                        }
-                      });
-                    }
-
+                    this.loader.dismiss();
+                    this.message = "Car has been added to your profile";
+                    this.showToast('bottom');
+                    this.navCtrl.setRoot("DriverdashboardPage");
+                  } else {
+                    this.loader.dismiss();
                   }
                 }
               });

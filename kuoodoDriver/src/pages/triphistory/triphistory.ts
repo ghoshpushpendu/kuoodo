@@ -13,7 +13,7 @@ export class TriphistoryPage {
 
   public userID: string; // current user ID
 
-  public trips: any;  // list of trips
+  public trips: any = [];  // list of trips
 
   public imageBase = "http://mitapi.memeinfotech.com:5040/user/fileShow?imageId=";
 

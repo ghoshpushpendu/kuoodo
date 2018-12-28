@@ -1,4 +1,18 @@
 page-findcar {
+    svg.lds-ellipsis {
+        height: 25px;
+        width: 50%;
+    }
+    .location {
+        font-size: 0.7em;
+        font-weight: 700;
+        color: black !important;
+    }
+    .locate-icon {
+        font-size: 1.2em !important;
+        padding: 0px !important;
+        margin: 4px !important;
+    }
     .controls {
         position: fixed;
         top: 60px;
@@ -408,8 +422,7 @@ page-findcar {
     .card-md {
         margin: 0px !important;
         border-radius: 0px !important;
-        width: 100% !important;
-        // background-color: rgba(255, 255, 255, 0.4) !important;
+        width: 100% !important; // background-color: rgba(255, 255, 255, 0.4) !important;
     }
     .card-content-md {
         padding: 11px 13px !important;
@@ -600,32 +613,24 @@ page-findcar {
                             filter: grayscale(100%);
                         }
                         .badge {
-                            position: relative;
-                            top: -84px;
-                            left: -23px;
-                            font-size: 1rem;
-                            z-index: 999;
-                            font-weight: 300;
-                            border-radius: 3px !important;
-                            display: none;
+                            display: inline-block;
                         }
                     }
                     .img-box.active {
-                        width: 100%;
-                        max-width: 75px;
-                        height: 75px;
+                        // width: 100%;
+                        max-width: 65px;
+                        height: 65px;
                         text-align: center;
                         margin-bottom: 0;
                         opacity: 1.6;
                         img {
                             -webkit-filter: grayscale(0%);
                             /* Safari 6.0 - 9.0 */
-                            filter: grayscale(0%);
-                            box-shadow: 11px 12px 30px 0px #cccc;
-                            border-radius: 50%;
-                        }
-                        .badge {
-                            display: inline-block;
+                            filter: grayscale(0%); // box-shadow: 11px 12px 30px 0px #cccc;
+                            // border-radius: 50%;
+                            background-color: #cbeacb;
+                            border-radius: 16px;
+                            padding: 5px;
                         }
                     }
                     h4 {
@@ -635,6 +640,7 @@ page-findcar {
                         line-height: 8px;
                         letter-spacing: 1px;
                         padding-left: .5rem;
+                        text-align: center;
                     }
                     small {
                         padding-left: .5rem;

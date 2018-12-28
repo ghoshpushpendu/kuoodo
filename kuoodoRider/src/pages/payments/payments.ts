@@ -47,7 +47,9 @@ export class PaymentsPage {
     this.getPendingPayments()
       .then(function (success: any) {
         console.log("success - getting payments", success);
-        _base.pendingAmount = success.result[0].amount;
+        if (success.result.length) {
+          _base.pendingAmount = success.result[0].amount;
+        }
       }, function (error) {
         console.log("error - getting payments", error);
       });

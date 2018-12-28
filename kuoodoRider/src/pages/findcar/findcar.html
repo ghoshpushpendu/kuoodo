@@ -6,12 +6,6 @@
     </button>
   </ion-fab>
 
-  <ion-fab small class="navigator" *ngIf="!rideMode" color="primary" middle right (click)="setCurrentLocation()">
-    <button ion-fab>
-      <ion-icon ios="ios-locate" md="md-locate"></ion-icon>
-    </button>
-  </ion-fab>
-
   <ion-card *ngIf="rideMode" class="driverInfo">
     <ion-item>
       <ion-avatar item-start>
@@ -38,8 +32,10 @@
           <ion-col class="pad-0">
             <ion-item class="bg-white border-bottom">
               <!-- <ion-label text-right>From</ion-label> -->
-              <ion-input type="text" class="" disabled="true" placeholder="location from" [(ngModel)]="startAddress"></ion-input>
-              <ion-icon name="md-locate" class="text-black"></ion-icon>
+              <ion-input type="text" class="location" disabled="true" placeholder="location from" [(ngModel)]="startAddress"></ion-input>
+              <button ion-button class="locate-icon" clear *ngIf="!rideMode" type="button" item-right (click)="setCurrentLocation()">
+                <ion-icon name="locate"> </ion-icon>
+              </button>
             </ion-item>
           </ion-col>
         </ion-row>
@@ -50,7 +46,7 @@
           <ion-col class="pad-0">
             <ion-item class="bg-white" (tap)="showAddressModal()">
               <!--  <ion-label text-right>To</ion-label> -->
-              <ion-input disabled="true" type="text" class="" [(ngModel)]="endAddress" placeholder="location to"></ion-input>
+              <ion-input disabled="true" type="text" class="location" [(ngModel)]="endAddress" placeholder="location to"></ion-input>
               <ion-icon name="md-locate" class="text-black"></ion-icon>
             </ion-item>
           </ion-col>
@@ -71,42 +67,61 @@
   <div class="card-box">
     <ion-card class="text-black">
       <ion-card-header>
-
-        <small text-left class="mr-a">
-          <ion-icon padding-right name="md-card" class="text-green"></ion-icon>
-          Pay by card
-        </small>
         <span text-center class="mx-a">Choose Cab Type</span>
       </ion-card-header>
       <ion-card-content>
         <div class="cab-scroll bg-white">
           <div class="cab-container">
-            <div class="cab-type" *ngFor="let cab of cabTypes;let i = index">
-              <div [ngClass]="{'img-box': true, 'active': (i == 1)}">
+            <div class="cab-type" *ngFor="let cab of cabTypes;let i = index" (click)="selectCar(i,cab)">
+              <div [ngClass]="{'img-box': true, 'active': (i == selectedCar)}">
                 <!-- <img src="assets/imgs/car-1.png"> -->
                 <img src="assets/economy.png" src="{{'assets/'+cab.name+'.png'}}">
-                <ion-badge item-end class="bg-green">2 mins</ion-badge>
+                <ion-badge *ngIf="cab.duration" item-end class="bg-green">{{cab.duration}}</ion-badge>
+                <!-- loader starts -->
+                <svg *ngIf="!cab.duration" width="116px" height="116px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"
+                  preserveAspectRatio="xMidYMid" class="lds-ellipsis" style="background: none;">
+                  <!--circle(cx="16",cy="50",r="10")-->
+                  <circle cx="84" cy="50" r="0" fill="#5cd65c">
+                    <animate attributeName="r" values="10;0;0;0;0" keyTimes="0;0.25;0.5;0.75;1" keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1"
+                      calcMode="spline" dur="2.7s" repeatCount="indefinite" begin="0s"></animate>
+                    <animate attributeName="cx" values="84;84;84;84;84" keyTimes="0;0.25;0.5;0.75;1" keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1"
+                      calcMode="spline" dur="2.7s" repeatCount="indefinite" begin="0s"></animate>
+                  </circle>
+                  <circle cx="16" cy="50" r="5.85813" fill="#5cd65c">
+                    <animate attributeName="r" values="0;10;10;10;0" keyTimes="0;0.25;0.5;0.75;1" keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1"
+                      calcMode="spline" dur="2.7s" repeatCount="indefinite" begin="-1.35s"></animate>
+                    <animate attributeName="cx" values="16;16;50;84;84" keyTimes="0;0.25;0.5;0.75;1" keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1"
+                      calcMode="spline" dur="2.7s" repeatCount="indefinite" begin="-1.35s"></animate>
+                  </circle>
+                  <circle cx="84" cy="50" r="4.14187" fill="#5cd65c">
+                    <animate attributeName="r" values="0;10;10;10;0" keyTimes="0;0.25;0.5;0.75;1" keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1"
+                      calcMode="spline" dur="2.7s" repeatCount="indefinite" begin="-0.675s"></animate>
+                    <animate attributeName="cx" values="16;16;50;84;84" keyTimes="0;0.25;0.5;0.75;1" keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1"
+                      calcMode="spline" dur="2.7s" repeatCount="indefinite" begin="-0.675s"></animate>
+                  </circle>
+                  <circle cx="69.9176" cy="50" r="10" fill="#5cd65c">
+                    <animate attributeName="r" values="0;10;10;10;0" keyTimes="0;0.25;0.5;0.75;1" keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1"
+                      calcMode="spline" dur="2.7s" repeatCount="indefinite" begin="0s"></animate>
+                    <animate attributeName="cx" values="16;16;50;84;84" keyTimes="0;0.25;0.5;0.75;1" keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1"
+                      calcMode="spline" dur="2.7s" repeatCount="indefinite" begin="0s"></animate>
+                  </circle>
+                  <circle cx="35.9176" cy="50" r="10" fill="#5cd65c">
+                    <animate attributeName="r" values="0;0;10;10;10" keyTimes="0;0.25;0.5;0.75;1" keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1"
+                      calcMode="spline" dur="2.7s" repeatCount="indefinite" begin="0s"></animate>
+                    <animate attributeName="cx" values="16;16;16;50;84" keyTimes="0;0.25;0.5;0.75;1" keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1"
+                      calcMode="spline" dur="2.7s" repeatCount="indefinite" begin="0s"></animate>
+                  </circle>
+                </svg>
+                <!-- loader ends -->
               </div>
               <h4 class="text-black ">{{cab.name}}</h4>
               <small class="text-light " *ngIf="cab.cost">${{cab.cost}} - ${{cab.cost+5}}</small>
             </div>
-            <!-- <div class="cab-type">
-              <div class="img-box active">
-                <img src="assets/imgs/car-1.png">
-                <ion-badge item-end class="bg-green">2 mins</ion-badge>
-              </div>
-              <h4 class="text-black ">GoMeOnly</h4>
-              <small class="text-light ">$45 - $50</small>
-            </div> -->
           </div>
         </div>
         <ion-row padding-left padding-right>
-          <ion-col col-2>
-            <!-- <button ion-button full class="bg-green  shadow-green full">
-              <ion-icon name="md-time"></ion-icon>
-            </button> -->
-          </ion-col>
-          <ion-col col-10>
+        
+          <ion-col col-12>
             <button ion-button full *ngIf="!rideMode && nearestDrivers.length != 0" ion-button (click)="bookDriver()"
               class="bg-green shadow-green full">REQUEST CAB</button>
           </ion-col>

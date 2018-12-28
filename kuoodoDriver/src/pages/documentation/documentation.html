@@ -1,4 +1,3 @@
-
 <ion-header>
 
   <ion-navbar>
@@ -15,7 +14,7 @@
   <div class="middlesec">
     <div class="inputsec">
       <div class="docsec">
-        <img [src]="url" />
+        <img [src]="url" *ngIf="url != ''" />
         <ion-item no-padding>
           <ion-label stacked padding-top class="headlabel">Driving License</ion-label>
 
@@ -23,7 +22,7 @@
         </ion-item>
       </div>
       <div class="docsec">
-        <img [src]="urlOne" />
+        <img [src]="urlOne" *ngIf="urlOne != ''" />
         <ion-item no-padding>
           <ion-label stacked padding-top class="headlabel">Vehicle Insurance</ion-label>
 
@@ -31,7 +30,7 @@
         </ion-item>
       </div>
       <div class="docsec">
-        <img [src]="urlTwo" />
+        <img [src]="urlTwo" *ngIf="urlTwo != ''" />
         <ion-item no-padding>
           <ion-label stacked padding-top class="headlabel">Vehicle Registration</ion-label>
           <!-- <ion-icon name="add" item-end></ion-icon> -->
@@ -39,7 +38,7 @@
         </ion-item>
       </div>
       <div class="docsec">
-        <img [src]="urlThree" />
+        <img [src]="urlThree" *ngIf="urlThree != ''" />
         <ion-item no-padding>
           <ion-label stacked padding-top class="headlabel">Vehicle Permit</ion-label>
           <ion-input type="file" (change)="vehiclePermit($event)" [disabled]="checkvehiclePermit"></ion-input>
@@ -53,6 +52,6 @@
     <button ion-button text-center class="sendrequest" [hidden]="showForm" (click)="upload()">Finish</button>
   </div> -->
   <div class="center">
-    <button ion-button color="secondary" (click)="DocUpload()">Link to driver</button>
+    <button ion-button color="secondary" (click)="DocUpload()">Upload documents</button>
   </div>
 </ion-content>

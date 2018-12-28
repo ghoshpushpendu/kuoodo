@@ -1,5 +1,5 @@
 <ion-content center>
-    <ng2-slim-loading-bar  color="blue" height="4px"></ng2-slim-loading-bar>
+    <ng2-slim-loading-bar color="blue" height="4px"></ng2-slim-loading-bar>
 
     <div class="status">
         <ion-toggle float-left color="primary" [(ngModel)]="status" (ionChange)="changeStatus()"></ion-toggle>
@@ -21,4 +21,54 @@
         <button ion-fab>
             <ion-icon name="locate"></ion-icon>
         </button> </ion-fab>
+
+
+    <!-- to show requested rider's info -->
+    <div class="card-box" *ngIf="rideRequest">
+        <ion-card class="text-black">
+            <ion-card-header>
+                <small float-left class="text-light">Passanger Info</small>
+                <small float-right class="text-green" (click)="cancelRideRequest()">Decline</small>
+            </ion-card-header>
+            <ion-card-content>
+                <div class="passanger-info heading">
+                    <ion-list>
+                        <ion-item>
+                            <ion-avatar item-start>
+                                <img src="./assets/image/user.jpg">
+                            </ion-avatar>
+                            <h2 class="text-black">
+                                {{riderName}}
+                            </h2>
+                            <p class="text-black">4.7
+                                <span class="rateing">
+                                    <ion-icon name="star" class="text-green"></ion-icon>
+                                    <ion-icon name="star" class="text-green"></ion-icon>
+                                    <ion-icon name="star" class="text-green"></ion-icon>
+                                    <ion-icon name="star" class="text-green"></ion-icon>
+                                    <ion-icon name="star" class="text-green"></ion-icon>
+                                </span>
+                            </p>
+                        </ion-item>
+                    </ion-list>
+                </div>
+                <ion-row padding class="car-details">
+                    <ion-col>
+                        <small class="text-light">Pick up From</small>
+                        <strong class="text-black">{{userStartLoc}}</strong>
+                    </ion-col>
+                    <ion-col>
+                        <small class="text-light">How far</small>
+                        <strong class="text-black">0.5km away</strong>
+                    </ion-col>
+                </ion-row>
+                <div text-center padding-left padding-right>
+                    <button ion-button full class="bg-green full" (click)="acceptRideRequest()"> ACCEPT <span class="time">(02:29
+                            Min)</span></button>
+                </div>
+            </ion-card-content>
+        </ion-card>
+    </div>
+
+
 </ion-content>

@@ -84,6 +84,11 @@ export class FindcarPage {
   address: any = {
     place: ''
   };
+  selectedCar: number;
+  cartype: any;
+
+  //currently available drivers
+  availableCars: any = [];
 
   constructor(public nav: NavController,
     public navCtrl: NavController,
@@ -318,7 +323,7 @@ export class FindcarPage {
     let _base = this;
     var uluru = { lat: -25.344, lng: 131.036 };
     let options = {
-      zoom: 16, center: uluru, disableDefaultUI: true, mapTypeId: 'terrain', gestureHandling: 'none',
+      zoom: 19, center: uluru, disableDefaultUI: true, mapTypeId: 'terrain', gestureHandling: 'none',
       zoomControl: false
     };
     this.map = new google.maps.Map(document.getElementById('map'), options);
@@ -334,7 +339,7 @@ export class FindcarPage {
     console.log("map loaded");
 
     let loader = _base.loadingCtrl.create({
-      content: 'Searching location.... Please turn on your location service if not'
+      content: 'Searching location....'
     });
     loader.present();
     _base.getLocation().then((res) => {
@@ -440,7 +445,9 @@ export class FindcarPage {
     };
 
     if (_base.marker) {
-      _base.moveCamera(loc);
+      if (!_base.endingLatitude) {
+        _base.moveCamera(loc);
+      }
       _base.marker.setPosition(loc);
     } else {
       _base.moveCamera(loc);
@@ -556,6 +563,7 @@ export class FindcarPage {
       }
       element.cost = Math.ceil(cost);
     });
+    console.log(this.cabTypes);
   }
 
 
@@ -666,6 +674,10 @@ export class FindcarPage {
       alert("No drop off location");
       return;
     }
+    if (_base.selectedCar == null) {
+      alert("Select a car type to book");
+      return;
+    }
 
     var value = {
       userId: _base.id,
@@ -679,7 +691,8 @@ export class FindcarPage {
       },
       startLocation: _base.startAddress,
       endLocation: _base.endAddress,
-      distance: _base.distance
+      distance: _base.distance,
+      carType: _base.cartype.name
     }
 
     let bookLoader = _base.loadingCtrl.create({
@@ -708,32 +721,6 @@ export class FindcarPage {
 
         console.log(_base.startLatitude, _base.startLongitude);
         console.log(location[1], location[0]);
-
-
-        let end = new google.maps.LatLng(_base.startLatitude, _base.startLongitude);
-        let start = new google.maps.LatLng(location[1], location[0]);
-
-        console.log("start", start);
-        console.log("end", end);
-
-        var directionsService = new google.maps.DirectionsService();
-
-        var request = {
-          origin: start,
-          destination: end,
-          travelMode: google.maps.TravelMode.DRIVING
-        };
-
-        directionsService.route(request, function (response, status) {
-          console.log(response);
-          if (status == google.maps.DirectionsStatus.OK) {
-            let distance = response.routes[0].legs[0].distance.text;
-            let duration = response.routes[0].legs[0].duration.text;
-            _base.arrivingDistance = distance;
-            _base.arrivingDuration = duration;
-          }
-        });
-
 
         _base.rideMode = true;
         _base.waitingLoader = _base.loadingCtrl.create({
@@ -776,13 +763,16 @@ export class FindcarPage {
         console.log(error);
       }
       else if (data) {
-        // console.log("Drivers", data);
+        console.log("Drivers", data);
         if (data.error == true) {
           this.message = data.message;
           this.showToast('top');
         }
         else if (data.error == false) {
           if (data.driverDetails) {
+            _base.availableCars = data.driverDetails;
+            _base.calculateCarDistance();
+
             _base.removeDriver(data)
               .then(function () {
                 for (var i = 0; i < data.driverDetails.length; i++) {
@@ -798,6 +788,70 @@ export class FindcarPage {
           }
         }
       }
+    });
+  }
+
+
+  calculateCarDistance() {
+    let _base = this;
+    let cars = this.availableCars;
+    let distanceCars = [];
+    if (cars.length == 0) {
+      this.selectedCar = null;
+      this.cartype = null;
+      _base.cabTypes.map(element => {
+        delete element.duration;
+      });
+    }
+    cars.forEach(element => {
+      console.log("element", element);
+      let lng = element.location[0];
+      let lat = element.location[1];
+      let type = element.carType;
+
+      let end = new google.maps.LatLng(_base.startLatitude, _base.startLongitude);
+      let start = new google.maps.LatLng(lat, lng);
+
+      var directionsService = new google.maps.DirectionsService();
+
+      var request = {
+        origin: start,
+        destination: end,
+        travelMode: google.maps.TravelMode.DRIVING
+      };
+
+      directionsService.route(request, function (response, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+          let duration = response.routes[0].legs[0].duration.text;
+          console.log("Duration is :", duration);
+          _base.cabTypes.map(element => {
+            let name = element.name;
+            console.log(name, type);
+            if (name == type) {
+              console.log(name, "==", type);
+              distanceCars.push(name);
+              if (element.duration && element.duration > duration) {
+                console.log("Condition 1");
+                element.duration = duration;
+              } else if (!element.duration) {
+                console.log("Condition 2");
+                element.duration = duration;
+              }
+            }
+          });
+
+          _base.cabTypes.map(element => {
+            if (distanceCars.indexOf(element.name) == -1) {
+              delete element.duration;
+            }
+            if (_base.cartype && distanceCars.indexOf(_base.cartype.name) == -1) {
+              _base.selectedCar = null;
+              _base.cartype = null;
+            }
+          });
+          console.log("Cab types after adding duration", _base.cabTypes);
+        }
+      });
     });
   }
 
@@ -883,7 +937,7 @@ export class FindcarPage {
   //  get cab types
   getCabTypes() {
     let _base = this;
-    let loading = this.loadingCtrl.create({ content: 'Getting cab types...' });
+    let loading = this.loadingCtrl.create({ content: 'Feching required data...' });
     loading.present();
     _base.appService.getCabTypes((error, data) => {
       loading.dismiss();
@@ -896,6 +950,18 @@ export class FindcarPage {
         }
       }
     });
+  }
+
+
+  // select car
+  selectCar(i, car) {
+    if (car.duration) {
+      this.selectedCar = i;
+      this.cartype = car;
+    } else {
+      console.log("No available");
+      alert(car.name + " is not available here.");
+    }
   }
 
 }

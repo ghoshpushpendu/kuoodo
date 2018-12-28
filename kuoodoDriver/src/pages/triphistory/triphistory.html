@@ -8,8 +8,12 @@
 
 <ion-content>
 
-    <ion-fab class="menubtn" left top> <button ion-fab (click)="pop()">
-        <ion-icon ios="ios-arrow-round-back" md="md-arrow-round-back"></ion-icon>
+  <div class="no-content" *ngIf="trips.length == 0">
+    No trip history found
+  </div>
+
+  <ion-fab class="menubtn" left top> <button ion-fab (click)="pop()">
+      <ion-icon ios="ios-arrow-round-back" md="md-arrow-round-back"></ion-icon>
     </button> </ion-fab>
 
   <!-- each trip -->

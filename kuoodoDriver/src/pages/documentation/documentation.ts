@@ -21,11 +21,11 @@ export class DocumentationPage {
   imageIdTwo: any;
   imageIdOne: any;
   id: any;
-  urlThree: any;
-  urlTwo: any;
-  urlOne: any;
+  urlThree: any = "";
+  urlTwo: any = "";
+  urlOne: any = "";
   base64textString: string;
-  url: any;
+  url: any = "";
   vehiclePermitImage: string;
   vehiclePermitImageId: any;
   vehicleRegistrationImage: string;
@@ -370,10 +370,10 @@ export class DocumentationPage {
   DocUpload() {
     let _base = this;
     if (this.imageIdOne && this.imageIdTwo && this.imageIdThree && this.imageIdFour) {
-      let a = [{ _id: this.imageIdOne }];
-      let b = [{ _id: this.imageIdTwo }];
-      let c = [{ _id: this.imageIdThree }];
-      let d = [{ _id: this.imageIdFour }];
+      let a = this.imageIdOne;
+      let b = this.imageIdTwo;
+      let c = this.imageIdThree;
+      let d = this.imageIdFour;
       var dataOne = {
         userId: this.id,
         drivingLicense: a,
@@ -396,6 +396,7 @@ export class DocumentationPage {
           console.log(data);
           this.message = "Documents has been linked";
           this.showToast('top');
+          _base.navCtrl.setRoot("DriverdashboardPage");
         }
       });
     }
@@ -441,15 +442,15 @@ export class DocumentationPage {
         _base.showToast('top');
       }
       else if (data) {
-        _base.drivingLicenseImageId = (data.result[1].drivingLicense.length) ? data.result[1].drivingLicense[data.result[1].drivingLicense.length - 1] : '';
-        _base.vehicleRegistrationImageId = (data.result[1].vechileRegistration.length) ? data.result[1].vechileRegistration[data.result[1].vechileRegistration.length - 1] : '';
-        _base.vehicleInsurenceImageId = (data.result[1].vehicleInsurance.length) ? data.result[1].vehicleInsurance[data.result[1].vehicleInsurance.length - 1] : '';
-        _base.vehiclePermitImageId = (data.result[1].vehiclePermit.length) ? data.result[1].vehiclePermit[data.result[1].vehiclePermit.length - 1] : '';
+        _base.drivingLicenseImageId = data.user.drivingLicense ? data.user.drivingLicense : '';
+        _base.vehicleRegistrationImageId = data.user.vechileRegistration ? data.user.vechileRegistration : '';
+        _base.vehicleInsurenceImageId = data.user.vehicleInsurance ? data.user.vehicleInsurance : '';
+        _base.vehiclePermitImageId = data.user.vehiclePermit ? data.user.vehiclePermit : '';
 
-        _base.url = this.httpService.url + "user/fileShow?imageId=" + _base.drivingLicenseImageId;
-        _base.urlOne = this.httpService.url + "user/fileShow?imageId=" + _base.vehicleRegistrationImageId;
-        _base.urlTwo = this.httpService.url + "user/fileShow?imageId=" + _base.vehicleInsurenceImageId;
-        _base.urlThree = this.httpService.url + "user/fileShow?imageId=" + _base.vehiclePermitImageId;
+        _base.url = data.user.drivingLicense ? this.httpService.url + "user/fileShow?imageId=" + _base.drivingLicenseImageId : '';
+        _base.urlOne = data.user.vechileRegistration ? this.httpService.url + "user/fileShow?imageId=" + _base.vehicleRegistrationImageId : '';
+        _base.urlTwo = data.user.vehicleInsurance ? this.httpService.url + "user/fileShow?imageId=" + _base.vehicleInsurenceImageId : '';
+        _base.urlThree = data.user.vehiclePermit ? this.httpService.url + "user/fileShow?imageId=" + _base.vehiclePermitImageId : '';
       }
     });
   }

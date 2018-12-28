@@ -93,7 +93,7 @@ export class HttpService {
     public documentUpload(params) {
         console.log("Document upload in http service");
         console.log(params);
-        return this.http.post(this.url + "driver/driverDocs", JSON.stringify(params), this.headerOptions)
+        return this.http.post(this.url + "driver/updateDriverDocs", JSON.stringify(params), this.headerOptions)
             .map((response: Response) => response.json())
             .catch((error: any) => Observable.throw(error.json() || `Server error`));
     }
@@ -146,14 +146,14 @@ export class HttpService {
     //Driver history list
     //Driver add Car
     public addCar(carData: any) {
-        return this.http.post(this.url + "driver/driverDocs", carData, this.headerOptions)
+        return this.http.post(this.url + "driver/updateDriverDocs", carData, this.headerOptions)
             .map((response: Response) => response.json())
             .catch((error: any) => Observable.throw(error.json() || `Server error`));
     }
 
     // get driver car details
     public getCar(driverID: any) {
-        return this.http.get(this.url + "driver/driverCarDetails?driverId=" + driverID, this.headerOptions)
+        return this.http.get(this.url + "user/getDetails?_id=" + driverID, this.headerOptions)
             .map((response: Response) => response.json())
             .catch((error: any) => Observable.throw(error.json() || `Server error`));
     }
@@ -198,4 +198,11 @@ export class HttpService {
             .map((response: Response) => response.json())
             .catch((error: any) => Observable.throw(error.json() || `Server error`));
     }
+
+    // get cab types
+    public getCabTypes() {
+        return this.http.get(this.url + "booking/getcabtypes", this.headerOptions)
+            .map((response: Response) => response.json())
+            .catch((error: any) => Observable.throw(error.json() || `Server error`));
+    };
 }
