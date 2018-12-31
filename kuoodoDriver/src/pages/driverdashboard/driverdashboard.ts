@@ -266,7 +266,7 @@ export class DriverdashboardPage {
   acceptRideRequest() {
     this.rideRequest = false;
     this.pauseRingtone();
-    this.cancelRide();
+    this.acceptRide();
     this.completeLoading();
     this.clearAutoCancel();
   }
@@ -274,7 +274,7 @@ export class DriverdashboardPage {
   cancelRideRequest() {
     this.rideRequest = false;
     this.pauseRingtone();
-    this.acceptRide();
+    this.cancelRide();
     this.completeLoading();
     this.clearAutoCancel();
   }

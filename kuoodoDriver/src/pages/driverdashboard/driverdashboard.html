@@ -58,16 +58,18 @@
                         <strong class="text-black">{{userStartLoc}}</strong>
                     </ion-col>
                     <ion-col>
-                        <small class="text-light">How far</small>
-                        <strong class="text-black">0.5km away</strong>
+                        <small class="text-light">Destination</small>
+                        <strong class="text-black">{{userEndLoc}}</strong>
                     </ion-col>
                 </ion-row>
+                <ion-row>
+                    <span>Phone Number :</span> {{riderNumber}}
+                </ion-row>
                 <div text-center padding-left padding-right>
-                    <button ion-button full class="bg-green full" (click)="acceptRideRequest()"> ACCEPT <span class="time">(02:29
-                            Min)</span></button>
+                    <button ion-button full class="bg-green full" (click)="acceptRideRequest()"> ACCEPT <span class="time"></span></button>
                 </div>
             </ion-card-content>
-        </ion-card>
+        </ion-card>acceptRideRequest
     </div>
 
 
