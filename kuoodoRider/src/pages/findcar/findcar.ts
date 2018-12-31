@@ -710,6 +710,8 @@ export class FindcarPage {
       }
       else if (!data.error) {
 
+        console.log("Driver details =========>", data);
+
         _base.driverId = data.result.driverId._id;
         _base.phone = data.result.driverId.phoneNumber;
         _base.tempOtp = bookData.code;
@@ -721,6 +723,8 @@ export class FindcarPage {
 
         console.log(_base.startLatitude, _base.startLongitude);
         console.log(location[1], location[0]);
+
+        _base.calculateBookedCab(location[1], location[0]);
 
         _base.rideMode = true;
         _base.waitingLoader = _base.loadingCtrl.create({
@@ -852,6 +856,31 @@ export class FindcarPage {
           console.log("Cab types after adding duration", _base.cabTypes);
         }
       });
+    });
+  }
+
+  calculateBookedCab(lat, lng) {
+    let _base = this;
+
+    let end = new google.maps.LatLng(_base.startLatitude, _base.startLongitude);
+    let start = new google.maps.LatLng(lat, lng);
+
+    var directionsService = new google.maps.DirectionsService();
+
+    var request = {
+      origin: start,
+      destination: end,
+      travelMode: google.maps.TravelMode.DRIVING
+    };
+
+    directionsService.route(request, function (response, status) {
+      if (status == google.maps.DirectionsStatus.OK) {
+        let duration = response.routes[0].legs[0].duration.text;
+        let distance = response.routes[0].legs[0].distance.value;
+        _base.arrivingDistance = distance;
+        _base.arrivingDuration = duration;
+        console.log("Cab types after adding duration", _base.cabTypes);
+      }
     });
   }
 
