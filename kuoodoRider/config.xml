@@ -82,6 +82,7 @@
     <plugin name="cordova-plugin-device" spec="^2.0.2" />
     <plugin name="cordova-plugin-network-information" spec="^2.0.1" />
     <plugin name="cordova-plugin-whitelist" spec="^1.3.3" />
-    <engine name="android" spec="7.0.0" />
+    <plugin name="cordova-plugin-braintree" spec="https://github.com/taracque/cordova-plugin-braintree" />
     <engine name="ios" spec="4.5.5" />
+    <engine name="android" spec="~7.0.0" />
 </widget>
