@@ -25,7 +25,7 @@ export class DriverdashboardPage {
   //waiting loader
   public waitingLoader: any;
 
-  public stopwatch: any = new Stopwatch();
+  public tstopwatch: any = new Stopwatch();
   acceptRideDataMessage: any;
   e: any;
   bID: any;
@@ -655,7 +655,7 @@ export class DriverdashboardPage {
         } else {
 
           // start stop watch here
-          _base.timer.start();
+          _base.tstopwatch.start();
 
           this.ridingStatus = true;
 
@@ -756,13 +756,40 @@ export class DriverdashboardPage {
     let _base = this;
     // start scanning
 
-    this.barcodeScanner.scan().then(barcodeData => {
-      console.log('Barcode data', barcodeData.text);
-      _base.startRide(barcodeData.text);
-    }).catch(err => {
-      console.log('Error', err);
-      alert("Please try again");
+    let alert = this.alertController.create({
+      title: 'Login',
+      inputs: [
+        {
+          name: 'code',
+          placeholder: 'code'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Confirm ?',
+          handler: data => {
+            console.log("Code is :", data.code);
+            _base.startRide(data.code);
+          }
+        }
+      ]
     });
+    alert.present();
+
+    // this.barcodeScanner.scan().then(barcodeData => {
+    //   console.log('Barcode data', barcodeData.text);
+    //   _base.startRide(barcodeData.text);
+    // }).catch(err => {
+    //   console.log('Error', err);
+    //   alert("Please try again");
+    // });
   }
 
 
@@ -833,9 +860,9 @@ export class DriverdashboardPage {
   */
   endRide() {
     let _base = this;
-    _base.timer.stop();
+    _base.tstopwatch.stop();
 
-    let timeTravelled = (_base.timer.ms / 1000) / 60;
+    let timeTravelled = (_base.tstopwatch.ms / 1000) / 60;
 
     _base.calculateAmount(timeTravelled)
       .then(function (travelCost: any) {
@@ -845,7 +872,7 @@ export class DriverdashboardPage {
           amount: cost
         }
 
-        this.appService.driverEndRide(data, (error, data) => {
+        _base.appService.driverEndRide(data, (error, data) => {
           if (error) {
             console.log("Error in Driver end ride :", error);
           }

@@ -3,6 +3,7 @@ import { NavController, NavParams, ModalController, IonicPage, ToastController }
 import { Geolocation, GeolocationOptions } from '@ionic-native/geolocation';
 import { AlertController, LoadingController } from 'ionic-angular';
 import { HttpService } from '../../app.httpService';
+import { Stripe } from '@ionic-native/stripe';
 
 declare var google;
 
@@ -89,6 +90,7 @@ export class FindcarPage {
 
   //currently available drivers
   availableCars: any = [];
+  cards: any;
 
   constructor(public nav: NavController,
     public navCtrl: NavController,
@@ -100,9 +102,11 @@ export class FindcarPage {
     private localStorageProvider: LocalStorageProvider,
     private alertCtrl: AlertController,
     public toastCtrl: ToastController,
+    private stripe: Stripe,
     public loadingCtrl: LoadingController) {
 
     let _base = this;
+    this.stripe.setPublishableKey('pk_test_VhzSeB9VAJoriVMMqAOh0i6C');
 
     this.socket = io(this.httpService.url);
     this.socket.on('connect', () => {
@@ -182,10 +186,8 @@ export class FindcarPage {
         _base.showToast("Ride has completed");
         // _base.clearTrip();
         let price = data.price;
-        _base.nav.setRoot("PaymentPage", {
-          "driverID": driverID,
-          "paymentAmount": price
-        });
+        // this.attemptPayment();
+        _base.nav.push("RatingPage");
         _base.rideMode = false;
       }
     });
@@ -197,7 +199,7 @@ export class FindcarPage {
           // _base.socket.emit("payment", {
           //   driverId: _base.driverId
           // });
-          _base.nav.setRoot("RatingPage", {
+          _base.nav.push("RatingPage", {
             "driverName": _base.drivername,
             "driverid": _base.driverId
           });
@@ -308,11 +310,43 @@ export class FindcarPage {
           _base.appService.updateUser(data.user);
           _base.userData = data.user;
           // console.log(data);
+
         }
       }
     });
 
     this.initMap();
+  }
+
+  ionViewDidEnter() {
+    let _base = this;
+
+    //checking pending payments
+    _base.getPendingPayments()
+      .then(function (success: any) {
+        console.log("success - getting payments", success);
+        if (success.result.length) {
+          if (success.result[0].amount >= 0) {
+            _base.nav.push("PaymentsPage");
+          }
+        }
+      }, function (error) {
+        console.log("error - getting payments", error);
+      });
+
+    //checking payment methods
+    _base.getCards()
+      .then(function (success: any) {
+        if (success.cards.length == 0) {
+          alert("Please add a payment method to book ride");
+          _base.navCtrl.push("PaymentsPage");
+        } else {
+          _base.cards = success.cards;
+        }
+      }, function (error) {
+        _base.navCtrl.push("PaymentsPage");
+        _base.showToast("can not get card");
+      });
   }
 
   /*
@@ -692,7 +726,8 @@ export class FindcarPage {
       startLocation: _base.startAddress,
       endLocation: _base.endAddress,
       distance: _base.distance,
-      carType: _base.cartype.name
+      carType: _base.cartype.name,
+      amount: _base.cabTypes.amount
     }
 
     let bookLoader = _base.loadingCtrl.create({
@@ -991,6 +1026,115 @@ export class FindcarPage {
       console.log("No available");
       alert(car.name + " is not available here.");
     }
+  }
+
+
+  // get penging payments
+  getPendingPayments() {
+    var _base = this;
+    var loading = this.loadingCtrl.create({
+      content: 'Getting pending payments...'
+    });
+    loading.present();
+    return new Promise(function (resolve, reject) {
+      _base.appService.getPendingPayments(_base.id, function (error, data) {
+        loading.dismiss();
+        if (error) {
+          reject(error);
+        }
+        else {
+          if (data) {
+            resolve(data);
+          }
+        }
+      });
+    });
+  }
+
+  // get cards
+  getCards() {
+    var _base = this;
+    var loading = this.loadingCtrl.create({
+      content: 'Getting cards...'
+    });
+    loading.present();
+    return new Promise(function (resolve, reject) {
+      _base.appService.getCards(_base.id, function (error, data) {
+        loading.dismiss();
+        if (error) {
+          reject(error);
+        }
+        else {
+          if (data) {
+            resolve(data);
+          }
+        }
+      });
+    });
+  }
+
+  attemptPayment() {
+    let _base = this;
+    let card = {
+      number: this.cards[0].number,
+      expMonth: this.cards[0].expmonth,
+      expYear: this.cards[0].expyear,
+      cvc: this.cards[0].cvv
+    };
+
+    var loading = this.loadingCtrl.create({
+      content: 'Making the payment...'
+    });
+    loading.present();
+
+    this.stripe.createCardToken(card)
+      .then(token => {
+        let tokenID = token.id;
+        console.log("Payment token :", token);
+        _base.chargeCard(tokenID)
+          .then(function (response: any) {
+            loading.dismiss();
+            console.log("Payment response :", response);
+            if (response.error) {
+              alert(response.message);
+            } else {
+              alert("Payment successfull");
+              _base.navCtrl.push("RatingPage");
+            }
+          }, function (error) {
+            loading.dismiss();
+            console.log("Error in payment", error);
+            alert("Error processing payment");
+            _base.navCtrl.push("RatingPage");
+          });
+      })
+      .catch(error => {
+        loading.dismiss();
+        console.log("Error processing payment", error);
+        alert("Error processing the payment.");
+        _base.navCtrl.push("RatingPage");
+      });
+  }
+
+  //charge card
+  chargeCard(token) {
+    var _base = this;
+    let paymentData = {
+      userId: this.id,
+      token: token
+    }
+    return new Promise(function (resolve, reject) {
+      _base.appService.chargeCard(paymentData, function (error, data) {
+        if (error) {
+          reject(error);
+        }
+        else {
+          if (data) {
+            resolve(data);
+          }
+        }
+      });
+    });
   }
 
 }

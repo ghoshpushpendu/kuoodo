@@ -11,7 +11,7 @@
     <div class="card-subtitle">Payment pending</div>
   </ion-card>
 
-  <button ion-button block *ngIf="pendingAmount != '0'" (click)="makePayment()">Pay Now</button>
+  <button ion-button block *ngIf="pendingAmount != '0'" (click)="makePayment()">Pay $ {{pendingAmount}}</button>
 
 
   <ion-list>

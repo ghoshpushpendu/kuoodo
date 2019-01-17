@@ -10,6 +10,7 @@ import { LocalStorageProvider } from '../app.localStorage';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Device } from '@ionic-native/device';
 import { Network } from '@ionic-native/network';
+import { Stripe } from '@ionic-native/stripe';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { Network } from '@ionic-native/network';
     LocalStorageProvider,
     Geolocation,
     Network,
+    Stripe,
     LocalStorageProvider,
     Device
   ]

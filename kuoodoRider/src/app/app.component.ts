@@ -7,6 +7,7 @@ import { AppService } from '../app.providers';
 import { HttpService } from '../app.httpService';
 import { Device } from '@ionic-native/device';
 import { Network } from '@ionic-native/network';
+import { MenuController } from 'ionic-angular';
 
 declare var navigator;
 declare var google;
@@ -50,7 +51,8 @@ export class MyApp {
     private appService: AppService,
     private device: Device,
     public loadingCtrl: LoadingController,
-    public network: Network
+    public network: Network,
+    public menuCtrl: MenuController
   ) {
 
     let _base = this;
@@ -187,6 +189,12 @@ export class MyApp {
       let message = "Connected to network";
       _base.showToast(message);
     });
+  }
+
+  showprofile() {
+    this.menuCtrl.close();
+    this.nav.push("ProfilePage");
+    
   }
 
 }

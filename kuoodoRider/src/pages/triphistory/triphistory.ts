@@ -56,7 +56,19 @@ export class TriphistoryPage {
       .then(function (success: any) {
         console.log(success.result);
         console.log("hmm user");
-        _base.trips = success.result;
+        _base.trips = success.result.map(function (trip) {
+          let status = trip.status;
+          let payment = trip.payment;
+          trip.amount = parseInt(trip.amount);
+          if (status == 'complete' && payment == 'Paid') {
+            trip.stamp = "paid.png";
+          } else if (status == 'booked' || status == 'commute') {
+            trip.stamp = "pending.jpg";
+          } else if (status = "cancelled") {
+            trip.stamp = "cancelled.png";
+          }
+          return trip;
+        });
         _base.loader.dismiss();
         // console.log(_base.trips[1].startTime.now());
       }, function (error) {
@@ -91,7 +103,7 @@ export class TriphistoryPage {
     this.loader.present();
   }
 
-  pop(){
+  pop() {
     this.navCtrl.pop();
   }
 

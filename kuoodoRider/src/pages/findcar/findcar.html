@@ -58,18 +58,13 @@
         <ion-row padding class="car-details">
           <ion-col>
             <small class="text-light">Driver distance</small>
-            <strong class="text-black">{{arrivingDistance}}</strong>
+            <strong class="text-black">{{arrivingDistance/1000}} K.M</strong>
           </ion-col>
           <ion-col>
             <small class="text-light">Time to arrive</small>
             <strong class="text-black">{{arrivingDuration}}</strong>
           </ion-col>
         </ion-row>
-        <div text-center padding-left padding-right>
-          <button ion-button full class="bg-green full" (click)="ridefullinfoPage()">CONTACT</button>
-
-          <ion-icon name="ios-arrow-down" class="text-light" (click)="ridefullinfoPage()"></ion-icon>
-        </div>
 
       </ion-card-content>
     </ion-card>
@@ -112,8 +107,9 @@
   <div #map id="map"></div>
 
   <div *ngIf="otp != ''" class="qrCode">
-    <qr-code [value]="otp" [size]="200"></qr-code>
-    <p>Please ask the driver to scan it while starting *ngIf="rideMode"ride</p>
+    <h2>{{otp}}</h2>
+    <!-- <qr-code [value]="otp" [size]="200"></qr-code> -->
+    <p>Provide the driver this code while starting ride .</p>
   </div>
 
 

@@ -4,8 +4,15 @@
 
   </ion-navbar>
   <div class="image">
-    <img padding src="{{userImage}}" (click)="presentActionSheet()">
+    <img padding src="{{userImage}}">
     <p no-margin class="icon-head">{{userName}}</p>
+  </div>
+
+  <div class="fileUpload btn btn-primary">
+    <!-- <span>
+      <ion-icon class="upload-btn" ios="ios-camera" md="md-camera"></ion-icon>
+    </span> -->
+    <ion-input type="file" class="upload" (change)="selectImage($event)"></ion-input>
   </div>
 
 
@@ -31,7 +38,7 @@
     <ion-list>
 
       <ion-item>
-        <ion-label stacked>ame</ion-label>
+        <ion-label stacked>Name</ion-label>
         <ion-input type="text" [(ngModel)]="username" [disabled]="isUsername"></ion-input>
       </ion-item>
 

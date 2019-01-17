@@ -181,8 +181,8 @@ export class HttpService {
     };
 
     //charge the card
-    public chargeCard(userId) {
-        return this.http.post(this.url + "cards/charge", { userId: userId }, this.headerOptions)
+    public chargeCard(paymentData) {
+        return this.http.post(this.url + "cards/charge", paymentData, this.headerOptions)
             .map(function (response) { return response.json(); })
             .catch((error: any) => Observable.throw(error.json() || `Server error`));
     };
