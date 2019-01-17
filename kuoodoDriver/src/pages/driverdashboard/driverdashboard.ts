@@ -9,6 +9,7 @@ import * as io from "socket.io-client";
 import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
+import Stopwatch from 'timer-stopwatch';
 
 declare var google;
 declare var navigator;
@@ -24,7 +25,7 @@ export class DriverdashboardPage {
   //waiting loader
   public waitingLoader: any;
 
-
+  public tstopwatch: any = new Stopwatch();
   acceptRideDataMessage: any;
   e: any;
   bID: any;
@@ -80,23 +81,54 @@ export class DriverdashboardPage {
   public distance: any;
 
   public carTypes = [{
-    'amount': 5,
-    'type': 'standard'
-  }, {
-    'amount': 8,
-    'type': 'standard_plus'
-  }, {
-    'amount': 12,
-    'type': 'premium'
-  }, {
-    'amount': 15,
-    'type': 'premium_plus'
-  }, {
-    'amount': 10,
-    'type': 'sport'
-  }, {
-    'amount': 20,
-    'type': 'sport_plus'
+    "name": "Economy",
+    "initialCost": "2.2",
+    "serviceFee": "2.2",
+    "perMinutes": "0.24",
+    "perMile": "1.33",
+    "minimum": "5",
+    "maximum": "400",
+    "cancellation": "5"
+  },
+  {
+    "name": "Xtra",
+    "initialCost": "2.45",
+    "serviceFee": "2.45",
+    "perMinutes": "0.3",
+    "perMile": "2.06",
+    "minimum": "7",
+    "maximum": "400",
+    "cancellation": "5"
+  },
+  {
+    "name": "Luxury",
+    "initialCost": "8",
+    "serviceFee": "1.75",
+    "perMinutes": "0.65",
+    "perMile": "3.81",
+    "minimum": "15",
+    "maximum": "400",
+    "cancellation": "5"
+  },
+  {
+    "name": "SUV Luxury",
+    "initialCost": "15",
+    "serviceFee": "1.75",
+    "perMinutes": "0.9",
+    "perMile": "3.81",
+    "minimum": "25",
+    "maximum": "400",
+    "cancellation": "5"
+  },
+  {
+    "name": "Supreme",
+    "initialCost": "5",
+    "serviceFee": "2.45",
+    "perMinutes": "0.5",
+    "perMile": "2.81",
+    "minimum": "9",
+    "maximum": "400",
+    "cancellation": "5"
   }];
 
   @ViewChild('map') mapElement: ElementRef;
@@ -621,12 +653,13 @@ export class DriverdashboardPage {
         if (data.error) {
           _base.showToast(data.message);
         } else {
+
+          // start stop watch here
+          _base.tstopwatch.start();
+
           this.ridingStatus = true;
 
           _base.navigate();
-
-
-          _base.price = parseInt(_base.distance) * (_base.getPerMilePrice(_base.carDetails.carType))
           _base.IsEndRideHidden = false;
           _base.IsStartRideHidden = true;
         }
@@ -723,13 +756,40 @@ export class DriverdashboardPage {
     let _base = this;
     // start scanning
 
-    this.barcodeScanner.scan().then(barcodeData => {
-      console.log('Barcode data', barcodeData.text);
-      _base.startRide(barcodeData.text);
-    }).catch(err => {
-      console.log('Error', err);
-      alert("Please try again");
+    let alert = this.alertController.create({
+      title: 'Login',
+      inputs: [
+        {
+          name: 'code',
+          placeholder: 'code'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Confirm ?',
+          handler: data => {
+            console.log("Code is :", data.code);
+            _base.startRide(data.code);
+          }
+        }
+      ]
     });
+    alert.present();
+
+    // this.barcodeScanner.scan().then(barcodeData => {
+    //   console.log('Barcode data', barcodeData.text);
+    //   _base.startRide(barcodeData.text);
+    // }).catch(err => {
+    //   console.log('Error', err);
+    //   alert("Please try again");
+    // });
   }
 
 
@@ -752,34 +812,84 @@ export class DriverdashboardPage {
   }
 
 
+  /**  calculate the final travel amount  **/
+  calculateAmount(time) {
+    let _base = this;
+    return new Promise(function (resolve, reject) {
+      let end = new google.maps.LatLng(_base.userStartLatitude, _base.userStartLongitude);
+      let start = new google.maps.LatLng(_base.startLatitude, _base.endLongitude);
+
+      var directionsService = new google.maps.DirectionsService();
+
+      var request = {
+        origin: start,
+        destination: end,
+        travelMode: google.maps.TravelMode.DRIVING
+      };
+
+      directionsService.route(request, function (response, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+          let distance = response.routes[0].legs[0].distance.value * 0.000621371;
+          let minutes = parseFloat(_base.getPerMilePrice(_base.carDetails.carType).perMinutes);
+          let miles = parseFloat(_base.getPerMilePrice(_base.carDetails.carType).perMile);
+          let initial = parseFloat(_base.getCarInfo().initialCost);
+          let service = parseFloat(_base.getCarInfo().serviceFee);
+          let cost = initial + service + distance * miles + time * minutes;
+          resolve({
+            cost: cost
+          });
+        }
+      });
+    });
+  }
+
+
+  getCarInfo() {
+    let _base = this;
+    let carType = this.carDetails.carType;
+    for (let i = 0; i <= _base.carTypes.length; i++) {
+      if (_base.carTypes[i].name = carType) {
+        return _base.carTypes[i];
+      }
+    }
+  }
+
+
   /*
   Driver End Riding
   */
   endRide() {
     let _base = this;
+    _base.tstopwatch.stop();
 
-    var data = {
-      bookingId: _base.bookingId,
-      amount: _base.price
-    }
+    let timeTravelled = (_base.tstopwatch.ms / 1000) / 60;
 
-    this.appService.driverEndRide(data, (error, data) => {
-      if (error) {
-        console.log("Error in Driver end ride :", error);
-      }
-      else if (data) {
+    _base.calculateAmount(timeTravelled)
+      .then(function (travelCost: any) {
+        let cost = travelCost.cost;
+        var data = {
+          bookingId: _base.bookingId,
+          amount: cost
+        }
 
-        console.log("Data in Driver end ride :", data);
-        _base.isEndRide = true;
-        _base.IsEndRideHidden = true;
-        _base.IsStartRideHidden = true;
-        _base.clearall();
-        // _base.waitingLoader = _base.loadingCtrl.create({
-        //   content: 'Please wait for user payment ...'
-        // });
-        // _base.waitingLoader.present();
-      }
-    });
+        _base.appService.driverEndRide(data, (error, data) => {
+          if (error) {
+            console.log("Error in Driver end ride :", error);
+          }
+          else if (data) {
+
+            console.log("Data in Driver end ride :", data);
+            _base.isEndRide = true;
+            _base.IsEndRideHidden = true;
+            _base.IsStartRideHidden = true;
+            _base.clearall();
+            // _base.waitingLoader = _base.loadingCtrl.create({
+            //   content: 'Please wait for user payment ...'
+            // });
+            // _base.waitingLoader.present();
+          }
+        });
+      });
   }
 
   loading() {
@@ -804,11 +914,11 @@ export class DriverdashboardPage {
   getPerMilePrice(carType: string) {
     let _base = this;
     for (let i = 0; i < _base.carTypes.length; i++) {
-      if (_base.carTypes[i].type == carType) {
-        return _base.carTypes[i].amount;
-      }
-      if (i == _base.carTypes.length - 1) {
-        return _base.carTypes[0].amount; // if type not found calculate as standard car
+      if (_base.carTypes[i].name == carType) {
+        return {
+          perMile: _base.carTypes[i].perMile,
+          perMinutes: _base.carTypes[i].perMinutes
+        }
       }
     }
   }

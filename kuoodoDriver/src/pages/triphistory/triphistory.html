@@ -33,7 +33,7 @@
           <!-- date html -->
           <!-- profile name -->
           <p>{{trip.userId.firstName +' '+trip.userId.lastName}}</p>
-          <span>{{trip.driverDetails.carName}}</span>
+          <span>{{trip.driverId.carName}}</span>
           <!-- profile name -->
         </ion-item>
       </ion-list>
@@ -66,6 +66,8 @@
     <!-- <ion-card-footer>
       Header
     </ion-card-footer> -->
+    <img class="stamp" src="assets/stamps/{{trip.stamp}}" />
+
   </ion-card>
   <!-- card  end-->
 

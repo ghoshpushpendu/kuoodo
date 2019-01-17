@@ -4,7 +4,7 @@ import { AlertController, LoadingController } from 'ionic-angular';
 import { LocalStorageProvider } from '../../app.localStorage';
 import { AppService } from '../../app.providers';
 import { HttpService } from '../../app.httpService';
-
+import { Stripe } from '@ionic-native/stripe';
 
 @IonicPage({ name: 'PaymentsPage' })
 @Component({
@@ -17,8 +17,9 @@ export class PaymentsPage {
   public cards: any = [];
   public pendingAmount: any = '0';
 
-  constructor(public appService: AppService, public navCtrl: NavController, public localStorageProvider: LocalStorageProvider, public toastCtrl: ToastController, public loadingCtrl: LoadingController, public navParams: NavParams) {
+  constructor(private stripe: Stripe, public appService: AppService, public navCtrl: NavController, public localStorageProvider: LocalStorageProvider, public toastCtrl: ToastController, public loadingCtrl: LoadingController, public navParams: NavParams) {
     this.userID = this.localStorageProvider.getUserId();
+    this.stripe.setPublishableKey('pk_test_VhzSeB9VAJoriVMMqAOh0i6C');
   }
 
   ionViewDidLoad() {
@@ -39,6 +40,7 @@ export class PaymentsPage {
     var _base = this;
     this.getCards()
       .then(function (success: any) {
+        console.log("cards ============================================", success.cards);
         _base.cards = success.cards;
       }, function (error) {
         _base.showToast("can not get card");
@@ -48,7 +50,7 @@ export class PaymentsPage {
       .then(function (success: any) {
         console.log("success - getting payments", success);
         if (success.result.length) {
-          _base.pendingAmount = success.result[0].amount;
+          _base.pendingAmount = Math.round(success.result[0].amount);
         }
       }, function (error) {
         console.log("error - getting payments", error);
@@ -105,6 +107,7 @@ export class PaymentsPage {
         _base.showToast("card has been deleted");
         _base.getCards()
           .then(function (success: any) {
+            console.log("cards ============================================", success.cards);
             _base.cards = success.cards;
           }, function (error) {
             _base.showToast("can not get card");
@@ -136,26 +139,55 @@ export class PaymentsPage {
   }
 
   makePayment() {
-    this.chargeCard()
-      .then(function (success: any) {
-        console.log(success);
-        this.showToast("card has been charged")
-      }, function (error) {
-        console.log(error);
-        this.showToast("card has not been charged")
+    let _base = this;
+    let card = {
+      number: this.cards[0].number,
+      expMonth: this.cards[0].expmonth,
+      expYear: this.cards[0].expyear,
+      cvc: this.cards[0].cvv
+    };
+
+    var loading = this.loadingCtrl.create({
+      content: 'Making the payment...'
+    });
+    loading.present();
+
+    this.stripe.createCardToken(card)
+      .then(token => {
+        let tokenID = token.id;
+        console.log("Payment token :", token);
+        _base.chargeCard(tokenID)
+          .then(function (response: any) {
+            loading.dismiss();
+            console.log("Payment response :", response);
+            if (response.error) {
+              alert(response.message);
+            } else {
+              alert("Payment successfull");
+              _base.navCtrl.setRoot("FindcarPage");
+            }
+          }, function (error) {
+            loading.dismiss();
+            console.log("Error in payment", error);
+            alert("Error processing payment");
+          });
+      })
+      .catch(error => {
+        loading.dismiss();
+        console.log("Error processing payment", error);
+        alert("Error processing the payment.");
       });
   }
 
   //charge card
-  chargeCard() {
+  chargeCard(token) {
     var _base = this;
-    var loading = this.loadingCtrl.create({
-      content: 'Charging the card...'
-    });
-    loading.present();
+    let paymentData = {
+      userId: this.userID,
+      token: token
+    }
     return new Promise(function (resolve, reject) {
-      _base.appService.chargeCard(_base.userID, function (error, data) {
-        loading.dismiss();
+      _base.appService.chargeCard(paymentData, function (error, data) {
         if (error) {
           reject(error);
         }

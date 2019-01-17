@@ -3,6 +3,10 @@ import { NavController, IonicPage, NavParams, ActionSheetController, LoadingCont
 import { LocalStorageProvider } from '../../app.localStorage';
 import { AppService } from '../../app.providers';
 import { HttpService } from '../../app.httpService';
+import { Http, Headers, RequestOptions } from '@angular/http';
+import { Observable } from 'rxjs/Rx';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 
 @IonicPage({ name: 'ProfilePage' })
 @Component({
@@ -39,6 +43,7 @@ export class ProfilePage {
     private httpService: HttpService,
     private appService: AppService,
     public actionSheetCtrl: ActionSheetController,
+    private http: Http,
     public loader: LoadingController) {
 
     /*
@@ -125,6 +130,72 @@ export class ProfilePage {
         }
       });
     }
+  }
+
+  selectImage(event) {
+    let fileList: FileList = event.target.files;
+
+    console.log("File list information :");
+    console.log(fileList);
+
+    if (fileList.length > 0) {
+      let file: File = fileList[0];
+
+      if (file) {
+        var reader = new FileReader();
+
+        reader.onload = (event: any) => {
+          this.url = event.target.result;
+        }
+        reader.readAsDataURL(event.target.files[0]);
+      }
+
+      console.log("File information :");
+      console.log(file);
+
+      let formData: FormData = new FormData();
+      formData.append('file', file, file.name);
+
+      let headerOptions = new RequestOptions({
+        headers: new Headers({
+          'Accept': 'application/json'
+        }),
+      });
+
+
+      this.http.post(this.httpService.url + "user/fileUpload", formData, headerOptions)
+        .map(res => res.json())
+        .catch(error => Observable.throw(error))
+        .subscribe(
+          data => {
+            if (data) {
+              let id = data.upload._id;
+            }
+          },
+          error => {
+            if (error) {
+            }
+          });
+
+    }
+  }
+
+  updateUser(imageID:any) {
+    let _base = this;
+    
+    // let 
+    // return new Promise(function (resolve, reject) {
+    //   _base.appService.chargeCard(paymentData, function (error, data) {
+    //     if (error) {
+    //       reject(error);
+    //     }
+    //     else {
+    //       if (data) {
+    //         resolve(data);
+    //       }
+    //     }
+    //   });
+    // });
   }
 
 

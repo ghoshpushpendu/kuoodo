@@ -8,11 +8,11 @@
 
 <ion-content>
 
-    <ion-fab class="menubtn" left top (click)="pop()">
-        <button ion-fab >
-            <ion-icon ios="ios-arrow-round-back" md="md-arrow-round-back"></ion-icon>
-        </button>
-      </ion-fab>
+  <ion-fab class="menubtn" left top (click)="pop()">
+    <button ion-fab>
+      <ion-icon ios="ios-arrow-round-back" md="md-arrow-round-back"></ion-icon>
+    </button>
+  </ion-fab>
 
   <!-- each trip -->
   <!-- card  -->
@@ -31,7 +31,7 @@
           <!-- date html -->
           <!-- profile name -->
           <p>{{trip.driverId.firstName +' '+trip.driverId.lastName}}</p>
-          <span>{{trip.driverDetails.carName}}</span>
+          <span>{{trip.driverId.carName}}</span>
           <!-- profile name -->
         </ion-item>
       </ion-list>
@@ -57,10 +57,12 @@
     <div class="footer" padding-horizontal>
       <p float-left>
         {{ trip.distance }}
-        <span *ngIf="trip.distance">Mile</span>
+        <!-- <span *ngIf="trip.distance">Mile</span> -->
       </p>
       <p float-right>{{(trip.amount)?'$'+trip.amount:''}}</p>
     </div>
+
+    <img class="stamp" src="assets/stamps/{{trip.stamp}}" />
     <!-- footer card -->
     <!-- <ion-card-footer>
       Header

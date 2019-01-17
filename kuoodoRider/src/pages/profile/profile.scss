@@ -259,5 +259,58 @@ height:220px;
             font-size:12.55px !important;
         }
     }
+
+    .fileUpload {
+        position: relative;
+        overflow: hidden;
+        margin: 10px;
+    }
+    .fileUpload input.upload {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 0;
+        padding: 0;
+        font-size: 20px;
+        cursor: pointer;
+        opacity: 0;
+        filter: alpha(opacity=0);
+    }
+    .upload-btn{
+        display: inline-block;
+        font-size: 2.2em;
+        position: relative;
+        left: 191px;
+        top: -6px;
+    }
+
+    input.form-control-file {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1;
+        background: #0069d9;
+        color: #fff;
+        width: 30px;
+        height: 30px;
+        border-radius: 100%;
+        line-height: 32px;
+        cursor: pointer;
+        bottom: 0;
+      }
+      input.form-control-file:after {
+        content: "\F044";
+          position: absolute;
+          height: 50px;
+          width: 50px;
+          z-index: 999999;
+          top: -3px;
+          left: 0px;
+          padding: 4px;
+          padding-left: 8px;
+          font-size: 18px;
+          background: blue;
+          font-family: 'FontAwesome';
+      }
 }
 
