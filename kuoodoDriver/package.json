@@ -71,7 +71,8 @@
         "GEOLOCATION_USAGE_DESCRIPTION": "Let us access your location"
       },
       "uk.co.workingedge.phonegap.plugin.launchnavigator": {
-        "OKHTTP_VERSION": "3.+"
+        "OKHTTP_VERSION": "3.+",
+        "LOCATION_USAGE_DESCRIPTION": "This app requires access to your location for navigation purposes"
       },
       "cordova-plugin-network-information": {},
       "phonegap-plugin-barcodescanner": {
