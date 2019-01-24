@@ -8,6 +8,7 @@ import { HttpService } from '../app.httpService';
 import { Device } from '@ionic-native/device';
 import { Network } from '@ionic-native/network';
 import { MenuController } from 'ionic-angular';
+import { RegistrationPage } from '../pages/registration/registration';
 
 declare var navigator;
 declare var google;
@@ -176,10 +177,14 @@ export class MyApp {
     let _base = this;
     let loading: any;
     let disconnectSub = _base.network.onDisconnect().subscribe(() => {
+      if (loading != undefined) {
+        loading.dismiss();
+      }
       loading = _base.loadingCtrl.create({
         content: 'Waiting for connection ...'
       });
       loading.present();
+      this.nav.setRoot("NointernetPage");
     });
 
     let connectSub = _base.network.onConnect().subscribe(() => {
@@ -188,6 +193,12 @@ export class MyApp {
       }
       let message = "Connected to network";
       _base.showToast(message);
+      if (this.userId) {
+        // _base.rootPage = "FindcarPage";
+        this.nav.setRoot("FindcarPage")
+      }else{
+        this.nav.setRoot("RegistrationPage");
+      }
     });
   }
 

@@ -310,7 +310,6 @@ export class FindcarPage {
           _base.appService.updateUser(data.user);
           _base.userData = data.user;
           // console.log(data);
-
         }
       }
     });
@@ -347,6 +346,66 @@ export class FindcarPage {
         _base.navCtrl.push("PaymentsPage");
         _base.showToast("can not get card");
       });
+
+    console.log("================================================================")
+    _base.fetchCurrentRide()
+      .then(function (response: any) {
+        if (!response.error) {
+          console.log("Current ride details :", response);
+          if (response.result.length != 0) {
+            // alert("You are in a ride")
+            console.log(response);
+            let booking = response.result[0];
+          }
+        }
+      }, function (error: any) {
+        console.log("Ride fetch error is :", error);
+      });
+  }
+
+
+  // this function is not in use currently
+  public mapRideData(data: any) {
+    let _base = this;
+    if (data.status == 'Booked') {
+      _base.showToast("Ride request has been accepted");
+      console.log("ride request has been accepted");
+      _base.rideMode = true;
+      _base.driverId = data.driverId._id;
+      console.log("Ride in booked mode =============================", data);
+
+      // setting address in address input fields
+      _base.endAddress = data.endLocation;
+      _base.startAddress = data.startLocation;
+
+      // setting start location on local variables
+      _base.startLatitude = data.pickUpLocation.latitude;
+      _base.startLongitude = data.pickUpLocation.longitude;
+
+      // setting end location on local variable
+      _base.endingLatitude = data.destination.latitude;
+      _base.endingLongitude = data.destination.longitude;
+
+      // setting up driver info
+      _base.drivername = data.driverId.firstName + ' ' + data.driverId.lastName;
+
+      //subscribe to driver location update
+      _base.socket.on(_base.driverId + "-location", (data) => {
+        console.log(data.lat);
+        console.log(data.lng);
+        _base.showDriver(data.lat, data.lng);
+        // endAddress
+      })
+    } else if (data.status == 'Arrived') {
+      // _base.otp = _base.tempOtp;
+      // _base.arrival_status = "arrived";
+      // _base.showToast("Driver has arrived");
+      // _base.showJourneyRoute();
+    } else if (data.status == 'Commute') {
+
+    } else if (data.status == 'Completed') {
+
+    }
   }
 
   /*
@@ -1125,6 +1184,24 @@ export class FindcarPage {
     }
     return new Promise(function (resolve, reject) {
       _base.appService.chargeCard(paymentData, function (error, data) {
+        if (error) {
+          reject(error);
+        }
+        else {
+          if (data) {
+            resolve(data);
+          }
+        }
+      });
+    });
+  }
+
+  // fetch current riding
+  fetchCurrentRide() {
+    var _base = this;
+    let id = this.id;
+    return new Promise(function (resolve, reject) {
+      _base.appService.getCurrentRide(id, function (error, data) {
         if (error) {
           reject(error);
         }
