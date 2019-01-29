@@ -3,6 +3,7 @@ import { NavController, NavParams, ToastController, LoadingController, Events, I
 import { AppService } from '../../app.providers';
 import { HttpService } from '../../app.httpService';
 import { LocalStorageProvider } from '../../app.localStorage';
+import { get } from 'scriptjs';
 
 /**
  * Generated class for the LoginPage page.
@@ -94,7 +95,12 @@ export class LoginPage {
             this.localStorageProvider.setDriverId(data.user._id);
             this.id = data.user._id;
             if (this.id) {
-              this.navCtrl.setRoot("DriverdashboardPage");
+              get("https://maps.googleapis.com/maps/api/js?key=AIzaSyCAUo5wLQ1660_fFrymXUmCgPLaTwdXUgY&libraries=drawing,places,geometry,visualization", () => {
+                //Google Maps library has been loaded...
+                console.log("Google maps library has been loaded");
+                sessionStorage.setItem("google", "enabled");
+                _base.navCtrl.setRoot("DriverdashboardPage");
+              });
             }
           }
         }

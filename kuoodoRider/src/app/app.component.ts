@@ -9,6 +9,7 @@ import { Device } from '@ionic-native/device';
 import { Network } from '@ionic-native/network';
 import { MenuController } from 'ionic-angular';
 import { RegistrationPage } from '../pages/registration/registration';
+import { get } from 'scriptjs';
 
 declare var navigator;
 declare var google;
@@ -35,7 +36,7 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
 
-  rootPage: any = "RegistrationPage";
+  rootPage: any;
 
   pages: Array<{ title: string, component: any }>;
 
@@ -55,6 +56,8 @@ export class MyApp {
     public network: Network,
     public menuCtrl: MenuController
   ) {
+
+    let internet = (navigator.connection.rtt > 0);
 
     let _base = this;
 
@@ -107,7 +110,20 @@ export class MyApp {
 
     if (this.userId) {
       // _base.rootPage = "FindcarPage";
-      _base.rootPage = "FindcarPage"
+      if (internet) {
+        if (sessionStorage.getItem("google") == "enabled") {
+          _base.rootPage = "FindcarPage"
+        } else {
+          get("https://maps.googleapis.com/maps/api/js?key=AIzaSyCAUo5wLQ1660_fFrymXUmCgPLaTwdXUgY&libraries=drawing,places,geometry,visualization", () => {
+            //Google Maps library has been loaded...
+            console.log("Google maps library has been loaded");
+            sessionStorage.setItem("google", "enabled");
+            _base.rootPage = "FindcarPage"
+          });
+        }
+      } else {
+        _base.rootPage = "NointernetPage";
+      }
     }
 
 
@@ -125,6 +141,13 @@ export class MyApp {
       this.base = 'http://mitapi.memeinfotech.com:5040/';
     }
 
+  }
+
+  ngOnInit() {
+    let internet = (navigator.connection.rtt > 0);
+    if (!internet) {
+      this.rootPage = "NointernetPage";
+    }
   }
 
   initializeApp() {
@@ -145,7 +168,7 @@ export class MyApp {
   logout() {
     // localStorage.removeItem("loginId");
     localStorage.clear();
-    this.nav.setRoot("RegistrationPage");
+    this.rootPage = "RegistrationPage";
   }
 
   //Getting  Device Id
@@ -184,7 +207,7 @@ export class MyApp {
         content: 'Waiting for connection ...'
       });
       loading.present();
-      this.nav.setRoot("NointernetPage");
+      this.rootPage = "NointernetPage";
     });
 
     let connectSub = _base.network.onConnect().subscribe(() => {
@@ -195,9 +218,18 @@ export class MyApp {
       _base.showToast(message);
       if (this.userId) {
         // _base.rootPage = "FindcarPage";
-        this.nav.setRoot("FindcarPage")
-      }else{
-        this.nav.setRoot("RegistrationPage");
+        if (sessionStorage.getItem("google") == "enabled") {
+          _base.rootPage = "FindcarPage"
+        } else {
+          get("https://maps.googleapis.com/maps/api/js?key=AIzaSyCAUo5wLQ1660_fFrymXUmCgPLaTwdXUgY&libraries=drawing,places,geometry,visualization", () => {
+            //Google Maps library has been loaded...
+            console.log("Google maps library has been loaded");
+            sessionStorage.setItem("google", "enabled");
+            _base.rootPage = "FindcarPage"
+          });
+        }
+      } else {
+        this.rootPage = "RegistrationPage";
       }
     });
   }
@@ -205,7 +237,6 @@ export class MyApp {
   showprofile() {
     this.menuCtrl.close();
     this.nav.push("ProfilePage");
-    
   }
 
 }

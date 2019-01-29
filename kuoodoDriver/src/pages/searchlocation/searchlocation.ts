@@ -5,6 +5,7 @@ import { HttpService } from '../../app.httpService';
 import { LocalStorageProvider } from '../../app.localStorage';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
+import { get } from 'scriptjs';
 
 @IonicPage()
 @Component({

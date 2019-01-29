@@ -3,6 +3,7 @@ import { NavController, NavParams, ToastController, LoadingController, IonicPage
 import { HttpService } from '../../app.httpService';
 import { AppService } from '../../app.providers';
 import { LocalStorageProvider } from '../../app.localStorage';
+import { get } from 'scriptjs';
 
 
 
@@ -167,9 +168,15 @@ export class RegistrationPage {
         this.showToast('bottom');
       }
       else if (data) {
+        let _base = this;
         this.localStorageProvider.profileInformation(data.user._id);
-        this.navCtrl.setRoot("FindcarPage", {
-          loginId: data.user._id
+        get("https://maps.googleapis.com/maps/api/js?key=AIzaSyCAUo5wLQ1660_fFrymXUmCgPLaTwdXUgY&libraries=drawing,places,geometry,visualization", () => {
+          //Google Maps library has been loaded...
+          console.log("Google maps library has been loaded");
+          sessionStorage.setItem("google", "enabled");
+          _base.navCtrl.setRoot("FindcarPage", {
+            loginId: data.user._id
+          });
         });
       }
     });

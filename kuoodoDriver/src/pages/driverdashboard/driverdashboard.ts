@@ -488,7 +488,10 @@ export class DriverdashboardPage {
       let locationData = res.coords;
 
       let loc = new google.maps.LatLng(this.response.coords.latitude, this.response.coords.longitude);
-      this.locationUpdate(locationData);
+      if (_base.status == true) {
+        this.locationUpdate(locationData);
+      }
+
       this.createMarkar(loc, res.coords.accuracy);
 
     });

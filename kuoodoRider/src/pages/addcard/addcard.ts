@@ -26,7 +26,7 @@ export class AddcardPage {
     public navCtrl: NavController,
     private stripe: Stripe,
     public navParams: NavParams) {
-    this.stripe.setPublishableKey('pk_test_VhzSeB9VAJoriVMMqAOh0i6C');
+    this.stripe.setPublishableKey('pk_live_9AHmOl62GsyiArYPdxApwouk');
   }
 
   ionViewDidLoad() {

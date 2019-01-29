@@ -105,8 +105,9 @@ export class FindcarPage {
     private stripe: Stripe,
     public loadingCtrl: LoadingController) {
 
+
     let _base = this;
-    this.stripe.setPublishableKey('pk_test_VhzSeB9VAJoriVMMqAOh0i6C');
+    this.stripe.setPublishableKey('pk_live_9AHmOl62GsyiArYPdxApwouk');
 
     this.socket = io(this.httpService.url);
     this.socket.on('connect', () => {
@@ -216,6 +217,10 @@ export class FindcarPage {
     this.getCabTypes();
   }
 
+  ionViewDidLeave() {
+    this.stopSearch();
+  }
+
   showAddressModal() {
     let modal = this.modalCtrl.create("AutocompletePage");
     let _base = this;
@@ -302,6 +307,13 @@ export class FindcarPage {
 
     let _base = this;
     /** user profile info **/
+
+    this.initMap();
+  }
+
+  ionViewDidEnter() {
+    let _base = this;
+
     this.appService.getProfile(this.id, (error, data) => {
       if (error) {
         console.log("Error in fetching profile :", error);
@@ -313,12 +325,6 @@ export class FindcarPage {
         }
       }
     });
-
-    this.initMap();
-  }
-
-  ionViewDidEnter() {
-    let _base = this;
 
     //checking pending payments
     _base.getPendingPayments()
@@ -361,6 +367,10 @@ export class FindcarPage {
       }, function (error: any) {
         console.log("Ride fetch error is :", error);
       });
+
+    if (sessionStorage.getItem("location") == "enabled") {
+      _base.setCurrentLocation();
+    }
   }
 
 
@@ -430,6 +440,8 @@ export class FindcarPage {
   setCurrentLocation() {
     let _base = this;
     console.log("map loaded");
+
+    sessionStorage.setItem("location", "enabled");
 
     let loader = _base.loadingCtrl.create({
       content: 'Searching location....'
