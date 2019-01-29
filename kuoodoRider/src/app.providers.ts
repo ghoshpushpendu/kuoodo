@@ -54,6 +54,14 @@ export class AppService {
         });
     }
 
+    public checkInternet(callback): any {
+        this.httpService.checkInternet().subscribe(data => {
+            callback(false, data);
+        }, error => {
+            callback(true, error || 'HTTP fail.');
+        });
+    }
+
     //Verify user and send otp in providers for registration 
     public verifyUserAndSendOtp(params, callback): any {
         console.log("Verify user and send otp in providers for registration");
