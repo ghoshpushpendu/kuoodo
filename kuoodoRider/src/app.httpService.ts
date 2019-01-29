@@ -4,6 +4,7 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/timeout';
 
 @Injectable()
 export class HttpService {
@@ -95,6 +96,13 @@ export class HttpService {
     public getUserInfo(userID: string) {
         console.log("user Id in http :", userID);
         return this.http.get(this.url + "user/getDetails?_id=" + userID, this.headerOptions)
+            .map((response: Response) => response.json())
+            .catch((error: any) => Observable.throw(error.json() || `Server error`));
+    }
+
+    public checkInternet() {
+        return this.http.get("https://reqres.in/api/unknown/2")
+            .timeout(1000)
             .map((response: Response) => response.json())
             .catch((error: any) => Observable.throw(error.json() || `Server error`));
     }

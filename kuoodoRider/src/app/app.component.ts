@@ -8,7 +8,6 @@ import { HttpService } from '../app.httpService';
 import { Device } from '@ionic-native/device';
 import { Network } from '@ionic-native/network';
 import { MenuController } from 'ionic-angular';
-import { RegistrationPage } from '../pages/registration/registration';
 import { get } from 'scriptjs';
 
 declare var navigator;
@@ -57,9 +56,10 @@ export class MyApp {
     public menuCtrl: MenuController
   ) {
 
-    let internet = (navigator.connection.rtt > 0);
+    let internet;
 
     let _base = this;
+
 
     //check internet connection
     this.checkInternet();
@@ -110,20 +110,19 @@ export class MyApp {
 
     if (this.userId) {
       // _base.rootPage = "FindcarPage";
-      if (internet) {
-        if (sessionStorage.getItem("google") == "enabled") {
-          _base.rootPage = "FindcarPage"
-        } else {
-          get("https://maps.googleapis.com/maps/api/js?key=AIzaSyCAUo5wLQ1660_fFrymXUmCgPLaTwdXUgY&libraries=drawing,places,geometry,visualization", () => {
-            //Google Maps library has been loaded...
-            console.log("Google maps library has been loaded");
-            sessionStorage.setItem("google", "enabled");
-            _base.rootPage = "FindcarPage"
-          });
-        }
+      if (sessionStorage.getItem("google") == "enabled") {
+        _base.rootPage = "FindcarPage"
       } else {
-        _base.rootPage = "NointernetPage";
+        get("https://maps.googleapis.com/maps/api/js?key=AIzaSyCAUo5wLQ1660_fFrymXUmCgPLaTwdXUgY&libraries=drawing,places,geometry,visualization", () => {
+          //Google Maps library has been loaded...
+          console.log("Google maps library has been loaded");
+          sessionStorage.setItem("google", "enabled");
+          _base.rootPage = "FindcarPage"
+        });
       }
+
+    } else {
+      _base.rootPage = "RegistrationPage";
     }
 
 
@@ -144,10 +143,8 @@ export class MyApp {
   }
 
   ngOnInit() {
-    let internet = (navigator.connection.rtt > 0);
-    if (!internet) {
-      this.rootPage = "NointernetPage";
-    }
+    let _base = this;
+    _base.rootPage = "RegistrationPage";
   }
 
   initializeApp() {
@@ -203,11 +200,11 @@ export class MyApp {
       if (loading != undefined) {
         loading.dismiss();
       }
+      this.rootPage = "NointernetPage";
       loading = _base.loadingCtrl.create({
         content: 'Waiting for connection ...'
       });
       loading.present();
-      this.rootPage = "NointernetPage";
     });
 
     let connectSub = _base.network.onConnect().subscribe(() => {

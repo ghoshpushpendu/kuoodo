@@ -38,7 +38,7 @@ export class MyApp {
     public loadingCtrl: LoadingController,
     private network: Network) {
 
-    let internet = (navigator.connection.rtt > 0);
+    // let internet = (navigator.connection.rtt > 0);
     let _base = this;
 
     let driverId = localStorage.getItem("driverId");
@@ -47,19 +47,15 @@ export class MyApp {
 
     if (driverId) {
       // _base.rootPage = "FindcarPage";
-      if (internet) {
-        if (sessionStorage.getItem("google") == "enabled") {
-          _base.rootPage = "FindcarPage"
-        } else {
-          get("https://maps.googleapis.com/maps/api/js?key=AIzaSyCAUo5wLQ1660_fFrymXUmCgPLaTwdXUgY&libraries=drawing,places,geometry,visualization", () => {
-            //Google Maps library has been loaded...
-            console.log("Google maps library has been loaded");
-            sessionStorage.setItem("google", "enabled");
-            _base.rootPage = "DriverdashboardPage"
-          });
-        }
+      if (sessionStorage.getItem("google") == "enabled") {
+        _base.rootPage = "FindcarPage"
       } else {
-        _base.rootPage = "NointernetPage";
+        get("https://maps.googleapis.com/maps/api/js?key=AIzaSyCAUo5wLQ1660_fFrymXUmCgPLaTwdXUgY&libraries=drawing,places,geometry,visualization", () => {
+          //Google Maps library has been loaded...
+          console.log("Google maps library has been loaded");
+          sessionStorage.setItem("google", "enabled");
+          _base.rootPage = "DriverdashboardPage"
+        });
       }
     } else {
       this.rootPage = "RegistrationPage";
@@ -83,10 +79,7 @@ export class MyApp {
 
 
   ngOnInit() {
-    let internet = (navigator.connection.rtt > 0);
-    if (!internet) {
-      this.rootPage = "NointernetPage";
-    }
+    this.rootPage = "RegistrationPage";
   }
 
   openPage(page) {
@@ -121,6 +114,7 @@ export class MyApp {
         content: 'Waiting for connection ...'
       });
       loading.present();
+      _base.rootPage = "NointernetPage"
     });
 
     let connectSub = _base.network.onConnect().subscribe(() => {
