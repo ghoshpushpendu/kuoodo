@@ -3,6 +3,7 @@ import { NavController, IonicPage, NavParams, LoadingController, ToastController
 import { HttpService } from '../../app.httpService';
 import { AppService } from '../../app.providers';
 import { LocalStorageProvider } from '../../app.localStorage';
+import { get } from 'scriptjs';
 
 
 @IonicPage({ name: 'ProfileInfoPage' })
@@ -203,7 +204,12 @@ export class ProfileInfoPage {
           else {
             if (!data.error) {
               this.localStorageProvider.profileInformation(data.user._id);
-              this.navCtrl.setRoot("FindcarPage");
+              get("https://maps.googleapis.com/maps/api/js?key=AIzaSyCAUo5wLQ1660_fFrymXUmCgPLaTwdXUgY&libraries=drawing,places,geometry,visualization", () => {
+                //Google Maps library has been loaded...
+                console.log("Google maps library has been loaded");
+                sessionStorage.setItem("google", "enabled");
+                this.navCtrl.setRoot("FindcarPage");
+              });
             }
           }
         });

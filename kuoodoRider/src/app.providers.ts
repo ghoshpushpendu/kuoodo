@@ -151,6 +151,14 @@ export class AppService {
         });
     }
 
+    public getCurrentRide(userID, callback) {
+        this.httpService.getCurrentRide(userID).subscribe(data => {
+            callback(false, data);
+        }, error => {
+            callback(true, error || 'HTTP fail.');
+        });
+    }
+
     // get countries
     public getCountries(callback): any {
         this.httpService.getCountries().subscribe(data => {

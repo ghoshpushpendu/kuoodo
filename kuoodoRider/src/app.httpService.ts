@@ -99,6 +99,15 @@ export class HttpService {
             .catch((error: any) => Observable.throw(error.json() || `Server error`));
     }
 
+    /**
+     *  Get pending or commute booking
+     * **/
+    public getCurrentRide(userID) {
+        return this.http.get(this.url + "/booking/getcurrentride?userId=" + userID, this.headerOptions)
+            .map((response: Response) => response.json())
+            .catch((error: any) => Observable.throw(error.json() || `Server error`));
+    }
+
     //Uers Update 
     public UpdateUser(params) {
         console.log("Uers Update :");

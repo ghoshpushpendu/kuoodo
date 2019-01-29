@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, ToastController, NavParams } from 'ionic-angular';
 import { LocalStorageProvider } from '../../app.localStorage';
 import { AppService } from '../../app.providers';
 import { LoadingController } from 'ionic-angular';
@@ -44,8 +44,19 @@ export class TriphistoryPage {
     public navParams: NavParams,
     private localStorageProvider: LocalStorageProvider,
     private appService: AppService,
+    public toastCtrl: ToastController,
     public loadingCtrl: LoadingController) {
     this.userID = this.localStorageProvider.getUserId();
+  }
+
+  showToast(message: string) {
+    let toast = this.toastCtrl.create({
+      message: message,
+      duration: 3000,
+      position: 'bottom'
+    });
+
+    toast.present(toast);
   }
 
   ionViewDidLoad() {
@@ -60,15 +71,19 @@ export class TriphistoryPage {
           let status = trip.status;
           let payment = trip.payment;
           trip.amount = parseInt(trip.amount);
-          if (status == 'complete' && payment == 'Paid') {
+          if (status == 'Completed' && payment == 'Paid') {
             trip.stamp = "paid.png";
-          } else if (status == 'booked' || status == 'commute') {
+          } else if (status == 'Booked' || status == 'Commute') {
             trip.stamp = "pending.jpg";
-          } else if (status = "cancelled") {
+          } else if (status = "Cancelled") {
             trip.stamp = "cancelled.png";
           }
           return trip;
         });
+        if (success.result.length == 0) {
+          _base.showToast("You don't have any trip yet");
+          _base.navCtrl.pop();
+        }
         _base.loader.dismiss();
         // console.log(_base.trips[1].startTime.now());
       }, function (error) {
@@ -98,7 +113,7 @@ export class TriphistoryPage {
   loading() {
     this.loader = this.loadingCtrl.create({
       spinner: 'bubbles',
-      content: 'loading...'
+      content: 'loading trip history...'
     });
     this.loader.present();
   }

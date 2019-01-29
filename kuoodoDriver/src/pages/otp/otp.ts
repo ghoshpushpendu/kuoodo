@@ -4,6 +4,7 @@ import { AppService } from '../../app.providers';
 import { HttpService } from '../../app.httpService';
 import { LocalStorageProvider } from '../../app.localStorage';
 import { AlertController } from 'ionic-angular';
+import { get } from 'scriptjs';
 
 @IonicPage({ name: 'OtpPage' })
 @Component({
@@ -130,7 +131,13 @@ export class OtpPage {
                     this.loader.dismiss();
                     this.message = "Car has been added to your profile";
                     this.showToast('bottom');
-                    this.navCtrl.setRoot("DriverdashboardPage");
+                    let _base = this;
+                    get("https://maps.googleapis.com/maps/api/js?key=AIzaSyCAUo5wLQ1660_fFrymXUmCgPLaTwdXUgY&libraries=drawing,places,geometry,visualization", () => {
+                      //Google Maps library has been loaded...
+                      console.log("Google maps library has been loaded");
+                      sessionStorage.setItem("google", "enabled");
+                      _base.navCtrl.setRoot("DriverdashboardPage");
+                    });
                   } else {
                     this.loader.dismiss();
                   }
@@ -177,7 +184,7 @@ export class OtpPage {
             }
           }
         }
-      });
+      }); top
     }
     else {
       this.message = "OTP verification completed";

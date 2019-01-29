@@ -113,9 +113,23 @@
   </div>
 
 
+
+
   <!-- choose cab -->
-  <div class="card-box" *ngIf="!rideMode">
-    <ion-card class="text-black">
+  <div class="card-box">
+
+    <!-- <ion-card no-padding class="riding">
+      <ion-card-content>
+        <ion-list inset>
+          <ion-item>
+            <p item-left>You are currently riding </p>
+            <button item-right ion-button outline color="secondary">show</button>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card> -->
+
+    <ion-card class="text-black" *ngIf="!rideMode">
       <ion-card-header>
         <span text-center class="mx-a">Choose Cab Type</span>
       </ion-card-header>

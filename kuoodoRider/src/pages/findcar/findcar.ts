@@ -105,8 +105,9 @@ export class FindcarPage {
     private stripe: Stripe,
     public loadingCtrl: LoadingController) {
 
+
     let _base = this;
-    this.stripe.setPublishableKey('pk_test_VhzSeB9VAJoriVMMqAOh0i6C');
+    this.stripe.setPublishableKey('pk_live_9AHmOl62GsyiArYPdxApwouk');
 
     this.socket = io(this.httpService.url);
     this.socket.on('connect', () => {
@@ -216,6 +217,10 @@ export class FindcarPage {
     this.getCabTypes();
   }
 
+  ionViewDidLeave() {
+    this.stopSearch();
+  }
+
   showAddressModal() {
     let modal = this.modalCtrl.create("AutocompletePage");
     let _base = this;
@@ -302,6 +307,13 @@ export class FindcarPage {
 
     let _base = this;
     /** user profile info **/
+
+    this.initMap();
+  }
+
+  ionViewDidEnter() {
+    let _base = this;
+
     this.appService.getProfile(this.id, (error, data) => {
       if (error) {
         console.log("Error in fetching profile :", error);
@@ -310,16 +322,9 @@ export class FindcarPage {
           _base.appService.updateUser(data.user);
           _base.userData = data.user;
           // console.log(data);
-
         }
       }
     });
-
-    this.initMap();
-  }
-
-  ionViewDidEnter() {
-    let _base = this;
 
     //checking pending payments
     _base.getPendingPayments()
@@ -347,6 +352,70 @@ export class FindcarPage {
         _base.navCtrl.push("PaymentsPage");
         _base.showToast("can not get card");
       });
+
+    console.log("================================================================")
+    _base.fetchCurrentRide()
+      .then(function (response: any) {
+        if (!response.error) {
+          console.log("Current ride details :", response);
+          if (response.result.length != 0) {
+            // alert("You are in a ride")
+            console.log(response);
+            let booking = response.result[0];
+          }
+        }
+      }, function (error: any) {
+        console.log("Ride fetch error is :", error);
+      });
+
+    if (sessionStorage.getItem("location") == "enabled") {
+      _base.setCurrentLocation();
+    }
+  }
+
+
+  // this function is not in use currently
+  public mapRideData(data: any) {
+    let _base = this;
+    if (data.status == 'Booked') {
+      _base.showToast("Ride request has been accepted");
+      console.log("ride request has been accepted");
+      _base.rideMode = true;
+      _base.driverId = data.driverId._id;
+      console.log("Ride in booked mode =============================", data);
+
+      // setting address in address input fields
+      _base.endAddress = data.endLocation;
+      _base.startAddress = data.startLocation;
+
+      // setting start location on local variables
+      _base.startLatitude = data.pickUpLocation.latitude;
+      _base.startLongitude = data.pickUpLocation.longitude;
+
+      // setting end location on local variable
+      _base.endingLatitude = data.destination.latitude;
+      _base.endingLongitude = data.destination.longitude;
+
+      // setting up driver info
+      _base.drivername = data.driverId.firstName + ' ' + data.driverId.lastName;
+
+      //subscribe to driver location update
+      _base.socket.on(_base.driverId + "-location", (data) => {
+        console.log(data.lat);
+        console.log(data.lng);
+        _base.showDriver(data.lat, data.lng);
+        // endAddress
+      })
+    } else if (data.status == 'Arrived') {
+      // _base.otp = _base.tempOtp;
+      // _base.arrival_status = "arrived";
+      // _base.showToast("Driver has arrived");
+      // _base.showJourneyRoute();
+    } else if (data.status == 'Commute') {
+
+    } else if (data.status == 'Completed') {
+
+    }
   }
 
   /*
@@ -371,6 +440,8 @@ export class FindcarPage {
   setCurrentLocation() {
     let _base = this;
     console.log("map loaded");
+
+    sessionStorage.setItem("location", "enabled");
 
     let loader = _base.loadingCtrl.create({
       content: 'Searching location....'
@@ -1125,6 +1196,24 @@ export class FindcarPage {
     }
     return new Promise(function (resolve, reject) {
       _base.appService.chargeCard(paymentData, function (error, data) {
+        if (error) {
+          reject(error);
+        }
+        else {
+          if (data) {
+            resolve(data);
+          }
+        }
+      });
+    });
+  }
+
+  // fetch current riding
+  fetchCurrentRide() {
+    var _base = this;
+    let id = this.id;
+    return new Promise(function (resolve, reject) {
+      _base.appService.getCurrentRide(id, function (error, data) {
         if (error) {
           reject(error);
         }

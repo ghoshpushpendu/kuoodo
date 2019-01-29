@@ -19,7 +19,7 @@ export class PaymentsPage {
 
   constructor(private stripe: Stripe, public appService: AppService, public navCtrl: NavController, public localStorageProvider: LocalStorageProvider, public toastCtrl: ToastController, public loadingCtrl: LoadingController, public navParams: NavParams) {
     this.userID = this.localStorageProvider.getUserId();
-    this.stripe.setPublishableKey('pk_test_VhzSeB9VAJoriVMMqAOh0i6C');
+    this.stripe.setPublishableKey('pk_live_9AHmOl62GsyiArYPdxApwouk');
   }
 
   ionViewDidLoad() {
@@ -161,21 +161,23 @@ export class PaymentsPage {
             loading.dismiss();
             console.log("Payment response :", response);
             if (response.error) {
-              alert(response.message);
+              // alert(response.message);
+              _base.showToast(response.message)
             } else {
-              alert("Payment successfull");
+              _base.showToast("Payment successfull");
               _base.navCtrl.setRoot("FindcarPage");
             }
           }, function (error) {
             loading.dismiss();
             console.log("Error in payment", error);
-            alert("Error processing payment");
+            _base.showToast("Error processing payment");
           });
       })
       .catch(error => {
         loading.dismiss();
+        console.log(error);
         console.log("Error processing payment", error);
-        alert("Error processing the payment.");
+        _base.showToast("Error processing the payment.");
       });
   }
 

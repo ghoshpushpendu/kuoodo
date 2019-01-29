@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { LocalStorageProvider } from '../app.localStorage';
 import { AppService } from './../app.providers';
 import { Network } from '@ionic-native/network';
+import { get } from 'scriptjs';
 
 declare var navigator;
 
@@ -37,16 +38,34 @@ export class MyApp {
     public loadingCtrl: LoadingController,
     private network: Network) {
 
+    let internet = (navigator.connection.rtt > 0);
+    let _base = this;
+
     let driverId = localStorage.getItem("driverId");
-    console.log(driverId);
+    _base.id = driverId;
+
+
     if (driverId) {
-      this.rootPage = "DriverdashboardPage";
+      // _base.rootPage = "FindcarPage";
+      if (internet) {
+        if (sessionStorage.getItem("google") == "enabled") {
+          _base.rootPage = "FindcarPage"
+        } else {
+          get("https://maps.googleapis.com/maps/api/js?key=AIzaSyCAUo5wLQ1660_fFrymXUmCgPLaTwdXUgY&libraries=drawing,places,geometry,visualization", () => {
+            //Google Maps library has been loaded...
+            console.log("Google maps library has been loaded");
+            sessionStorage.setItem("google", "enabled");
+            _base.rootPage = "DriverdashboardPage"
+          });
+        }
+      } else {
+        _base.rootPage = "NointernetPage";
+      }
     } else {
       this.rootPage = "RegistrationPage";
     }
 
     this.initializeApp();
-    let _base = this;
     this.appService.userInfo.subscribe(function (user) {
       if (user) {
         _base.userName = user.firstName + ' ' + user.lastName;
@@ -60,6 +79,14 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
+  }
+
+
+  ngOnInit() {
+    let internet = (navigator.connection.rtt > 0);
+    if (!internet) {
+      this.rootPage = "NointernetPage";
+    }
   }
 
   openPage(page) {
@@ -102,6 +129,22 @@ export class MyApp {
       }
       let message = "Connected to network";
       _base.showToast(message);
+
+      if (_base.id) {
+        // _base.rootPage = "FindcarPage";
+        if (sessionStorage.getItem("google") == "enabled") {
+          _base.rootPage = "DriverdashboardPage"
+        } else {
+          get("https://maps.googleapis.com/maps/api/js?key=AIzaSyCAUo5wLQ1660_fFrymXUmCgPLaTwdXUgY&libraries=drawing,places,geometry,visualization", () => {
+            //Google Maps library has been loaded...
+            console.log("Google maps library has been loaded");
+            sessionStorage.setItem("google", "enabled");
+            _base.rootPage = "DriverdashboardPage"
+          });
+        }
+      } else {
+        _base.rootPage = "RegistrationPage";
+      }
     });
   }
 
