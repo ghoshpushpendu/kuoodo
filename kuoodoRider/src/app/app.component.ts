@@ -57,7 +57,6 @@ export class MyApp {
   ) {
 
     let internet;
-
     let _base = this;
 
 
