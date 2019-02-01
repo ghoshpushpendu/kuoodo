@@ -164,7 +164,7 @@ export class MyApp {
   logout() {
     // localStorage.removeItem("loginId");
     localStorage.clear();
-    this.rootPage = "RegistrationPage";
+    this.nav.setRoot("RegistrationPage");
   }
 
   //Getting  Device Id
