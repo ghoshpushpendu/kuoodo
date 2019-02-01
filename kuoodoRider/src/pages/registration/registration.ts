@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController, LoadingController, IonicPage } from 'ionic-angular';
+import { NavController, MenuController, NavParams, ToastController, LoadingController, IonicPage } from 'ionic-angular';
 import { HttpService } from '../../app.httpService';
 import { AppService } from '../../app.providers';
 import { LocalStorageProvider } from '../../app.localStorage';
@@ -53,11 +53,16 @@ export class RegistrationPage {
     private appService: AppService,
     public toastCtrl: ToastController,
     public loadingCtrl: LoadingController,
+    public menuController: MenuController,
     private localStorageProvider: LocalStorageProvider) {
 
 
     this.userId = this.localStorageProvider.getUserId();
     this.deviceID = localStorage.getItem("deviceID");
+
+    this.menuController.swipeEnable(false);
+
+
 
   }
 
