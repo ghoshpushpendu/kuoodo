@@ -22,7 +22,7 @@
     <preference name="SplashScreenDelay" value="3000" />
     <preference name="HYPERTRACK_PK" value="pk_test_2ffd23c3c3e6c14dfd886ed7241ae849ab50a60e" />
     <edit-config file="*-Info.plist" mode="merge" target="NSLocationWhenInUseUsageDescription">
-        <string>We want your location! Best regards NSA</string>
+        <string>Allow us to access your location. You location is used to search the nearest driver and help you book a ride.</string>
     </edit-config>
     <platform name="android">
         <icon qualifier="ldpi" src="resources/res/icons/android/drawable-ldpi-icon.png" />

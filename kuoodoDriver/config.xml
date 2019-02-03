@@ -20,7 +20,7 @@
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="2000" />
     <edit-config file="*-Info.plist" mode="merge" target="NSLocationWhenInUseUsageDescription">
-        <string>We want your location! Best regards NSA</string>
+        <string>Let us access your location. Your location will be used to help riders find you and help you on your ride</string>
     </edit-config>
     <platform name="android">
         <icon qualifier="ldpi" src="resources/res/icons/android/drawable-ldpi-icon.png" />
