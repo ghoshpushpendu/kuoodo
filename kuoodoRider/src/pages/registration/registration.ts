@@ -174,6 +174,9 @@ export class RegistrationPage {
       }
       else if (data) {
         let _base = this;
+        if (data.user._id == undefined || data.user._id == null) {
+          _base.navCtrl.setRoot("RegistrationPage");
+        }
         this.localStorageProvider.profileInformation(data.user._id);
         get("https://maps.googleapis.com/maps/api/js?key=AIzaSyCAUo5wLQ1660_fFrymXUmCgPLaTwdXUgY&libraries=drawing,places,geometry,visualization", () => {
           //Google Maps library has been loaded...
