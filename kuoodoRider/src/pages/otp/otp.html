@@ -26,7 +26,7 @@
 
       </ion-label>
 
-      <ion-input type="number" name="otp" [(ngModel)]="otp" (keyup)="cleanMessage()"></ion-input>
+      <ion-input type="number" name="otp" placeholder="Enter your O.T.P Here" [(ngModel)]="otp" (keyup)="cleanMessage()"></ion-input>
 
     </ion-item>
     <span class="error-message">
@@ -45,6 +45,13 @@
 
       </ion-col>
     </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <p class="resendtxt">please use 8888 as your O.T.P</p>
+      </ion-col>
+    </ion-row>
+
   </ion-grid>
   <!-- <ion-grid>
       <p class="resendtxt">Your Good Name</p>
