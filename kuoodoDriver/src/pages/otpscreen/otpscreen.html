@@ -19,13 +19,21 @@
           <ion-input type="number" [(ngModel)]="phone" name="phoneNumber"></ion-input>
         </ion-item>
         <ion-item *ngIf="isCode">
-          <ion-label floating> Enter your OTP</ion-label>
+          <ion-label floating> Enter your OTP here</ion-label>
           <ion-input type="number" [(ngModel)]="code" name="otp"></ion-input>
           <span>{{otpmessage}}</span>
         </ion-item>
       </ion-list>
     </div>
   </div>
+
+  <ion-grid *ngIf="isCode">
+    <ion-row>
+      <ion-col>
+        <p class="resendtxt">You O.T.P is 8888</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
   <div class="btnhead">
     <div class="btnsec">

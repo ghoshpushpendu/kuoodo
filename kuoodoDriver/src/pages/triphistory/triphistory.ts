@@ -56,11 +56,11 @@ export class TriphistoryPage {
           let status = trip.status;
           let payment = trip.payment;
           trip.amount = parseInt(trip.amount);
-          if (status == 'complete' && payment == 'Paid') {
+          if (status == 'Completed' && payment == 'Paid') {
             trip.stamp = "paid.png";
-          } else if (status == 'booked' || status == 'commute') {
+          } else if (status == 'Booked' || status == 'Commute') {
             trip.stamp = "pending.jpg";
-          } else if (status = "cancelled") {
+          } else if (status = "Cancelled") {
             trip.stamp = "cancelled.png";
           }
           return trip;
