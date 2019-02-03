@@ -344,12 +344,12 @@ export class FindcarPage {
       .then(function (success: any) {
         if (success.cards.length == 0) {
           alert("Please add a payment method to book ride");
-          _base.navCtrl.push("PaymentsPage");
+          // _base.navCtrl.push("PaymentsPage");
         } else {
           _base.cards = success.cards;
         }
       }, function (error) {
-        _base.navCtrl.push("PaymentsPage");
+        // _base.navCtrl.push("PaymentsPage");
         _base.showToast("can not get card");
       });
 
