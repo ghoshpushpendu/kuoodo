@@ -174,8 +174,12 @@ export class RegistrationPage {
       }
       else if (data) {
         let _base = this;
+
+        console.log("login data",data.user)
+
         if (data.user._id == undefined || data.user._id == null) {
           _base.navCtrl.setRoot("RegistrationPage");
+          return;
         }
         this.localStorageProvider.profileInformation(data.user._id);
         get("https://maps.googleapis.com/maps/api/js?key=AIzaSyCAUo5wLQ1660_fFrymXUmCgPLaTwdXUgY&libraries=drawing,places,geometry,visualization", () => {
