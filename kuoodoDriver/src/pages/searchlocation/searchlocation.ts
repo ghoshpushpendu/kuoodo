@@ -32,6 +32,7 @@ export class SearchlocationPage {
   lastName: any;
   firstName: any;
   email: any;
+  taxId: any = "";
   option: any = "+1";
 
   public car: any = {
@@ -157,6 +158,7 @@ export class SearchlocationPage {
           phoneNumber: this.appService.countryCode + this.phoneNumber,
           address: this.address,
           password: this.password,
+          taxId: this.taxId,
           car: this.car
         });
 

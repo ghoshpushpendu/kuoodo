@@ -382,7 +382,12 @@ export class DocumentsPage {
       this.loadingMessage = "Registering..";
       this.loading();
       this.loader.present();
-      this.appService.verifyUserAndSendOtp(data, (error, data) => {
+
+      let vdata = {
+        phoneNumber: this.user.phoneNumber
+      }
+
+      this.appService.verifyUserAndSendOtp(vdata, (error, data) => {
         this.loader.dismiss();
         if (error) {
           this.message = data.message;

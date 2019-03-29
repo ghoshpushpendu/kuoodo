@@ -39,6 +39,7 @@ export class OtpPage {
   vehicleInsurance: any;
   vechileRegistration: any;
   vehiclePermit: any;
+  taxId: any;
   constructor(public nav: NavController,
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -57,6 +58,7 @@ export class OtpPage {
     this.password = this.navParams.get("password");
     this.car = this.navParams.get("car");
     this.email = this.navParams.get("email");
+    this.taxId = this.navParams.get("taxId");
     this.drivingLicense = this.navParams.get("drivingLicense");
     this.vehicleInsurance = this.navParams.get("vehicleInsurance");
     this.vechileRegistration = this.navParams.get("vechileRegistration");
@@ -120,7 +122,8 @@ export class OtpPage {
                 drivingLicense: this.drivingLicense,
                 vehicleInsurance: this.vehicleInsurance,
                 vechileRegistration: this.vechileRegistration,
-                vehiclePermit: this.vehiclePermit
+                vehiclePermit: this.vehiclePermit,
+                taxId: this.taxId
               }
 
               console.log(data);

@@ -68,6 +68,13 @@
 
       <ion-list>
         <ion-item padding-right>
+          <ion-label floating class="headlabel">Tax ID</ion-label>
+          <ion-input type="text" required [(ngModel)]="taxId"></ion-input>
+        </ion-item>
+      </ion-list>
+
+      <ion-list>
+        <ion-item padding-right>
           <ion-label floating class="headlabel">Car Name</ion-label>
           <ion-input type="text" required [(ngModel)]="car.carName"></ion-input>
         </ion-item>
