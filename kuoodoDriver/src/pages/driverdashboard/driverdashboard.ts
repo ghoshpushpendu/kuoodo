@@ -7,7 +7,6 @@ import { LocalStorageProvider } from '../../app.localStorage';
 import { ToastController } from 'ionic-angular';
 import * as io from "socket.io-client";
 import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator';
-import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 import Stopwatch from 'timer-stopwatch';
 
@@ -163,7 +162,6 @@ export class DriverdashboardPage {
     public events: Events,
     private launchNavigator: LaunchNavigator,
     public modalCtrl: ModalController,
-    private barcodeScanner: BarcodeScanner,
     private slimLoadingBarService: SlimLoadingBarService) {
 
     let _base = this;
