@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, LoadingController, ToastController
 import { AppService } from '../../app.providers';
 import { LocalStorageProvider } from '../../app.localStorage';
 import { Stripe } from '@ionic-native/stripe';
+import { strings } from './../../lang';
 
 @IonicPage({ name: 'AddcardPage' })
 @Component({
@@ -19,6 +20,8 @@ export class AddcardPage {
     expyear: '',
     userId: ''
   }
+  public string: any = strings;
+
   constructor(public toastCtrl: ToastController,
     public loadingCtrl: LoadingController,
     private localStorageProvider: LocalStorageProvider,
@@ -41,7 +44,7 @@ export class AddcardPage {
 
   addCard() {
     let _base = this;
-    let loading = this.loadingCtrl.create({ content: 'Creaing card...' });
+    let loading = this.loadingCtrl.create({ content: _base.string.pleaseWait });
     loading.present();
 
 
@@ -58,13 +61,13 @@ export class AddcardPage {
         _base.appService.addCard(_base.card, (error, data) => {
           loading.dismiss();
           if (error) {
-            _base.showToast("can not add card");
+            _base.showToast(_base.string.cardAddError);
           } else {
             if (data) {
               if (data.error) {
                 alert(data.message);
               } else {
-                _base.showToast("card added");
+                _base.showToast(_base.string.cardAddSuccess);
                 this.navCtrl.pop();
               }
             }
@@ -74,7 +77,7 @@ export class AddcardPage {
       .catch(error => {
         loading.dismiss();
         console.log("Error processing payment", error);
-        alert("This card is not valid for peyment");
+        alert(_base.string.cardAddError);
       });
 
   }

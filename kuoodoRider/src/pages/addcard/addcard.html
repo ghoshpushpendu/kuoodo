@@ -1,25 +1,25 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Add new Card</ion-title>
+    <ion-title>{{string.addcard}}</ion-title>
   </ion-navbar>
 </ion-header>
 <ion-content>
   <ion-grid>
     <ion-row>
       <ion-item>
-        <ion-input type="number" [(ngModel)]="card.number" placeholder="Card Number i.e 4242424242424242"></ion-input>
+        <ion-input type="number" [(ngModel)]="card.number" placeholder="{{string.cardNumber}} i.e 4242424242424242"></ion-input>
         <!-- <ion-icon item-right name="camera"> </ion-icon> -->
       </ion-item>
     </ion-row>
     <ion-row>
       <ion-col>
         <ion-item>
-          <ion-input type="number" [(ngModel)]="card.expmonth" placeholder="Expiration month i.e 01"></ion-input>
+          <ion-input type="number" [(ngModel)]="card.expmonth" placeholder="{{string.expMonth}} i.e 01"></ion-input>
         </ion-item>
       </ion-col>
       <ion-col>
         <ion-item>
-          <ion-input type="number" [(ngModel)]="card.expyear" placeholder="expiration year i.e 2027"></ion-input>
+          <ion-input type="number" [(ngModel)]="card.expyear" placeholder="{{string.expYear}} i.e 2027"></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -30,14 +30,14 @@
     </ion-row>
     <ion-row>
       <ion-item>
-        <ion-input type="text" [(ngModel)]="card.country" placeholder="Country i.e U.S.A"></ion-input>
+        <ion-input type="text" [(ngModel)]="card.country" placeholder="{{string.country}} i.e U.S.A"></ion-input>
       </ion-item>
     </ion-row>
     <ion-row>
       <ion-item>
-        <ion-input type="text" [(ngModel)]="card.name" placeholder="Cardholder's Name i.e John Doe"></ion-input>
+        <ion-input type="text" [(ngModel)]="card.name" placeholder="{{string.name}} i.e John Doe"></ion-input>
       </ion-item>
     </ion-row>
   </ion-grid>
-  <button ion-button full (click)="addCard()">Add Card</button>
+  <button ion-button full (click)="addCard()">{{string.addCard}}</button>
 </ion-content>

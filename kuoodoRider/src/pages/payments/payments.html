@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Payment</ion-title>
+    <ion-title>{{string.payment}}</ion-title>
   </ion-navbar>
 </ion-header>
 <ion-content center class="card-background-page">
@@ -8,20 +8,20 @@
   <ion-card>
     <img src="https://gadgetstouse.com/wp-content/uploads/2018/02/cabs-without-apps-696x392.png" />
     <div class="card-title">{{pendingAmount}} USD</div>
-    <div class="card-subtitle">Payment pending</div>
+    <div class="card-subtitle">{{string.pendingAmount}}</div>
   </ion-card>
 
-  <button ion-button block *ngIf="pendingAmount != '0'" (click)="makePayment()">Pay $ {{pendingAmount}}</button>
+  <button ion-button block *ngIf="pendingAmount != '0'" (click)="makePayment()">{{string.pay}} $ {{pendingAmount}}</button>
 
 
   <ion-list>
-    <ion-list-header> Saved Cards </ion-list-header>
+    <ion-list-header> {{string.savedCards}} </ion-list-header>
     <ion-item *ngFor="let card of cards">
       <ion-icon name="card"></ion-icon> <span class="cardNumber">{{card.number}}</span>
       <ion-icon item-right name="trash" (click)="deleteCard(card.number)"></ion-icon>
     </ion-item>
     <ion-item> <button (click)="addCard()" ion-button icon-start>
-        <ion-icon name="add"></ion-icon> Add payment method
+        <ion-icon name="add"></ion-icon> {{string.addCard}}
       </button> </ion-item>
   </ion-list>
 </ion-content>

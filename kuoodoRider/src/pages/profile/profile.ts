@@ -7,6 +7,7 @@ import { Http, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import { strings } from './../../lang';
 
 @IonicPage({ name: 'ProfilePage' })
 @Component({
@@ -31,6 +32,7 @@ export class ProfilePage {
   gId: any;
   fbId: any;
   id: any;
+  public string: any = strings;
 
   public isUsername: boolean = false;
   public isEmail: boolean = false;
@@ -59,7 +61,7 @@ export class ProfilePage {
 
     if (this.id) {
       let loading = this.loader.create({
-        content: 'Fetching profile data ...'
+        content: this.string.fetchingProfile + " ..."
       });
       loading.present();
       this.appService.getProfile(this.id, (error, data) => {
@@ -180,9 +182,9 @@ export class ProfilePage {
     }
   }
 
-  updateUser(imageID:any) {
+  updateUser(imageID: any) {
     let _base = this;
-    
+
     // let 
     // return new Promise(function (resolve, reject) {
     //   _base.appService.chargeCard(paymentData, function (error, data) {

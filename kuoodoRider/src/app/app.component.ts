@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform, ToastController, LoadingController } from 'ionic-angular';
+import { Nav, Platform, ToastController, AlertController, LoadingController, Select } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { LocalStorageProvider } from '../app.localStorage';
@@ -9,6 +9,8 @@ import { Device } from '@ionic-native/device';
 import { Network } from '@ionic-native/network';
 import { MenuController } from 'ionic-angular';
 import { get } from 'scriptjs';
+import { stringify } from '@angular/core/src/util';
+import { strings } from './../lang';
 
 declare var navigator;
 declare var google;
@@ -19,6 +21,8 @@ declare var google;
 })
 
 export class MyApp {
+  public string: any = strings;
+
   gId: string;
   fbId: string;
   loginId: string;
@@ -53,11 +57,17 @@ export class MyApp {
     private device: Device,
     public loadingCtrl: LoadingController,
     public network: Network,
-    public menuCtrl: MenuController
+    public menuCtrl: MenuController,
+    private alertCtrl: AlertController
   ) {
+
+
+    localStorage.setItem('language', 'english')
+
 
     let internet;
     let _base = this;
+
 
 
     //check internet connection
@@ -107,11 +117,14 @@ export class MyApp {
 
     this.userId = this.localStorageProvider.getUserId();
 
+    console.log("user id", this.userId);
     if (this.userId) {
+      console.log("Here");
       // _base.rootPage = "FindcarPage";
       if (sessionStorage.getItem("google") == "enabled") {
         _base.rootPage = "FindcarPage"
       } else {
+        console.log("Here also");
         get("https://maps.googleapis.com/maps/api/js?key=AIzaSyCAUo5wLQ1660_fFrymXUmCgPLaTwdXUgY&libraries=drawing,places,geometry,visualization", () => {
           //Google Maps library has been loaded...
           console.log("Google maps library has been loaded");
@@ -127,9 +140,9 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Profile', component: "ProfilePage" },
-      { title: 'Trip History', component: "TriphistoryPage" },
-      { title: 'Payments', component: "PaymentsPage" },
+      { title: _base.string.profile, component: "ProfilePage" },
+      { title: _base.string.tripHistory, component: "TriphistoryPage" },
+      { title: _base.string.payments, component: "PaymentsPage" },
     ];
 
     if (document.URL.includes('https://') || document.URL.includes('http://')) {
@@ -141,9 +154,63 @@ export class MyApp {
 
   }
 
+  chooseLanguage() {
+    let _base = this;
+    console.log(localStorage.getItem("language"))
+    console.log((localStorage.getItem("language").toString() == 'english') ? true : false);
+    let prompt = this.alertCtrl.create({
+      title: 'Language',
+      message: 'Select a language to continue.',
+      inputs: [
+        {
+          type: 'radio',
+          label: 'English',
+          value: 'english',
+          checked: (localStorage.getItem("language") == 'english') ? true : false
+        },
+        {
+          type: 'radio',
+          label: 'Español',
+          value: 'spanish',
+          checked: (localStorage.getItem("language") == 'spanish') ? true : false
+        },
+        {
+          type: 'radio',
+          label: '中文',
+          value: 'chineese',
+          checked: (localStorage.getItem("language") == 'chineese') ? true : false
+        }
+      ],
+      buttons: [
+        // {
+        //   text: "Cancel",
+        //   handler: data => {
+        //     console.log("cancel clicked");
+        //   }
+        // },
+        {
+          text: "Continue",
+          handler: data => {
+            localStorage.removeItem("language");
+            console.log("search clicked", data);
+            localStorage.setItem("language", data);
+            strings.setLanguage(data);
+            console.log(_base.pages);
+            _base.pages = [
+              { title: _base.string.profile, component: "ProfilePage" },
+              { title: _base.string.tripHistory, component: "TriphistoryPage" },
+              { title: _base.string.payments, component: "PaymentsPage" },
+            ];
+          }
+        }]
+    });
+    prompt.present();
+  }
+
   ngOnInit() {
     let _base = this;
     _base.rootPage = "RegistrationPage";
+    console.log("language set", this.string);
   }
 
   initializeApp() {
@@ -152,6 +219,8 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      let language = this.platform.lang();
+      console.log("Mobile language is set to : ", language);
     });
   }
 
@@ -163,7 +232,7 @@ export class MyApp {
 
   logout() {
     // localStorage.removeItem("loginId");
-    localStorage.clear();
+    localStorage.removeItem("userId")
     this.nav.setRoot("RegistrationPage");
   }
 

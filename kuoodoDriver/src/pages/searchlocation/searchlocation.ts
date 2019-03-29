@@ -20,7 +20,9 @@ export class SearchlocationPage {
   id: any;
   message: any;
   locationMessage: string = '';
-  location: any;
+  address: any = {
+
+  };
   confirmPasswordMessage: string = '';
   confirmPassword: any;
   passwordMessage: string = '';
@@ -52,6 +54,8 @@ export class SearchlocationPage {
     private localStorageProvider: LocalStorageProvider,
     public http: Http,
     public events: Events) {
+
+    console.log("Nav Params", this.navParams);
 
     this.email = this.navParams.get("email");
     this.firstName = this.navParams.get("firstName");
@@ -131,7 +135,7 @@ export class SearchlocationPage {
     } else if (this.confirmPassword == '' || this.confirmPassword == null) {
       this.confirmPasswordMessage = "Please Re-enter your Password";
     }
-    else if (this.location == '' || this.location == null) {
+    else if (this.address.address == '' || this.address.address == null) {
       this.locationMessage = "Please enter your location";
     } else {
 
@@ -141,35 +145,21 @@ export class SearchlocationPage {
         lastName: this.lastName,
         phoneNumber: this.appService.countryCode + this.phoneNumber,
         password: this.password,
-        location: this.location,
+        address: this.address,
         role: "Driver"
       }
       if (this.password == this.confirmPassword) {
-        //Loading message
-        this.loadingMessage = "Registering..";
-        this.loading();
-        this.loader.present();
-        this.appService.verifyUserAndSendOtp(data, (error, data) => {
-          //Dismiss the loader
-          this.loader.dismiss();
-          if (error) {
-            this.message = data.message;
-            this.showToast('top');
-          }
-          else {
-            if (!data.error) {
-              this.navCtrl.setRoot("OtpPage", {
-                email: this.email,
-                firstName: this.firstName,
-                lastName: this.lastName,
-                phoneNumber: this.appService.countryCode + this.phoneNumber,
-                location: this.location,
-                password: this.password,
-                car: this.car
-              });
-            }
-          }
+
+        this.navCtrl.setRoot("DocumentsPage", {
+          email: this.email,
+          firstName: this.firstName,
+          lastName: this.lastName,
+          phoneNumber: this.appService.countryCode + this.phoneNumber,
+          address: this.address,
+          password: this.password,
+          car: this.car
         });
+
       } else {
         this.message = "Please enter the confirm correct password.";
         this.showToast('top');

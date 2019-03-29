@@ -19,13 +19,15 @@
       <ion-list>
         <ion-item padding-right>
           <ion-label floating class="headlabel">Mobile Number without country code</ion-label>
-          <ion-input type="number" required name="phoneNumber" [(ngModel)]="phoneNumber" (keyup)="phoneNumberCleanMessage()"></ion-input>
+          <ion-input type="number" required name="phoneNumber" [(ngModel)]="phoneNumber"
+            (keyup)="phoneNumberCleanMessage()"></ion-input>
         </ion-item>
       </ion-list>
       <ion-list>
         <ion-item padding-right>
           <ion-label floating class="headlabel">Password</ion-label>
-          <ion-input type="password" required name="password" [(ngModel)]="password" (keyup)="passwordCleanMessage()"></ion-input>
+          <ion-input type="password" required name="password" [(ngModel)]="password" (keyup)="passwordCleanMessage()">
+          </ion-input>
         </ion-item>
         <span class="error-message">
           {{passwordMessage}}
@@ -35,8 +37,8 @@
         <ion-item padding-right>
           <ion-label floating class="headlabel">Confirm password</ion-label>
 
-          <ion-input type="password" required name="confirmPassword" [(ngModel)]="confirmPassword" (keyup)="confirmPasswordCleanMessage()"
-            (keyup)="passwordValidation()"></ion-input>
+          <ion-input type="password" required name="confirmPassword" [(ngModel)]="confirmPassword"
+            (keyup)="confirmPasswordCleanMessage()" (keyup)="passwordValidation()"></ion-input>
         </ion-item>
         <span class="error-message">
           {{confirmPasswordMessage}}
@@ -44,15 +46,24 @@
       </ion-list>
       <ion-list>
         <ion-item padding-right>
-          <ion-label floating class="headlabel">Location</ion-label>
-
-          <ion-input type="text" required name="location" [(ngModel)]="location" (keyup)="locationCleanMessage()"></ion-input>
-          <!-- <ion-icon name="locate" item-end></ion-icon> -->
-
+          <ion-label floating class="headlabel">Address</ion-label>
+          <ion-input type="text" required name="address" [(ngModel)]="address.address" (keyup)="locationCleanMessage()">
+          </ion-input>
         </ion-item>
-        <span class="error-message">
-          {{locationMessage}}
-        </span>
+      </ion-list>
+
+      <ion-list>
+        <ion-item padding-right>
+          <ion-label floating class="headlabel">Country</ion-label>
+          <ion-input type="text" required [(ngModel)]="address.country"></ion-input>
+        </ion-item>
+      </ion-list>
+
+      <ion-list>
+        <ion-item padding-right>
+          <ion-label floating class="headlabel">Zip Code</ion-label>
+          <ion-input type="text" required [(ngModel)]="address.zipCode"></ion-input>
+        </ion-item>
       </ion-list>
 
       <ion-list>

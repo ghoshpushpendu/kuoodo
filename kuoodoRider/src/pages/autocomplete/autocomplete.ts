@@ -1,5 +1,6 @@
 import { Component, NgZone } from '@angular/core';
 import { ViewController, NavController, IonicPage, NavParams } from 'ionic-angular';
+import { strings } from '../../lang';
 
 declare var google;
 
@@ -13,13 +14,15 @@ export class AutocompletePage {
   autocompleteItems;
   autocomplete;
 
+  public string: any = strings;
+
   latitude: number = 0;
   longitude: number = 0;
   geo: any
 
   service = new google.maps.places.AutocompleteService();
 
-  constructor(public viewCtrl: ViewController, private zone: NgZone) {
+  constructor(public viewCtrl: ViewController, private zone: NgZone, public param: NavParams) {
     this.autocompleteItems = [];
     this.autocomplete = {
       query: ''
@@ -27,6 +30,8 @@ export class AutocompletePage {
   }
 
   ionViewDidLoad() {
+    console.log(this.param.get('lat'));
+    console.log(this.param.get('lng'));
     let elem = <HTMLInputElement>document.querySelector('ion-searchbar');
     console.log(elem)
     if (elem) {
@@ -53,8 +58,10 @@ export class AutocompletePage {
     let me = this;
     this.service.getPlacePredictions({
       input: this.autocomplete.query,
+      location: new google.maps.LatLng({ lat: me.param.get('lat'), lng: me.param.get('lng') }),
+      radius: 15,
       componentRestrictions: {
-        // country: 'usa'
+        // country: 'usa',
       }
     }, (predictions, status) => {
       me.autocompleteItems = [];

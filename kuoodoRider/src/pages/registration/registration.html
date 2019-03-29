@@ -1,6 +1,11 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>sign in</ion-title>
+    <ion-title>{{string.signIn}}</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="chooseLanguage()">
+        <ion-icon name="globe"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -11,7 +16,7 @@
   <div class="middlesec">
     <ion-list class="inputsec">
       <div class="nochoose">
-        <ion-label stacked class="headlabel">Mobile Number without country code</ion-label>
+        <ion-label stacked class="headlabel">{{string.signInHelpText}}</ion-label>
       </div>
       <ion-grid class="selectgrid">
         <ion-row>
@@ -29,7 +34,7 @@
         {{phoneNumberMessage}}
       </span>
       <ion-item class="inputpassword" [hidden]="isPassword">
-        <ion-label stacked class="headlabel">Enter password</ion-label>
+        <ion-label stacked class="headlabel">{{string.enter+' '+string.password}}</ion-label>
         <ion-input type="password" name="password" [(ngModel)]="password" (keyup)="cleanPasswordMessage()"></ion-input>
       </ion-item>
       <span class="error-message">
@@ -46,7 +51,7 @@
               fill="#FFFFFF" />
           </g>
 
-        </svg> <span>Forgot <strong class="text-green">Password ?</strong></span></p>
+        </svg> <span>{{string.forgot}} <strong class="text-green">{{string.password}} ?</strong></span></p>
       <ion-fab>
         <button ion-fab color="primary" class="button-circle button-next" [hidden]="showForm" (click)="registrationAndLogin()">
           <ion-icon ios="ios-arrow-forward" md="md-arrow-forward"></ion-icon>

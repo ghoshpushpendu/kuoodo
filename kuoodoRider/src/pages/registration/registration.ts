@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, MenuController, NavParams, ToastController, LoadingController, IonicPage } from 'ionic-angular';
+import { NavController, MenuController, AlertController, NavParams, ToastController, LoadingController, IonicPage } from 'ionic-angular';
 import { HttpService } from '../../app.httpService';
 import { AppService } from '../../app.providers';
 import { LocalStorageProvider } from '../../app.localStorage';
 import { get } from 'scriptjs';
-
+import { strings } from '../../lang';
 
 
 @IonicPage({ name: 'RegistrationPage' })
@@ -28,6 +28,8 @@ export class RegistrationPage {
   country: string = "1";
 
   loader: any;
+
+  public string: any = strings;
 
 
 
@@ -54,6 +56,7 @@ export class RegistrationPage {
     public toastCtrl: ToastController,
     public loadingCtrl: LoadingController,
     public menuController: MenuController,
+    private alertCtrl: AlertController,
     private localStorageProvider: LocalStorageProvider) {
 
 
@@ -85,6 +88,54 @@ export class RegistrationPage {
   cleanPasswordMessage() {
     if (this.passwordMessage.length > 0)
       this.passwordMessage = '';
+  }
+
+
+  chooseLanguage() {
+    console.log(localStorage.getItem("language"))
+    console.log(localStorage.getItem('language'));
+    console.log((localStorage.getItem("language").toString() == 'english') ? true : false);
+    let prompt = this.alertCtrl.create({
+      title: 'Language',
+      message: 'Select a language to continue.',
+      inputs: [
+        {
+          type: 'radio',
+          label: 'English',
+          value: 'english',
+          checked: (localStorage.getItem("language") == 'english') ? true : false
+        },
+        {
+          type: 'radio',
+          label: 'Español',
+          value: 'spanish',
+          checked: (localStorage.getItem("language") == 'spanish') ? true : false
+        },
+        {
+          type: 'radio',
+          label: '中文',
+          value: 'chineese',
+          checked: (localStorage.getItem("language") == 'chineese') ? true : false
+        }
+      ],
+      buttons: [
+        // {
+        //   text: "Cancel",
+        //   handler: data => {
+        //     console.log("cancel clicked");
+        //   }
+        // },
+        {
+          text: "Continue",
+          handler: data => {
+            localStorage.removeItem("language");
+            console.log("search clicked", data);
+            localStorage.setItem("language", data);
+            strings.setLanguage(data);
+          }
+        }]
+    });
+    prompt.present();
   }
 
   /*
@@ -127,8 +178,11 @@ export class RegistrationPage {
       phoneNumber: _base.appService.countryCode + phone
     }
 
+    console.log(this.string);
+    console.log(this.string.pleaseWait);
+
     //Loading message
-    this.loadingMessage = "Please wait..";
+    this.loadingMessage = this.string.pleaseWait + " ...";
     this.loading();
     this.loader.present();
 
@@ -161,7 +215,7 @@ export class RegistrationPage {
     var value = authData;
 
     //Loading message
-    this.loadingMessage = "please wait..";
+    this.loadingMessage = this.string.pleaseWait + " ...";
     this.loading();
     this.loader.present();
 
@@ -169,7 +223,7 @@ export class RegistrationPage {
       //Dismiss the loader after getting response from server
       this.loader.dismiss();
       if (error) {
-        this.message = "Wrong Credentials.."
+        this.message = this.string.wrongCredentials + " ..."
         this.showToast('bottom');
       }
       else if (data) {

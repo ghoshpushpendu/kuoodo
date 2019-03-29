@@ -34,7 +34,11 @@ export class OtpPage {
   public otpVerified: boolean = false;
   public deviceID: any;
   car: any;
-  location: any;
+  address: any;
+  drivingLicense: any;
+  vehicleInsurance: any;
+  vechileRegistration: any;
+  vehiclePermit: any;
   constructor(public nav: NavController,
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -49,11 +53,15 @@ export class OtpPage {
     this.phoneNumber = this.navParams.get("phoneNumber");
     this.firstName = this.navParams.get("firstName");
     this.lastName = this.navParams.get("lastName");
-    this.location = this.navParams.get("location");
+    this.address = this.navParams.get("location");
     this.password = this.navParams.get("password");
     this.car = this.navParams.get("car");
     this.email = this.navParams.get("email");
-    console.log(this.deviceID, this.phoneNumber, this.firstName, this.lastName, this.location, this.password, this.car);
+    this.drivingLicense = this.navParams.get("drivingLicense");
+    this.vehicleInsurance = this.navParams.get("vehicleInsurance");
+    this.vechileRegistration = this.navParams.get("vechileRegistration");
+    this.vehiclePermit = this.navParams.get("vehiclePermit");
+    console.log(this.deviceID, this.phoneNumber, this.firstName, this.lastName, this.address, this.password, this.car);
   }
 
   cleanMessage() {
@@ -104,11 +112,15 @@ export class OtpPage {
                 lastName: this.lastName,
                 phoneNumber: this.phoneNumber,
                 password: this.password,
-                location: this.location,
+                address: this.address,
                 role: "Driver",
                 carName: this.car.carName,
                 carNumber: this.car.carNumber,
-                carType: this.car.carType
+                carType: this.car.carType,
+                drivingLicense: this.drivingLicense,
+                vehicleInsurance: this.vehicleInsurance,
+                vechileRegistration: this.vechileRegistration,
+                vehiclePermit: this.vehiclePermit
               }
 
               console.log(data);

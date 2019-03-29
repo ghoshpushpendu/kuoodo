@@ -5,6 +5,7 @@ import { LocalStorageProvider } from '../../app.localStorage';
 import { AppService } from '../../app.providers';
 import { HttpService } from '../../app.httpService';
 import { Stripe } from '@ionic-native/stripe';
+import { strings } from './../../lang';
 
 @IonicPage({ name: 'PaymentsPage' })
 @Component({
@@ -16,6 +17,7 @@ export class PaymentsPage {
   public userID: String;
   public cards: any = [];
   public pendingAmount: any = '0';
+  public string: any = strings;
 
   constructor(private stripe: Stripe, public appService: AppService, public navCtrl: NavController, public localStorageProvider: LocalStorageProvider, public toastCtrl: ToastController, public loadingCtrl: LoadingController, public navParams: NavParams) {
     this.userID = this.localStorageProvider.getUserId();
@@ -43,7 +45,7 @@ export class PaymentsPage {
         console.log("cards ============================================", success.cards);
         _base.cards = success.cards;
       }, function (error) {
-        _base.showToast("can not get card");
+        _base.showToast(_base.string.cardError);
       });
 
     this.getPendingPayments()
@@ -81,7 +83,7 @@ export class PaymentsPage {
   addCard() {
     console.log("go to add card");
     if (this.cards.length != 0) {
-      this.showToast("Remove the linked card to add a new one");
+      this.showToast(this.string.deleteError);
     } else {
       this.navCtrl.push("AddcardPage");
     }
@@ -90,27 +92,27 @@ export class PaymentsPage {
   deleteCard(number) {
     var _base = this;
     var loading = this.loadingCtrl.create({
-      content: 'Removing selected card...'
+      content: this.string.pleaseWait
     });
     _base.appService.deleteCard(number, function (error, data) {
       _base.getCards()
         .then(function (success: any) {
           _base.cards = success.cards;
         }, function (error) {
-          _base.showToast("can not get card");
+          _base.showToast(_base.string.deleteHttpError);
         });
       if (error) {
         loading.dismiss();
-        _base.showToast("can not delete card");
+        _base.showToast(_base.string.deleteHttpError);
       }
       else {
-        _base.showToast("card has been deleted");
+        _base.showToast(_base.string.deleteSuccess);
         _base.getCards()
           .then(function (success: any) {
             console.log("cards ============================================", success.cards);
             _base.cards = success.cards;
           }, function (error) {
-            _base.showToast("can not get card");
+            _base.showToast(_base.string.deleteHttpError);
           });
       }
     });
@@ -120,7 +122,7 @@ export class PaymentsPage {
   getPendingPayments() {
     var _base = this;
     var loading = this.loadingCtrl.create({
-      content: 'Getting pending payments...'
+      content: this.string.pleaseWaitI
     });
     loading.present();
     return new Promise(function (resolve, reject) {
@@ -148,7 +150,7 @@ export class PaymentsPage {
     };
 
     var loading = this.loadingCtrl.create({
-      content: 'Making the payment...'
+      content: this.string.pleaseWait
     });
     loading.present();
 
@@ -162,22 +164,22 @@ export class PaymentsPage {
             console.log("Payment response :", response);
             if (response.error) {
               // alert(response.message);
-              _base.showToast(response.message)
+              _base.showToast(_base.string.paymentError)
             } else {
-              _base.showToast("Payment successfull");
+              _base.showToast(_base.string.paymentSuccess);
               _base.navCtrl.setRoot("FindcarPage");
             }
           }, function (error) {
             loading.dismiss();
             console.log("Error in payment", error);
-            _base.showToast("Error processing payment");
+            _base.showToast(_base.string.paymentError);
           });
       })
       .catch(error => {
         loading.dismiss();
         console.log(error);
         console.log("Error processing payment", error);
-        _base.showToast("Error processing the payment.");
+        _base.showToast(_base.string.paymentError);
       });
   }
 

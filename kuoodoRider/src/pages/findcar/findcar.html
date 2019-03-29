@@ -6,6 +6,14 @@
     </button>
   </ion-fab>
 
+  <!-- <ion-buttons end>
+    <button ion-button icon-only (click)="chooseLanguage()">
+      <ion-icon name="globe"></ion-icon>
+    </button>
+  </ion-buttons> -->
+
+
+
   <!-- <ion-card  class="driverInfo">
     <ion-item>
       <ion-avatar item-start>
@@ -24,7 +32,7 @@
   <div class="card-box" *ngIf="rideMode">
     <ion-card class="text-black">
       <ion-card-header>
-        <small float-left class="text-light">Driver Info</small>
+        <small float-left class="text-light">{{string.driverInfo}}</small>
         <!-- <small float-right class="text-green">Cancel Ride</small> -->
       </ion-card-header>
       <ion-card-content>
@@ -57,11 +65,11 @@
         </div>
         <ion-row padding class="car-details">
           <ion-col>
-            <small class="text-light">Driver distance</small>
+            <small class="text-light">{{string.driverDistance}}</small>
             <strong class="text-black">{{arrivingDistance/1000}} K.M</strong>
           </ion-col>
           <ion-col>
-            <small class="text-light">Time to arrive</small>
+            <small class="text-light">{{string.timeToArrive}}</small>
             <strong class="text-black">{{arrivingDuration}}</strong>
           </ion-col>
         </ion-row>
@@ -81,7 +89,7 @@
           <ion-col class="pad-0">
             <ion-item class="bg-white border-bottom">
               <!-- <ion-label text-right>From</ion-label> -->
-              <ion-input type="text" class="location" disabled="true" placeholder="location from" [(ngModel)]="startAddress"></ion-input>
+              <ion-input type="text" class="location" disabled="true" placeholder="{{string.locationFrom}}" [(ngModel)]="startAddress"></ion-input>
               <button ion-button class="locate-icon" clear *ngIf="!rideMode" type="button" item-right (click)="setCurrentLocation()">
                 <ion-icon name="locate"> </ion-icon>
               </button>
@@ -95,7 +103,7 @@
           <ion-col class="pad-0">
             <ion-item class="bg-white" (tap)="showAddressModal()">
               <!--  <ion-label text-right>To</ion-label> -->
-              <ion-input disabled="true" type="text" class="location" [(ngModel)]="endAddress" placeholder="location to"></ion-input>
+              <ion-input disabled="true" type="text" class="location" [(ngModel)]="endAddress" placeholder="{{string.locationTo}}"></ion-input>
               <ion-icon name="md-locate" class="text-black"></ion-icon>
             </ion-item>
           </ion-col>
@@ -109,7 +117,7 @@
   <div *ngIf="otp != ''" class="qrCode">
     <h2>{{otp}}</h2>
     <!-- <qr-code [value]="otp" [size]="200"></qr-code> -->
-    <p>Provide the driver this code while starting ride .</p>
+    <p>{{string.otpMsg}}.</p>
   </div>
 
 
@@ -131,7 +139,7 @@
 
     <ion-card class="text-black" *ngIf="!rideMode">
       <ion-card-header>
-        <span text-center class="mx-a">Choose Cab Type</span>
+        <span text-center class="mx-a">{{string.cabType}}</span>
       </ion-card-header>
       <ion-card-content>
         <div class="cab-scroll bg-white">
@@ -139,7 +147,7 @@
             <div class="cab-type" *ngFor="let cab of cabTypes;let i = index" (click)="selectCar(i,cab)">
               <div [ngClass]="{'img-box': true, 'active': (i == selectedCar)}">
                 <!-- <img src="assets/imgs/car-1.png"> -->
-                <img src="assets/economy.png" src="{{'assets/'+cab.name+'.png'}}">
+                <!-- <img src="assets/economy.png" src="{{'assets/'+cab.name+'.png'}}"> -->
                 <ion-badge *ngIf="cab.duration" item-end class="bg-green">{{cab.duration}}</ion-badge>
                 <!-- loader starts -->
                 <svg *ngIf="!cab.duration" width="116px" height="116px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"
@@ -187,7 +195,7 @@
 
           <ion-col col-12>
             <button ion-button full *ngIf="!rideMode && nearestDrivers.length != 0" ion-button (click)="bookDriver()"
-              class="bg-green shadow-green full">REQUEST CAB</button>
+              class="bg-green shadow-green full">{{string.bookBtn}}</button>
           </ion-col>
         </ion-row>
 

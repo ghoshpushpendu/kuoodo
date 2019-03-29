@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, LoadingController } from 'ionic-angular';
 import { HttpService } from '../../app.httpService';
 import { AppService } from '../../app.providers';
+import { strings } from './../../lang';
 
 @IonicPage({ name: 'OtpscreenPage' })
 @Component({
@@ -9,6 +10,9 @@ import { AppService } from '../../app.providers';
   templateUrl: 'otpscreen.html',
 })
 export class OtpscreenPage {
+
+  public string: any = strings;
+
   public isPhoneNumber: boolean = true;
   public isCode: boolean = false;
 
@@ -44,7 +48,7 @@ export class OtpscreenPage {
         console.log(error);
         if (error.error == true) {
           let toast = this.toastCtrl.create({
-            message: error.message,
+            message: this.string.wrongOTP,
             duration: 3000,
             position: 'bottom'
           });
@@ -71,7 +75,7 @@ export class OtpscreenPage {
         }
         else {
           let toast = this.toastCtrl.create({
-            message: "Error verifying",
+            message: this.string.wrongOTP,
             duration: 3000,
             position: 'bottom'
           });
@@ -80,7 +84,7 @@ export class OtpscreenPage {
       }, error => {
         _base.loader.dismiss();
         let toast = _base.toastCtrl.create({
-          message: "Invalid OTP",
+          message: this.string.wrongOTP,
           duration: 3000,
           position: 'bottom'
         });
@@ -95,7 +99,7 @@ export class OtpscreenPage {
   loading() {
     this.loader = this.loadingCtrl.create({
       spinner: 'bubbles',
-      content: 'loading...'
+      content: this.string.pleaseWait
     });
 
     this.loader.present();

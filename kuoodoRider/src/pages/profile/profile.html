@@ -9,10 +9,10 @@
   </div>
 
   <!-- <div class="fileUpload btn btn-primary"> -->
-    <!-- <span>
+  <!-- <span>
       <ion-icon class="upload-btn" ios="ios-camera" md="md-camera"></ion-icon>
     </span> -->
-    <!-- <ion-input type="file" class="upload" (change)="selectImage($event)"></ion-input> -->
+  <!-- <ion-input type="file" class="upload" (change)="selectImage($event)"></ion-input> -->
   <!-- </div> -->
 
 
@@ -25,7 +25,7 @@
       <ion-grid>
         <ion-row>
           <ion-col col-4 no-padding>
-            <p no-margin>Personal Info</p>
+            <p no-margin>{{string.personalInfo}}</p>
           </ion-col>
           <ion-col col-8 no-padding>
             <hr>
@@ -38,16 +38,16 @@
     <ion-list>
 
       <ion-item>
-        <ion-label stacked>Name</ion-label>
+        <ion-label stacked>{{string.name}}</ion-label>
         <ion-input type="text" [(ngModel)]="username" [disabled]="isUsername"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label stacked>Email</ion-label>
+        <ion-label stacked>{{string.email}}</ion-label>
         <ion-input type="text" [(ngModel)]="email" [disabled]="isEmail"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label stacked>Phone</ion-label>
+        <ion-label stacked>{{string.phoneNumber}}</ion-label>
         <ion-input type="text" [(ngModel)]="phoneNumber" [disabled]="true"></ion-input>
       </ion-item>
       <!-- <ion-item>

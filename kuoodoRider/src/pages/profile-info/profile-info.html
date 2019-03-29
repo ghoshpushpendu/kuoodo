@@ -9,7 +9,7 @@
 <ion-header>
   <!-- nav bar -->
   <ion-navbar color="primary">
-    <ion-title>Profile Information</ion-title>
+    <ion-title>{{string.profileInformation}}</ion-title>
   </ion-navbar>
 </ion-header>
 <!-- header end -->
@@ -23,14 +23,14 @@
         <img src="assets/image/logo.png" />
       </div>
       <!-- heading text -->
-      <h6 text-center>Profile Information</h6>
+      <h6 text-center>{{string.profileInformation}}</h6>
       <!-- input fields -->
       <ion-grid padding-horizontal>
         <ion-row padding-horizontal>
           <ion-col>
             <!-- first name -->
             <ion-item>
-              <ion-label floating class="fontalign">First Name</ion-label>
+              <ion-label floating class="fontalign">{{string.firstName}}</ion-label>
               <ion-input type="text" name="firstName" [(ngModel)]="firstName" (keyup)="firstNameCleanMessage()"></ion-input>
             </ion-item>
             <span class="error-message">
@@ -40,7 +40,7 @@
           <ion-col>
             <!-- last name -->
             <ion-item>
-              <ion-label floating class="fontalign">Last Name</ion-label>
+              <ion-label floating class="fontalign">{{string.lastName}}</ion-label>
               <ion-input type="text" name="lastName" [(ngModel)]="lastName" (keyup)="lastNameCleanMessage()"></ion-input>
             </ion-item>
             <span class="error-message">
@@ -52,7 +52,7 @@
           <ion-col>
             <!-- email -->
             <ion-item>
-              <ion-label floating>Email</ion-label>
+              <ion-label floating>{{string.email}}</ion-label>
               <ion-input type="email" required name="email" [(ngModel)]="email" (keyup)="emailValidate()"></ion-input>
             </ion-item>
             <span class="error-message">
@@ -68,21 +68,21 @@
             </select>
           </ion-col>
           <ion-col> -->
-            <!-- phone number -->
-            <ion-item *ngIf="isValid">
-              <ion-label floating>Mobile Number</ion-label>
-              <ion-input type="text" [disabled]="checkPhoneNumber" name="phoneNumber" [(ngModel)]="phoneNumber" (keyup)="phoneNumberCleanMessage()">{{phoneNumber}}</ion-input>
-            </ion-item>
-            <span class="error-message">
-              {{phoneNumberMessage}}
-            </span>
+          <!-- phone number -->
+          <ion-item *ngIf="isValid">
+            <ion-label floating>{{string.mobileNumber}}</ion-label>
+            <ion-input type="text" [disabled]="checkPhoneNumber" name="phoneNumber" [(ngModel)]="phoneNumber" (keyup)="phoneNumberCleanMessage()">{{phoneNumber}}</ion-input>
+          </ion-item>
+          <span class="error-message">
+            {{phoneNumberMessage}}
+          </span>
           <!-- </ion-col> -->
         </ion-row>
         <ion-row padding-horizontal>
           <ion-col>
             <!-- phone number -->
             <ion-item>
-              <ion-label floating>Password</ion-label>
+              <ion-label floating>{{string.password}}</ion-label>
               <ion-input type="password" name="password" [(ngModel)]="password" (keyup)="passwordCleanMessage()"></ion-input>
             </ion-item>
             <span class="error-message">
@@ -92,9 +92,9 @@
         </ion-row>
       </ion-grid>
       <!-- last confirmation text -->
-      
+
       <div text-left class="imfootertext">
-       
+
         <!-- <img src="assets/image/car.png" />
         <div padding></div>
         <p> By Continuing, I confirm that I have read and agree to the
@@ -113,9 +113,9 @@
               <button ion-fab color="secondary" class="proceedbtn posalign" (click)="registration()">
                 <ion-icon ios="ios-arrow-forward" md="md-arrow-forward"></ion-icon>
               </button>
-              <p> By Continuing, I confirm that I have read and agree to the
-                <span class="highlight">Terms & Conditions</span> and
-                <span class="highlight">Privacy Policy</span>
+              <p> {{string.agressMessage}}
+                <span class="highlight">{{string.termsAndConditions}}</span> {{string.and}}
+                <span class="highlight">{{string.privacyPolicy}}</span>
               </p>
             </div>
           </div>

@@ -1,0 +1,218 @@
+page-documents {
+  .center {
+    margin: auto;
+    width: 71%;
+  }
+
+  .toolbar-title-md {
+    color: rgba(255, 255, 255, 0.92);
+  }
+
+  .scroll-content {
+    background: #fff;
+  }
+
+  .toolbar-content.toolbar-content-md {
+    display: flex;
+  }
+
+  ion-navbar.toolbar.toolbar-md {
+    background: #29cc63;
+  }
+
+  .toolbar-background-md {
+    border-color: transparent;
+    background: transparent;
+  }
+
+  .header-md::after {
+    background-image: none;
+  }
+
+  .item-md.item-block .item-inner {
+    padding-left: 16px;
+  }
+
+  button.sendrequest.disable-hover.button.button-ios.button-default.button-default-ios.activated {
+    background: #75da70;
+  }
+
+  .sendrequest {
+    border-radius: 30px;
+    overflow: hidden;
+    height: 3.7rem;
+    text-transform: inherit;
+    color: #fff;
+    font-size: 1.5rem;
+    background-color: #75da70;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    margin: 2.5rem 0rem;
+    padding: 0px 1.7em;
+  }
+
+  ion-icon.icon.icon-md.ion-md-add.item-icon {
+    color: #29cc63;
+    font-size: 24px;
+    font-weight: 600;
+  }
+
+  .headlabel {
+    font-size: 15px;
+  }
+
+  .label-md[stacked] {
+    font-size: 1.6rem;
+    color: rgba(0, 0, 0, 0.53);
+    font-weight: 500;
+  }
+
+  ion-icon {
+    display: inline-block;
+    font-size: 1.2em;
+    color: white;
+  }
+
+  .footercontent {
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    font-family: 'Roboto', sans-serif;
+    line-height: 21px;
+    font-size: 12px;
+
+  }
+
+  input.text-input.text-input-md {
+    color: rgba(0, 0, 0, 0.62);
+  }
+
+  .item-input-has-focus .headlabel.label.label-md,
+  .input-has-focus .label-md {
+
+    color: rgba(0, 0, 0, 0.62);
+  }
+
+  .item-md.item-input.item-input-has-focus .item-inner,
+  .item-md.item-input.input-has-focus .item-inner {
+    border-bottom-color: rgba(0, 0, 0, 0.73);
+    box-shadow: none;
+  }
+
+  .item-md.item-input.item-input-has-focus:last-child,
+  .item-md.item-input.input-has-focus:last-child {
+    border-bottom-color: rgba(0, 0, 0, 0.73);
+    box-shadow: none;
+  }
+
+  @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
+    ion-navbar.toolbar.toolbar-ios {
+      background: #29cc63;
+      //   height:137px;
+    }
+
+    .toolbar-background-ios {
+      border-color: transparent;
+      background: transparent;
+    }
+
+    .bar-button-default-ios {
+      color: white;
+      position: fixed;
+      top: 15px;
+    }
+
+    .toolbar-title-ios {
+      color: rgba(255, 255, 255, 0.92);
+    }
+
+    ion-icon {
+      font-size: 4.2em;
+    }
+
+    .label-ios[stacked] {
+      font-size: 1.6rem;
+      color: rgba(0, 0, 0, 0.53);
+      font-weight: 500;
+    }
+
+    .item-ios.item-block .item-inner {
+      padding-left: 16px;
+    }
+
+    ion-icon.icon.icon-ios.ion-ios-add.item-icon {
+      color: #29cc63;
+      font-size: 35px;
+      font-weight: 600;
+    }
+  }
+
+
+  // iphone section
+
+  .toolbar-title-ios {
+    color: rgba(255, 255, 255, 0.92);
+  }
+
+  .scroll-content {
+    background: #fff;
+  }
+
+  .toolbar-content.toolbar-content-ios {
+    display: flex;
+  }
+
+  ion-navbar.toolbar.toolbar-ios {
+    background: #29cc63;
+  }
+
+  .toolbar-background-ios {
+    border-color: transparent;
+    background: transparent;
+  }
+
+  .header-ios::after {
+    background-image: none;
+  }
+
+  .item-ios.item-block .item-inner {
+    padding-left: 16px;
+  }
+
+  input.text-input.text-input-ios {
+    color: rgba(0, 0, 0, 0.62);
+  }
+
+  .item-input-has-focus .headlabel.label.label-ios,
+  .input-has-focus .label-ios {
+
+    color: rgba(0, 0, 0, 0.62);
+  }
+
+  .item-ios.item-input.item-input-has-focus .item-inner,
+  .item-ios.item-input.input-has-focus .item-inner {
+    border-bottom-color: rgba(0, 0, 0, 0.73);
+    box-shadow: none;
+  }
+
+  .item-ios.item-input.item-input-has-focus:last-child,
+  .item-ios.item-input.input-has-focus:last-child {
+    border-bottom-color: rgba(0, 0, 0, 0.73);
+    box-shadow: none;
+  }
+
+  span.back-button-text.back-button-text-ios {
+    display: none;
+  }
+
+  .docsec {
+    text-align: center;
+
+    img {
+      width: 280px;
+      margin-top: 10px;
+      height: 174px;
+    }
+  }
+}

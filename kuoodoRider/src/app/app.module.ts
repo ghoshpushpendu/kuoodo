@@ -12,6 +12,7 @@ import { Device } from '@ionic-native/device';
 import { Network } from '@ionic-native/network';
 import { Stripe } from '@ionic-native/stripe';
 
+
 @NgModule({
   declarations: [
     MyApp

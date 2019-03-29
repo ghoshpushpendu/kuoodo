@@ -15,7 +15,10 @@
         {{p.title}}
       </button>
       <button menuClose ion-item (click)="logout()">
-        Logout
+        logout
+      </button>
+      <button menuClose ion-item (click)="chooseLanguage()">
+        language-{{string._language}}
       </button>
     </ion-list>
   </ion-content>

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, LoadingController } from 'ionic-angular';
 import { HttpService } from '../../app.httpService';
+import { strings } from './../../lang';
 
 
 @IonicPage({ name: 'ResetpasswordPage' })
@@ -14,6 +15,7 @@ export class ResetpasswordPage {
   public phoneNumber: any;
   public message: any;
   public loader: any;
+  public string: any = strings;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -39,7 +41,7 @@ export class ResetpasswordPage {
         if (data.error == false) {
           console.log("After reset password :");
           let toast = this.toastCtrl.create({
-            message: "Password reset successfull",
+            message: this.string.passwordSuccess,
             duration: 3000,
             position: 'top'
           });
@@ -48,7 +50,7 @@ export class ResetpasswordPage {
           this.navCtrl.setRoot("RegistrationPage");
         } else {
           let toast = this.toastCtrl.create({
-            message: "Could not reset password",
+            message: this.string.passwordMismatch,
             duration: 3000,
             position: 'top'
           });
@@ -58,7 +60,7 @@ export class ResetpasswordPage {
     }
     else {
       let toast = this.toastCtrl.create({
-        message: "Password are not matched",
+        message: this.string.passwordMismatch,
         duration: 3000,
         position: 'top'
       });
@@ -72,7 +74,7 @@ Loader message
   loading() {
     this.loader = this.loadingCtrl.create({
       spinner: 'bubbles',
-      content: 'loading...'
+      content: this.string.pleasewait
     });
 
     this.loader.present();

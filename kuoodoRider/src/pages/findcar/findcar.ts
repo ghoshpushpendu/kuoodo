@@ -4,6 +4,7 @@ import { Geolocation, GeolocationOptions } from '@ionic-native/geolocation';
 import { AlertController, LoadingController } from 'ionic-angular';
 import { HttpService } from '../../app.httpService';
 import { Stripe } from '@ionic-native/stripe';
+import { strings } from './../../lang';
 
 declare var google;
 
@@ -19,6 +20,8 @@ import * as io from "socket.io-client";
   providers: [HttpService]
 })
 export class FindcarPage {
+
+  public string: any = strings;
   //waiting loader
   public waitingLoader: any;
 
@@ -58,7 +61,7 @@ export class FindcarPage {
   endingLatitude: any;
   startLongitude: any;
   startLatitude: any;
-  public startAddress: any = "fetching pickup location ...";
+  public startAddress: any = this.string.fetchLocation;
   public endAddress: any;
   public distance: string;
   public driverNode: any;
@@ -128,7 +131,7 @@ export class FindcarPage {
       if (userID == _base.id) {
         console.log("Vitore gachhe .......");
         _base.waitingLoader.dismiss();
-        _base.showToast("Ride request has been accepted");
+        _base.showToast(_base.string.accepted);
         console.log("ride request has been accepted");
         _base.rideMode = true;
 
@@ -150,7 +153,7 @@ export class FindcarPage {
       // console.log("Ride has been rejected");
       if (userID == _base.id) {
         _base.waitingLoader.dismiss();
-        _base.showToast("Ride request has been rejected");
+        _base.showToast(_base.string.rejected);
         _base.rideMode = false;
         _base.startSearch();
       }
@@ -163,7 +166,7 @@ export class FindcarPage {
       if (userID == _base.id) {
         _base.otp = _base.tempOtp;
         _base.arrival_status = "arrived";
-        _base.showToast("Driver has arrived");
+        _base.showToast(_base.string.arrived);
         _base.showJourneyRoute();
       }
     });
@@ -173,7 +176,7 @@ export class FindcarPage {
       console.log("Ride has been started");
       if (userID == _base.id) {
         _base.otp = "";
-        _base.showToast("Ride has been started");
+        _base.showToast(_base.string.rideStarted);
         _base.socket.removeListener(_base.driverId + "-location", function () {
           console.log("Driver current location request stopped");
         });
@@ -184,7 +187,7 @@ export class FindcarPage {
       let userID = data.userId._id;
       let driverID = data.driverId._id;
       if (userID == _base.id) {
-        _base.showToast("Ride has completed");
+        _base.showToast(_base.string.rideCompleted);
         // _base.clearTrip();
         let price = data.price;
         // this.attemptPayment();
@@ -217,13 +220,63 @@ export class FindcarPage {
     this.getCabTypes();
   }
 
+  chooseLanguage() {
+    console.log(localStorage.getItem("language"))
+    console.log((localStorage.getItem("language").toString() == 'english') ? true : false);
+    let prompt = this.alertCtrl.create({
+      title: 'Language',
+      message: 'Select a language to continue.',
+      inputs: [
+        {
+          type: 'radio',
+          label: 'English',
+          value: 'english',
+          checked: (localStorage.getItem("language") == 'english') ? true : false
+        },
+        {
+          type: 'radio',
+          label: 'Español',
+          value: 'spanish',
+          checked: (localStorage.getItem("language") == 'spanish') ? true : false
+        },
+        {
+          type: 'radio',
+          label: '中文',
+          value: 'chineese',
+          checked: (localStorage.getItem("language") == 'chineese') ? true : false
+        }
+      ],
+      buttons: [
+        // {
+        //   text: "Cancel",
+        //   handler: data => {
+        //     console.log("cancel clicked");
+        //   }
+        // },
+        {
+          text: "Continue",
+          handler: data => {
+            localStorage.removeItem("language");
+            console.log("search clicked", data);
+            localStorage.setItem("language", data);
+            strings.setLanguage(data);
+          }
+        }]
+    });
+    prompt.present();
+  }
+
   ionViewDidLeave() {
     this.stopSearch();
   }
 
   showAddressModal() {
-    let modal = this.modalCtrl.create("AutocompletePage");
     let _base = this;
+    let modal = this.modalCtrl.create("AutocompletePage", {
+      lat: _base.startLatitude,
+      lng: _base.startLongitude
+    });
+
     modal.onDidDismiss(data => {
       if (Object.keys(data).length != 0) {
         _base.endAddress = data.location;
@@ -271,7 +324,7 @@ export class FindcarPage {
           if (data.status == 'rideaccept') {
             _base.waitingLoader.dismiss();
             let loading = this.loadingCtrl.create({
-              content: 'driver accepted ride request...'
+              content: _base.string.pleaseWait
             });
 
             loading.present();
@@ -282,7 +335,7 @@ export class FindcarPage {
           } else if (data.status == 'ridecancel') {
             _base.waitingLoader.dismiss();
             let loading = this.loadingCtrl.create({
-              content: 'driver canceled ride request...'
+              content: _base.string.pleaseWait
             });
 
             loading.present();
@@ -332,7 +385,7 @@ export class FindcarPage {
         console.log("success - getting payments", success);
         if (success.result.length) {
           if (success.result[0].amount >= 0) {
-            _base.nav.push("PaymentsPage");
+            // _base.nav.push("PaymentsPage");
           }
         }
       }, function (error) {
@@ -343,13 +396,13 @@ export class FindcarPage {
     _base.getCards()
       .then(function (success: any) {
         if (success.cards.length == 0) {
-          alert("Please add a payment method to book ride");
-          _base.navCtrl.push("PaymentsPage");
+          alert(_base.string.paymentMethodError);
+          // _base.navCtrl.push("PaymentsPage");
         } else {
           _base.cards = success.cards;
         }
       }, function (error) {
-        _base.navCtrl.push("PaymentsPage");
+        // _base.navCtrl.push("PaymentsPage");
         _base.showToast("can not get card");
       });
 
@@ -378,7 +431,7 @@ export class FindcarPage {
   public mapRideData(data: any) {
     let _base = this;
     if (data.status == 'Booked') {
-      _base.showToast("Ride request has been accepted");
+      _base.showToast(_base.string.accepted);
       console.log("ride request has been accepted");
       _base.rideMode = true;
       _base.driverId = data.driverId._id;
@@ -424,10 +477,211 @@ export class FindcarPage {
 
   initMap() {
     let _base = this;
+
+    let mapStyle = [
+      {
+        "elementType": "geometry",
+        "stylers": [
+          {
+            "color": "#f5f5f5"
+          }
+        ]
+      },
+      {
+        "elementType": "labels.icon",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      },
+      {
+        "elementType": "labels.text.fill",
+        "stylers": [
+          {
+            "color": "#616161"
+          }
+        ]
+      },
+      {
+        "elementType": "labels.text.stroke",
+        "stylers": [
+          {
+            "color": "#f5f5f5"
+          }
+        ]
+      },
+      {
+        "featureType": "administrative",
+        "elementType": "geometry",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      },
+      {
+        "featureType": "administrative.land_parcel",
+        "elementType": "labels.text.fill",
+        "stylers": [
+          {
+            "color": "#bdbdbd"
+          }
+        ]
+      },
+      {
+        "featureType": "poi",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      },
+      {
+        "featureType": "poi",
+        "elementType": "geometry",
+        "stylers": [
+          {
+            "color": "#eeeeee"
+          }
+        ]
+      },
+      {
+        "featureType": "poi",
+        "elementType": "labels.text.fill",
+        "stylers": [
+          {
+            "color": "#757575"
+          }
+        ]
+      },
+      {
+        "featureType": "poi.park",
+        "elementType": "geometry",
+        "stylers": [
+          {
+            "color": "#e5e5e5"
+          }
+        ]
+      },
+      {
+        "featureType": "poi.park",
+        "elementType": "labels.text.fill",
+        "stylers": [
+          {
+            "color": "#9e9e9e"
+          }
+        ]
+      },
+      {
+        "featureType": "road",
+        "elementType": "geometry",
+        "stylers": [
+          {
+            "color": "#ffffff"
+          }
+        ]
+      },
+      {
+        "featureType": "road",
+        "elementType": "labels.icon",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      },
+      {
+        "featureType": "road.arterial",
+        "elementType": "labels.text.fill",
+        "stylers": [
+          {
+            "color": "#757575"
+          }
+        ]
+      },
+      {
+        "featureType": "road.highway",
+        "elementType": "geometry",
+        "stylers": [
+          {
+            "color": "#dadada"
+          }
+        ]
+      },
+      {
+        "featureType": "road.highway",
+        "elementType": "labels.text.fill",
+        "stylers": [
+          {
+            "color": "#616161"
+          }
+        ]
+      },
+      {
+        "featureType": "road.local",
+        "elementType": "labels.text.fill",
+        "stylers": [
+          {
+            "color": "#9e9e9e"
+          }
+        ]
+      },
+      {
+        "featureType": "transit",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      },
+      {
+        "featureType": "transit.line",
+        "elementType": "geometry",
+        "stylers": [
+          {
+            "color": "#e5e5e5"
+          }
+        ]
+      },
+      {
+        "featureType": "transit.station",
+        "elementType": "geometry",
+        "stylers": [
+          {
+            "color": "#eeeeee"
+          }
+        ]
+      },
+      {
+        "featureType": "water",
+        "elementType": "geometry",
+        "stylers": [
+          {
+            "color": "#c9c9c9"
+          }
+        ]
+      },
+      {
+        "featureType": "water",
+        "elementType": "labels.text.fill",
+        "stylers": [
+          {
+            "color": "#9e9e9e"
+          }
+        ]
+      }
+    ];
+
     var uluru = { lat: -25.344, lng: 131.036 };
     let options = {
-      zoom: 19, center: uluru, disableDefaultUI: true, mapTypeId: 'terrain', gestureHandling: 'none',
-      zoomControl: false
+      zoom: 19,
+      center: uluru,
+      disableDefaultUI: true,
+      mapTypeId: 'terrain',
+      gestureHandling: 'none',
+      zoomControl: false,
+      styles: mapStyle
     };
     this.map = new google.maps.Map(document.getElementById('map'), options);
 
@@ -435,6 +689,7 @@ export class FindcarPage {
       // do something only the first time the map is loaded
       _base.setCurrentLocation();
     });
+
   }
 
   setCurrentLocation() {
@@ -444,7 +699,7 @@ export class FindcarPage {
     sessionStorage.setItem("location", "enabled");
 
     let loader = _base.loadingCtrl.create({
-      content: 'Searching location....'
+      content: _base.string.pleaseWait
     });
     loader.present();
     _base.getLocation().then((res) => {
@@ -638,7 +893,7 @@ export class FindcarPage {
         _base.calculate(distance, duration);
       } else {
         _base.endAddress = null;
-        alert("Unexpected destination");
+        alert("");
       }
     });
   }
@@ -764,23 +1019,23 @@ export class FindcarPage {
     let _base = this;
 
     if (_base.startLatitude == null || _base.startLatitude == undefined) {
-      alert("No pickup location");
+      alert(_base.string.noPickUp);
       return;
     }
     if (_base.startLongitude == null || _base.startLongitude == undefined) {
-      alert("No pickup location");
+      alert(_base.string.noPickUp);
       return;
     }
     if (_base.endingLatitude == null || _base.endingLatitude == undefined) {
-      alert("No drop off location");
+      alert(_base.string.noDropOff);
       return;
     }
     if (_base.endingLongitude == null || _base.endingLongitude == undefined) {
-      alert("No drop off location");
+      alert(_base.string.noDropOff);
       return;
     }
     if (_base.selectedCar == null) {
-      alert("Select a car type to book");
+      alert(_base.string.selectCar);
       return;
     }
 
@@ -802,7 +1057,7 @@ export class FindcarPage {
     }
 
     let bookLoader = _base.loadingCtrl.create({
-      content: 'Searching and booking driver...'
+      content: _base.string.searchingDriver
     });
     bookLoader.present();
 
@@ -812,7 +1067,7 @@ export class FindcarPage {
 
       if (error) {
         console.log(error);
-        alert("Server error . Try again");
+        alert(_base.string.serverError);
       }
       else if (!data.error) {
 
@@ -834,7 +1089,7 @@ export class FindcarPage {
 
         _base.rideMode = true;
         _base.waitingLoader = _base.loadingCtrl.create({
-          content: 'Please wait for driver confirmation...'
+          content: _base.string.driverConfirmation
         });
 
         _base.waitingLoader.present();
@@ -1003,43 +1258,6 @@ export class FindcarPage {
     toast.present(toast);
   }
 
-
-  // alert box
-
-  showAlert() {
-    let alert = this.alertCtrl.create();
-
-    alert.addInput({
-      type: 'checkbox',
-      label: 'Driver Name',
-      value: 'Driver Name:john doe',
-      checked: true
-    });
-    alert.addInput({
-      type: 'checkbox',
-      label: 'John Doe',
-      value: 'Start Location: Lorem Ipsum',
-      checked: true
-    });
-    alert.addInput({
-      type: 'checkbox',
-      label: 'Alderaan',
-      value: 'End Location: Lorem Ipsum',
-      checked: true
-    });
-    alert.addInput({
-      type: 'checkbox',
-      label: 'Alderaan',
-      value: 'Fare:250',
-      checked: true
-    });
-
-    alert.addButton({
-      text: 'OK',
-    });
-
-    alert.present();
-  }
   // modal box
   openModal(characterNum) {
 
@@ -1052,10 +1270,10 @@ export class FindcarPage {
     let _base = this;
     this.appService.updateUserStatus(status, this.id, this.socket.id, (error, data) => {
       if (error) {
-        _base.showToast("Can not update status");
+        _base.showToast(_base.string.updateError);
       }
       else {
-        _base.showToast("You are now " + status);
+        _base.showToast(_base.string.onlineStatus + status);
       }
     });
   }
@@ -1072,7 +1290,7 @@ export class FindcarPage {
   //  get cab types
   getCabTypes() {
     let _base = this;
-    let loading = this.loadingCtrl.create({ content: 'Feching required data...' });
+    let loading = this.loadingCtrl.create({ content: _base.string.pleaseWait });
     loading.present();
     _base.appService.getCabTypes((error, data) => {
       loading.dismiss();
@@ -1095,7 +1313,7 @@ export class FindcarPage {
       this.cartype = car;
     } else {
       console.log("No available");
-      alert(car.name + " is not available here.");
+      alert(car.name + this.string.notAvailable);
     }
   }
 
@@ -1104,7 +1322,7 @@ export class FindcarPage {
   getPendingPayments() {
     var _base = this;
     var loading = this.loadingCtrl.create({
-      content: 'Getting pending payments...'
+      content: _base.string.gettingPayments
     });
     loading.present();
     return new Promise(function (resolve, reject) {
@@ -1126,7 +1344,7 @@ export class FindcarPage {
   getCards() {
     var _base = this;
     var loading = this.loadingCtrl.create({
-      content: 'Getting cards...'
+      content: _base.string.gettingCards
     });
     loading.present();
     return new Promise(function (resolve, reject) {
@@ -1154,7 +1372,7 @@ export class FindcarPage {
     };
 
     var loading = this.loadingCtrl.create({
-      content: 'Making the payment...'
+      content: _base.string.makingPayment
     });
     loading.present();
 

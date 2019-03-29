@@ -4,6 +4,7 @@ import { HttpService } from '../../app.httpService';
 import { AppService } from '../../app.providers';
 import { LocalStorageProvider } from '../../app.localStorage';
 import { get } from 'scriptjs';
+import { strings } from './../../lang';
 
 
 @IonicPage({ name: 'ProfileInfoPage' })
@@ -13,6 +14,7 @@ import { get } from 'scriptjs';
   providers: [AppService, HttpService]
 })
 export class ProfileInfoPage {
+  public string: any = strings;
   passwordMessage: string = '';
   phoneNumberMessage: string = '';
   emailMessage: string = '';
@@ -148,7 +150,7 @@ export class ProfileInfoPage {
     var emailPattern = /^[a-z][a-zA-Z0-9_]*(\.[a-zA-Z][a-zA-Z0-9_]*)?@[a-z][a-zA-Z-0-9]*\.[a-z]+(\.[a-z]+)?$/;
     if (isNaN(this.email)) {
       if (!(this.email.match(emailPattern))) {
-        this.emailMessage = "Please enter a valid email";
+        this.emailMessage = this.string.validEmail;
         console.log('error for email', this.emailMessage);
         return false;
       }
@@ -165,19 +167,19 @@ export class ProfileInfoPage {
   registration() {
     if (this.provider == "local") {
       if (this.firstName == '' || this.firstName == null) {
-        this.firstNameMessage = "Please enter your first name";
+        this.firstNameMessage = this.string.enterFName;
       }
       else if (this.lastName == '' || this.lastName == null) {
-        this.lastNameMessage = "Please enter your last name";
+        this.lastNameMessage = this.string.enterLName;
       } else if (this.email == '' || this.email == null) {
-        this.emailMessage = "Please enter your email";
+        this.emailMessage = this.string.enterEmail;
       }
       else if (this.password == '' || this.password == null) {
-        this.passwordMessage = "Please enter your pasword";
+        this.passwordMessage = this.string.enterPassword;
       } else {
 
         //Loading message
-        this.loadingMessage = "Please wait..";
+        this.loadingMessage = this.string.pleaseWait;
         this.loading();
         this.loader.present();
 
@@ -216,17 +218,15 @@ export class ProfileInfoPage {
       }
     } else if (this.providers == "facebook") {
       if (this.firstName == '' || this.firstName == null) {
-        this.firstNameMessage = "Please enter your first name";
+        this.firstNameMessage = this.string.enterFName;
       }
       else if (this.lastName == '' || this.lastName == null) {
-        this.lastNameMessage = "Please enter your last name";
+        this.lastNameMessage = this.string.enterLName;
       } else if (this.email == '' || this.email == null) {
-        this.emailMessage = "Please enter your email";
-      } else if (this.phoneNumber == '' || this.phoneNumber == null) {
-        this.phoneNumberMessage = "Please enter your phone number";
+        this.emailMessage = this.string.enterEmail;
       }
       else if (this.password == '' || this.password == null) {
-        this.passwordMessage = "Please enter your pasword";
+        this.passwordMessage = this.string.enterPassword;
       } else {
 
         var value = {
@@ -236,7 +236,7 @@ export class ProfileInfoPage {
         if (this.password.length >= 8) {
 
           //Loading message
-          this.loadingMessage = "Please wait..";
+          this.loadingMessage = this.string.pleaseWait;
           this.loading();
           this.loader.present();
 
@@ -279,17 +279,15 @@ export class ProfileInfoPage {
       }
     } else if (this.providers == "google") {
       if (this.firstName == '' || this.firstName == null) {
-        this.firstNameMessage = "Please enter your first name";
+        this.firstNameMessage = this.string.enterFName;
       }
       else if (this.lastName == '' || this.lastName == null) {
-        this.lastNameMessage = "Please enter your last name";
+        this.lastNameMessage = this.string.enterLName;
       } else if (this.email == '' || this.email == null) {
-        this.emailMessage = "Please enter your email";
-      } else if (this.phoneNumber == '' || this.phoneNumber == null) {
-        this.phoneNumberMessage = "Please enter your phone number";
+        this.emailMessage = this.string.enterEmail;
       }
       else if (this.password == '' || this.password == null) {
-        this.passwordMessage = "Please enter your pasword";
+        this.passwordMessage = this.string.enterPassword;
       } else {
 
         var value = {
@@ -299,7 +297,7 @@ export class ProfileInfoPage {
         if (this.password.length >= 8) {
 
           //Loading message
-          this.loadingMessage = "Please wait..";
+          this.loadingMessage = this.string.pleaseWait;
           this.loading();
           this.loader.present();
 
@@ -340,7 +338,7 @@ export class ProfileInfoPage {
           });
         }
         else if (this.password.length < 8) {
-          this.message = "Password should contain 8 digit..";
+          this.message = this.string.passwordLength;
           this.showToast('top');
         }
       }

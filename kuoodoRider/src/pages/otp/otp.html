@@ -22,26 +22,26 @@
     </ion-item>
     -->
     <ion-item class="inputsec1">
-      <ion-label stacked class="headlabel">Enter OTP
+      <ion-label stacked class="headlabel">{{string.enter}} OTP
 
       </ion-label>
 
-      <ion-input type="number" name="otp" placeholder="Enter your O.T.P Here" [(ngModel)]="otp" (keyup)="cleanMessage()"></ion-input>
+      <ion-input type="number" name="otp" placeholder="O.T.P" [(ngModel)]="otp" (keyup)="cleanMessage()"></ion-input>
 
     </ion-item>
     <span class="error-message">
       {{OTPmessage}}
     </span>
-    <button ion-button class="verifybtn" (click)="verifyOTP()">Verify</button>
+    <button ion-button class="verifybtn" (click)="verifyOTP()">{{string.verify}}</button>
   </div>
   <ion-grid>
     <ion-row>
       <ion-col col-8>
 
-        <p class="resendtxt">Did not get your OTP?</p>
+        <p class="resendtxt">{{string.notGotOTP}} OTP?</p>
       </ion-col>
       <ion-col col-4>
-        <button ion-button class="resendbtn" (click)="resendOTP()">Re Send</button>
+        <button ion-button class="resendbtn" (click)="resendOTP()">{{string.resend}}</button>
 
       </ion-col>
     </ion-row>
@@ -83,9 +83,9 @@
           </button>
         </ion-fab> -->
         <img src="assets/image/car.png" class="carimg">
-        <p> By Continuing, I confirm that I have read and agree to the
-          <span class="highlight">Terms & Conditions</span> and
-          <span class="highlight">Privacy Policy</span>
+        <p> {{string.agressMessage}}
+          <span class="highlight">{{string.termsAndConditions}}</span> {{string.and}}
+          <span class="highlight">{{string.privacyPolicy}}</span>
         </p>
       </div>
     </div>

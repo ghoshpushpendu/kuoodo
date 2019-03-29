@@ -4,6 +4,7 @@ import { AppService } from '../../app.providers';
 import { HttpService } from '../../app.httpService';
 import { LocalStorageProvider } from '../../app.localStorage';
 import { AlertController } from 'ionic-angular';
+import { strings } from './../../lang';
 
 @IonicPage({ name: 'OtpPage' })
 @Component({
@@ -12,6 +13,7 @@ import { AlertController } from 'ionic-angular';
   providers: [AppService, HttpService]
 })
 export class OtpPage {
+  public string: any = strings;
   Otp: any;
   OTPmessage: string = '';
   password: any;
@@ -58,10 +60,10 @@ export class OtpPage {
   */
   verifyOTP() {
     if (this.otp == '' || this.otp == null) {
-      this.OTPmessage = "OTP can not be empty";
+      this.OTPmessage = this.string.otpEmptyMessage;
     } else {
       //Loading message
-      this.loadingMessage = "OTP verification..";
+      this.loadingMessage = "OTP " + this.string.verification + "..";
       this.loading();
       this.loader.present();
       var data = {
@@ -106,7 +108,7 @@ export class OtpPage {
     if (this.otpVerified == false) {
 
       //Loading message
-      this.loadingMessage = "Resend OTP..";
+      this.loadingMessage = this.string.resend + "OTP..";
       this.loading();
       this.loader.present();
 
@@ -135,7 +137,7 @@ export class OtpPage {
       });
     }
     else {
-      this.message = "OTP verification completed";
+      this.message = "OTP " + this.string.verification + " " + this.string.completed;
       this.showToast('bottom');
     }
   }

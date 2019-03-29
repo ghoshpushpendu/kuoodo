@@ -3,6 +3,7 @@ import { IonicPage, NavController, ToastController, NavParams } from 'ionic-angu
 import { LocalStorageProvider } from '../../app.localStorage';
 import { AppService } from '../../app.providers';
 import { LoadingController } from 'ionic-angular';
+import { strings } from './../../lang';
 
 
 @IonicPage({ name: 'TriphistoryPage' })
@@ -13,6 +14,7 @@ import { LoadingController } from 'ionic-angular';
 export class TriphistoryPage {
 
   public userID: string; // current user ID
+  public string: any = strings;
 
   public trips: any;  // list of trips
   public loader: any;
@@ -81,7 +83,7 @@ export class TriphistoryPage {
           return trip;
         });
         if (success.result.length == 0) {
-          _base.showToast("You don't have any trip yet");
+          _base.showToast(_base.string.noTrip);
           _base.navCtrl.pop();
         }
         _base.loader.dismiss();
@@ -113,7 +115,7 @@ export class TriphistoryPage {
   loading() {
     this.loader = this.loadingCtrl.create({
       spinner: 'bubbles',
-      content: 'loading trip history...'
+      content: this.string.pleasewait
     });
     this.loader.present();
   }

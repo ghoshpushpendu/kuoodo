@@ -3,7 +3,6 @@ import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-an
 import { LocalStorageProvider } from '../../app.localStorage';
 import { AppService } from '../../app.providers';
 
-
 @IonicPage()
 @Component({
   selector: 'page-triphistory',
