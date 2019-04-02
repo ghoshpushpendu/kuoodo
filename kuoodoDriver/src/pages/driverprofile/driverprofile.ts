@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController,ActionSheetController, Events, IonicPage } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, ActionSheetController, Events, IonicPage } from 'ionic-angular';
 import { HttpService } from '../../app.httpService';
 import { AppService } from '../../app.providers';
 import { LocalStorageProvider } from '../../app.localStorage';
@@ -16,6 +16,10 @@ export class DriverprofilePage {
 
   // objectKeys = Object.keys;
   // value = { option1: '+91', option2: '+93', option3: '+1' };
+
+  public user: any = {
+    address: {},
+  };
 
   imageId: any;
   public userImage = "https://openclipart.org/image/2400px/svg_to_png/190113/1389952697.png";
@@ -65,16 +69,8 @@ export class DriverprofilePage {
           if (data) {
             console.log("Profile information :");
             console.log(data);
-            this.isUsername = true;
-            this.isEmail = true;
-            this.isLocation = true;
-
-            this.username = data.user.firstName + " " + data.user.lastName;
-            this.email = data.user.email;
-            this.phoneNumber = data.user.phoneNumber;
-            this.location = data.user.location;
+            this.user = data.user;
             this.imageId = data.user.profileImage;
-            this.rate = data.user.rating;
             if (this.imageId) {
               this.userImage = "http://mitapi.memeinfotech.com:5040/user/fileShow?imageId=" + this.imageId;
             }
@@ -100,20 +96,11 @@ export class DriverprofilePage {
 
   submit() {
     let _base = this;
-    if (this.username) {
-      this.firstName = this.username.substr(0, this.username.indexOf(' '));
-      this.lastName = this.username.substr(this.username.indexOf(' ') + 1);
-    }
 
     if (this.id) {
-      var data = {
-        _id: this.id,
-        firstName: this.firstName,
-        lastName: this.lastName,
-        email: this.email,
-        location: this.location
-      }
-      this.appService.UpdateUser(data, (error, data) => {
+
+      this.user._id = this.id;
+      this.appService.UpdateUser(this.user, (error, data) => {
         if (error) {
           console.log("Update user data error :");
           console.log(error);

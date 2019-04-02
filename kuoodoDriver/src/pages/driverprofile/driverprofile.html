@@ -17,7 +17,7 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding center>
   <div class="inputsec">
     <div class="text">
       <ion-grid>
@@ -36,27 +36,68 @@
     <ion-list>
 
       <ion-item>
-        <ion-label stacked>Name</ion-label>
-        <ion-input type="text" [(ngModel)]="username" [disabled]="isUsername"></ion-input>
+        <ion-label stacked>First Name</ion-label>
+        <ion-input type="text" [(ngModel)]="user.firstName"></ion-input>
       </ion-item>
 
-      <!-- <ion-item>
-        <ion-label stacked>Email</ion-label>
-        <ion-input type="text" [(ngModel)]="email" [disabled]="isEmail"></ion-input>
-      </ion-item> -->
+      <ion-item>
+        <ion-label stacked>Last Name</ion-label>
+        <ion-input type="text" [(ngModel)]="user.lastName"></ion-input>
+      </ion-item>
+
       <ion-item>
         <ion-label stacked>Phone</ion-label>
-        <ion-input type="text" [(ngModel)]="phoneNumber" [disabled]="true"></ion-input>
+        <ion-input type="text" [(ngModel)]="user.phoneNumber" [disabled]="true"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Email</ion-label>
+        <ion-input type="text" [(ngModel)]="user.email"></ion-input>
       </ion-item>
 
 
-      <!-- <ion-item>
-        <ion-label stacked>Location</ion-label>
-        <ion-input type="text" [(ngModel)]="location" [disabled]="isLocation"></ion-input>
-      </ion-item> -->
+      <ion-item>
+        <ion-label stacked>Address</ion-label>
+        <ion-input type="text" [(ngModel)]="user.address.address"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Country</ion-label>
+        <ion-input type="text" [(ngModel)]="user.address.country"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Zip Code</ion-label>
+        <ion-input type="text" [(ngModel)]="user.address.zipCode"></ion-input>
+      </ion-item>
+
+
+      <ion-item>
+        <ion-label stacked>tax ID</ion-label>
+        <ion-input type="text" [(ngModel)]="user.taxId"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Car Name</ion-label>
+        <ion-input type="text" [(ngModel)]="user.carName" [disabled]="true"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Car Type</ion-label>
+        <ion-input type="text" [(ngModel)]="user.carType" [disabled]="true"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Car Number</ion-label>
+        <ion-input type="text" [(ngModel)]="user.carNumber" [disabled]="true"></ion-input>
+      </ion-item>
 
 
     </ion-list>
+
+    <div text-center>
+      <button (click)="submit()" ion-button>Save Profile</button>
+    </div>
 
   </div>
 </ion-content>
