@@ -31,7 +31,8 @@
             <!-- first name -->
             <ion-item>
               <ion-label floating class="fontalign">{{string.firstName}}</ion-label>
-              <ion-input type="text" name="firstName" [(ngModel)]="firstName" (keyup)="firstNameCleanMessage()"></ion-input>
+              <ion-input type="text" name="firstName" [(ngModel)]="firstName" (keyup)="firstNameCleanMessage()">
+              </ion-input>
             </ion-item>
             <span class="error-message">
               {{firstNameMessage}}
@@ -41,7 +42,8 @@
             <!-- last name -->
             <ion-item>
               <ion-label floating class="fontalign">{{string.lastName}}</ion-label>
-              <ion-input type="text" name="lastName" [(ngModel)]="lastName" (keyup)="lastNameCleanMessage()"></ion-input>
+              <ion-input type="text" name="lastName" [(ngModel)]="lastName" (keyup)="lastNameCleanMessage()">
+              </ion-input>
             </ion-item>
             <span class="error-message">
               {{lastNameMessage}}
@@ -71,7 +73,8 @@
           <!-- phone number -->
           <ion-item *ngIf="isValid">
             <ion-label floating>{{string.mobileNumber}}</ion-label>
-            <ion-input type="text" [disabled]="checkPhoneNumber" name="phoneNumber" [(ngModel)]="phoneNumber" (keyup)="phoneNumberCleanMessage()">{{phoneNumber}}</ion-input>
+            <ion-input type="text" [disabled]="checkPhoneNumber" name="phoneNumber" [(ngModel)]="phoneNumber"
+              (keyup)="phoneNumberCleanMessage()">{{phoneNumber}}</ion-input>
           </ion-item>
           <span class="error-message">
             {{phoneNumberMessage}}
@@ -82,8 +85,48 @@
           <ion-col>
             <!-- phone number -->
             <ion-item>
+              <ion-label floating>{{string.address}}</ion-label>
+              <ion-input type="text" name="address" [(ngModel)]="address">
+              </ion-input>
+            </ion-item>
+            <span class="error-message">
+              {{passwordMessage}}
+            </span>
+          </ion-col>
+        </ion-row>
+        <ion-row padding-horizontal>
+          <ion-col>
+            <!-- phone number -->
+            <ion-item>
+              <ion-label floating>{{string.country}}</ion-label>
+              <ion-input type="text" name="country" [(ngModel)]="country">
+              </ion-input>
+            </ion-item>
+            <span class="error-message">
+              {{passwordMessage}}
+            </span>
+          </ion-col>
+        </ion-row>
+        <ion-row padding-horizontal>
+          <ion-col>
+            <!-- phone number -->
+            <ion-item>
+              <ion-label floating>{{string.zipcode}}</ion-label>
+              <ion-input type="text" name="zipCode" [(ngModel)]="zipCode">
+              </ion-input>
+            </ion-item>
+            <span class="error-message">
+              {{passwordMessage}}
+            </span>
+          </ion-col>
+        </ion-row>
+        <ion-row padding-horizontal>
+          <ion-col>
+            <!-- phone number -->
+            <ion-item>
               <ion-label floating>{{string.password}}</ion-label>
-              <ion-input type="password" name="password" [(ngModel)]="password" (keyup)="passwordCleanMessage()"></ion-input>
+              <ion-input type="password" name="password" [(ngModel)]="password" (keyup)="passwordCleanMessage()">
+              </ion-input>
             </ion-item>
             <span class="error-message">
               {{passwordMessage}}

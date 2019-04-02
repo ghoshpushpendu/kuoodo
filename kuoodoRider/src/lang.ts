@@ -112,7 +112,10 @@ export var strings = new LocalizedStrings({
         profile: "Profile",
         tripHistory: "Trip History",
         payments: "Payment",
-        logout: "Logout"
+        logout: "Logout",
+
+        address: 'Address',
+        zipcode: 'zip code'
     },
     spanish: {
         /** registration page **/
@@ -225,7 +228,10 @@ export var strings = new LocalizedStrings({
         profile: "Perfil",
         tripHistory: "Historia de viaje",
         payments: "Pago",
-        logout: "Cerrar sesión"
+        logout: "Cerrar sesión",
+
+        address: 'dirección',
+        zipcode: 'código postal'
     },
     chineese: {
         /** registration page **/
@@ -338,7 +344,9 @@ export var strings = new LocalizedStrings({
         profile: "轮廓",
         tripHistory: "旅行历史",
         payments: "付款",
-        logout: "登出"
+        logout: "登出",
+        address: '地址',
+        zipcode:'邮政编码'
     }
 },
     {/* options */

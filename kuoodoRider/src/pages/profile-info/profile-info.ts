@@ -32,6 +32,9 @@ export class ProfileInfoPage {
   email: any;
   lastName: any;
   firstName: any;
+  public address: any = "";
+  public country: any = "";
+  public zipCode: any = "";
   phoneNumber: string;
   countries: any = [];
 
@@ -191,6 +194,11 @@ export class ProfileInfoPage {
           password: this.password,
           providers: "local",
           role: "User",
+          address: {
+            address: this.address.address,
+            country: this.address.country,
+            zipCode: this.address.zipCode
+          },
           deviceId: this.deviceID
         }
         this.appService.userRegistration(data, (error, data) => {
@@ -264,6 +272,11 @@ export class ProfileInfoPage {
                     uId: this.uId,
                     phoneNumber: this.appService.countryCode + this.phoneNumber,
                     password: this.password,
+                    address: {
+                      address: this.address.address,
+                      country: this.address.country,
+                      zipCode: this.address.zipCode
+                    },
                     otp: data.otpDetails.otp,
                     providers: "facebook"
                   })
@@ -327,6 +340,11 @@ export class ProfileInfoPage {
                     lastName: this.lastName,
                     email: this.email,
                     uId: this.uId,
+                    address: {
+                      address: this.address.address,
+                      country: this.address.country,
+                      zipCode: this.address.zipCode
+                    },
                     phoneNumber: this.appService.countryCode + this.phoneNumber,
                     password: this.password,
                     otp: data.otpDetails.otp,
