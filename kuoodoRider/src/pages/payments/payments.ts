@@ -142,43 +142,26 @@ export class PaymentsPage {
 
   makePayment() {
     let _base = this;
-    let card = {
-      number: this.cards[0].number,
-      expMonth: this.cards[0].expmonth,
-      expYear: this.cards[0].expyear,
-      cvc: this.cards[0].cvv
-    };
 
     var loading = this.loadingCtrl.create({
       content: this.string.pleaseWait
     });
     loading.present();
 
-    this.stripe.createCardToken(card)
-      .then(token => {
-        let tokenID = token.id;
-        console.log("Payment token :", token);
-        _base.chargeCard(tokenID)
-          .then(function (response: any) {
-            loading.dismiss();
-            console.log("Payment response :", response);
-            if (response.error) {
-              // alert(response.message);
-              _base.showToast(_base.string.paymentError)
-            } else {
-              _base.showToast(_base.string.paymentSuccess);
-              _base.navCtrl.setRoot("FindcarPage");
-            }
-          }, function (error) {
-            loading.dismiss();
-            console.log("Error in payment", error);
-            _base.showToast(_base.string.paymentError);
-          });
-      })
-      .catch(error => {
+    _base.chargeCard(_base.userID)
+      .then(function (response: any) {
         loading.dismiss();
-        console.log(error);
-        console.log("Error processing payment", error);
+        console.log("Payment response :", response);
+        if (response.error) {
+          // alert(response.message);
+          _base.showToast(_base.string.paymentError)
+        } else {
+          _base.showToast(_base.string.paymentSuccess);
+          _base.navCtrl.setRoot("FindcarPage");
+        }
+      }, function (error) {
+        loading.dismiss();
+        console.log("Error in payment", error);
         _base.showToast(_base.string.paymentError);
       });
   }

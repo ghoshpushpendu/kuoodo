@@ -55,30 +55,21 @@ export class AddcardPage {
       cvc: this.card.cvv
     };
 
-    this.stripe.createCardToken(card)
-      .then(token => {
-        let tokenID = token.id;
-        _base.appService.addCard(_base.card, (error, data) => {
-          loading.dismiss();
-          if (error) {
-            _base.showToast(_base.string.cardAddError);
+    _base.appService.addCard(_base.card, (error, data) => {
+      loading.dismiss();
+      if (error) {
+        _base.showToast(_base.string.cardAddError);
+      } else {
+        if (data) {
+          if (data.error) {
+            alert(data.message);
           } else {
-            if (data) {
-              if (data.error) {
-                alert(data.message);
-              } else {
-                _base.showToast(_base.string.cardAddSuccess);
-                this.navCtrl.pop();
-              }
-            }
+            _base.showToast(_base.string.cardAddSuccess);
+            this.navCtrl.pop();
           }
-        });
-      })
-      .catch(error => {
-        loading.dismiss();
-        console.log("Error processing payment", error);
-        alert(_base.string.cardAddError);
-      });
+        }
+      }
+    });
 
   }
 

@@ -199,7 +199,7 @@ export class HttpService {
 
     //charge the card
     public chargeCard(paymentData) {
-        return this.http.post(this.url + "cards/charge", paymentData, this.headerOptions)
+        return this.http.post(this.url + "cards/charge", { userId: paymentData }, this.headerOptions)
             .map(function (response) { return response.json(); })
             .catch((error: any) => Observable.throw(error.json() || `Server error`));
     };
