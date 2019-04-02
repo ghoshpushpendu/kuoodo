@@ -2,22 +2,22 @@
 
   <ion-navbar>
     <ion-title>Driver Profile</ion-title>
-
-    <ion-icon ios="ios-more" md="md-more" float-right padding-right></ion-icon>
-
   </ion-navbar>
-
-  <div class="image">
-    <img padding src="https://openclipart.org/image/2400px/svg_to_png/190113/1389952697.png">
-    <!-- <button ion-button class="edit" (click)="editProfile()">Edit Profile</button> -->
-    <!-- <button ion-button (click)="submit()">Submit</button> -->
-  </div>
-
 
 </ion-header>
 
 
 <ion-content padding center>
+
+  <div class="image">
+    <label for="files" class="btn">
+      <img padding src="{{userImage}}">
+    </label>
+    <input id="files" (change)="uploadImage($event)" style="visibility:hidden;" type="file">
+  </div>
+
+  <p>** Click on image to change picture</p>
+
   <div class="inputsec">
     <div class="text">
       <ion-grid>
@@ -56,6 +56,19 @@
       </ion-item>
 
 
+      <div class="text">
+        <ion-grid>
+          <ion-row>
+            <ion-col col-4 no-padding>
+              <p no-margin>Address Info</p>
+            </ion-col>
+            <ion-col col-8 no-padding>
+              <hr>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+
       <ion-item>
         <ion-label stacked>Address</ion-label>
         <ion-input type="text" [(ngModel)]="user.address.address"></ion-input>
@@ -71,11 +84,37 @@
         <ion-input type="text" [(ngModel)]="user.address.zipCode"></ion-input>
       </ion-item>
 
+      <div class="text">
+        <ion-grid>
+          <ion-row>
+            <ion-col col-4 no-padding>
+              <p no-margin>Tax Info</p>
+            </ion-col>
+            <ion-col col-8 no-padding>
+              <hr>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
 
       <ion-item>
         <ion-label stacked>tax ID</ion-label>
         <ion-input type="text" [(ngModel)]="user.taxId"></ion-input>
       </ion-item>
+
+
+      <div class="text">
+        <ion-grid>
+          <ion-row>
+            <ion-col col-4 no-padding>
+              <p no-margin>Car Info</p>
+            </ion-col>
+            <ion-col col-8 no-padding>
+              <hr>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
 
       <ion-item>
         <ion-label stacked>Car Name</ion-label>

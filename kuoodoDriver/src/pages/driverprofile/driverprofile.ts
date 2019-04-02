@@ -3,6 +3,8 @@ import { NavController, NavParams, LoadingController, ActionSheetController, Eve
 import { HttpService } from '../../app.httpService';
 import { AppService } from '../../app.providers';
 import { LocalStorageProvider } from '../../app.localStorage';
+import { Http, Headers, RequestOptions } from '@angular/http';
+import { Observable } from 'rxjs/Rx';
 
 
 @IonicPage()
@@ -21,8 +23,8 @@ export class DriverprofilePage {
     address: {},
   };
 
-  imageId: any;
-  public userImage = "https://openclipart.org/image/2400px/svg_to_png/190113/1389952697.png";
+  imageId: any = "";
+  public userImage = "https://via.placeholder.com/150?text=Click+To+Choose+Image";
   lastName: string;
   firstName: string;
   phoneNumber: any;
@@ -39,6 +41,7 @@ export class DriverprofilePage {
     public navParams: NavParams,
     private localStorageProvider: LocalStorageProvider,
     private httpService: HttpService,
+    private http: Http,
     private appService: AppService,
     public actionSheetCtrl: ActionSheetController,
     public loadingCtrl: LoadingController,
@@ -72,7 +75,7 @@ export class DriverprofilePage {
             this.user = data.user;
             this.imageId = data.user.profileImage;
             if (this.imageId) {
-              this.userImage = "http://mitapi.memeinfotech.com:5040/user/fileShow?imageId=" + this.imageId;
+              this.userImage = "https://kuoodo.snapbase.online/user/fileShow?imageId=" + this.imageId;
             }
           }
         }
@@ -115,8 +118,8 @@ export class DriverprofilePage {
           this.location = data.user.location;
           this.imageId = data.user.profileImage;
           this.rate = data.user.rating;
-          if (this.imageId) {
-            this.userImage = "http://mitapi.memeinfotech.com:5040/user/fileShow?imageId=" + this.imageId;
+          if (this.profileImage) {
+            this.userImage = "https://kuoodo.snapbase.online/user/fileShow?imageId=" + this.imageId;
           }
           // this.appService.updateUser(data.user);
           _base.events.publish('data', data.user);
@@ -127,5 +130,51 @@ export class DriverprofilePage {
       });
     }
   }
+
+  /*
+    Vehicle Insurance Upload
+  */
+  uploadImage(event) {
+    let _base = this;
+
+    let fileList: FileList = event.target.files;
+    if (fileList.length > 0) {
+      let file: File = fileList[0];
+      if (file) {
+        var reader = new FileReader();
+        reader.onload = (event: any) => {
+          this.userImage = event.target.result;
+        }
+        reader.readAsDataURL(event.target.files[0]);
+        let formData: FormData = new FormData();
+        formData.append('file', file, file.name);
+
+        let headerOptions = new RequestOptions({
+          headers: new Headers({
+            'Accept': 'application/json'
+          }),
+        });
+        this.http.post(this.httpService.url + "user/fileUpload", formData, headerOptions)
+          .map(res => res.json())
+          .catch(error => Observable.throw(error))
+          .subscribe(
+            data => {
+              if (data) {
+                console.log(data);
+                let imageid = data.upload._id;
+                _base.user.profileImage = imageid;
+                _base.submit();
+              }
+            },
+            error => {
+              if (error) {
+                alert("Can not upload image");
+              }
+            })
+      }
+
+    }
+  }
+
 
 }
