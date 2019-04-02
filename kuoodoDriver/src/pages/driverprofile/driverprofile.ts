@@ -118,7 +118,7 @@ export class DriverprofilePage {
           this.location = data.user.location;
           this.imageId = data.user.profileImage;
           this.rate = data.user.rating;
-          if (this.profileImage) {
+          if (this.imageId) {
             this.userImage = "https://kuoodo.snapbase.online/user/fileShow?imageId=" + this.imageId;
           }
           // this.appService.updateUser(data.user);
