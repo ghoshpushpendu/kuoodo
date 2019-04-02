@@ -1,31 +1,29 @@
 <ion-header>
 
   <ion-navbar>
-
+    <ion-title>Rider Profile</ion-title>
   </ion-navbar>
-  <div class="image">
-    <img padding src="{{userImage}}">
-    <p no-margin class="icon-head">{{userName}}</p>
-  </div>
-
-  <!-- <div class="fileUpload btn btn-primary"> -->
-  <!-- <span>
-      <ion-icon class="upload-btn" ios="ios-camera" md="md-camera"></ion-icon>
-    </span> -->
-  <!-- <ion-input type="file" class="upload" (change)="selectImage($event)"></ion-input> -->
-  <!-- </div> -->
-
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding center>
+
+  <div class="image">
+    <label for="files" class="btn">
+      <img padding src="{{userImage}}">
+    </label>
+    <input id="files" (change)="uploadImage($event)" style="visibility:hidden;" type="file">
+  </div>
+
+  <p>** Click on image to change picture</p>
+
   <div class="inputsec">
     <div class="text">
       <ion-grid>
         <ion-row>
           <ion-col col-4 no-padding>
-            <p no-margin>{{string.personalInfo}}</p>
+            <p no-margin>Personal Info</p>
           </ion-col>
           <ion-col col-8 no-padding>
             <hr>
@@ -38,22 +36,59 @@
     <ion-list>
 
       <ion-item>
-        <ion-label stacked>{{string.name}}</ion-label>
-        <ion-input type="text" [(ngModel)]="username" [disabled]="isUsername"></ion-input>
+        <ion-label stacked>First Name</ion-label>
+        <ion-input type="text" [(ngModel)]="user.firstName"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label stacked>{{string.email}}</ion-label>
-        <ion-input type="text" [(ngModel)]="email" [disabled]="isEmail"></ion-input>
+        <ion-label stacked>Last Name</ion-label>
+        <ion-input type="text" [(ngModel)]="user.lastName"></ion-input>
       </ion-item>
+
       <ion-item>
-        <ion-label stacked>{{string.phoneNumber}}</ion-label>
-        <ion-input type="text" [(ngModel)]="phoneNumber" [disabled]="true"></ion-input>
+        <ion-label stacked>Phone</ion-label>
+        <ion-input type="text" [(ngModel)]="user.phoneNumber" [disabled]="true"></ion-input>
       </ion-item>
-      <!-- <ion-item>
-        <ion-button (click)="submit()">Update Info</ion-button>
-      </ion-item> -->
+
+      <ion-item>
+        <ion-label stacked>Email</ion-label>
+        <ion-input type="text" [(ngModel)]="user.email"></ion-input>
+      </ion-item>
+
+
+      <div class="text">
+        <ion-grid>
+          <ion-row>
+            <ion-col col-4 no-padding>
+              <p no-margin>Address Info</p>
+            </ion-col>
+            <ion-col col-8 no-padding>
+              <hr>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+
+      <ion-item>
+        <ion-label stacked>Address</ion-label>
+        <ion-input type="text" [(ngModel)]="user.address.address"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Country</ion-label>
+        <ion-input type="text" [(ngModel)]="user.address.country"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked>Zip Code</ion-label>
+        <ion-input type="text" [(ngModel)]="user.address.zipCode"></ion-input>
+      </ion-item>
+
     </ion-list>
+
+    <div text-center>
+      <button (click)="submit()" ion-button>Save Profile</button>
+    </div>
 
   </div>
 </ion-content>
