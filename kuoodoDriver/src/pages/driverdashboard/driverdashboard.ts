@@ -226,6 +226,18 @@ export class DriverdashboardPage {
     });
 
 
+    // on user paid 
+    this.socket.on("paid", function (booking: any) {
+      console.log("driver id", booking.driverId._id);
+      console.log("this id", _base.id);
+      let driverID = booking.driverId._id;
+      console.log("present toast", booking);
+      if (driverID == _base.id) {
+        alert("User has paid" + booking.amount);
+      }
+    });
+
+
 
     _base.isStartRide = false;
     _base.isEndRide = false;
