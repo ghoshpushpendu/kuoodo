@@ -2,14 +2,14 @@
   <ion-header>
     <ion-toolbar>
       <div class="image">
-        <img padding src="{{userImage}}">
+        <img class="avatar" padding src="{{userImage}}">
         <p margin-bottom>{{userName}}</p>
       </div>
 
     </ion-toolbar>
   </ion-header>
 
-  <ion-content class="menusec">
+  <ion-content>
     <ion-list padding>
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
         {{p.title}}

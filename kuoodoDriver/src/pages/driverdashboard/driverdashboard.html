@@ -1,79 +1,80 @@
 <ion-content center>
-    <ng2-slim-loading-bar color="blue" height="4px"></ng2-slim-loading-bar>
+  <ng2-slim-loading-bar color="blue" height="4px"></ng2-slim-loading-bar>
 
-    <div class="status">
-        <ion-item>
-            <ion-label>You are : {{(status)?'online':'offline'}}</ion-label>
-            <ion-toggle float-left color="primary" [(ngModel)]="status" (ionChange)="changeStatus()"></ion-toggle>
-        </ion-item>
-    </div>
-    <ion-fab class="menubtn" left top> <button ion-fab menuToggle>
-            <ion-icon ios="ios-menu" md="md-menu"></ion-icon>
-        </button> </ion-fab>
-    <div #map id="map"> </div>
-    <div class="footersec" [hidden]="!isStartRide">
-        <button ion-button full text-center class="acceptbtn" *ngIf="!notArrived" (click)="arrived()"> Arrived
-        </button>
-        <button ion-button text-center class="acceptbtn" *ngIf="!IsStartRideHidden" (click)="presentPrompt()">Start
-            Ride </button>
-        <button ion-button text-center class="acceptbtn" *ngIf="!IsEndRideHidden" (click)="endRide()">End Ride </button>
-    </div>
-    <audio id="ringtone" loop>
-        <source src="assets/audio/ringtone.mp3" type="audio/ogg"> </audio>
-    <ion-fab class="navigator" [hidden]="!isStartRide" small right bottom color="primary" (click)="showNavigator()">
-        <button ion-fab>
-            <ion-icon name="locate"></ion-icon>
-        </button> </ion-fab>
+  <div class="status">
+    <ion-item>
+      <ion-label>You are : {{(status)?'online':'offline'}}</ion-label>
+      <ion-toggle float-left color="primary" [(ngModel)]="status" (ionChange)="changeStatus()"></ion-toggle>
+    </ion-item>
+  </div>
+  <ion-fab class="menubtn" left top> <button ion-fab menuToggle>
+      <ion-icon ios="ios-menu" md="md-menu"></ion-icon>
+    </button> </ion-fab>
+  <div #map id="map"> </div>
+  <div class="footersec" [hidden]="!isStartRide">
+    <button ion-button full text-center class="acceptbtn" *ngIf="!notArrived" (click)="arrived()"> Arrived
+    </button>
+    <button ion-button text-center class="acceptbtn" *ngIf="!IsStartRideHidden" (click)="presentPrompt()">Start
+      Ride </button>
+    <button ion-button text-center class="acceptbtn" *ngIf="!IsEndRideHidden" (click)="endRide()">End Ride </button>
+  </div>
+  <audio id="ringtone" loop>
+    <source src="assets/audio/ringtone.mp3" type="audio/ogg"> </audio>
+  <ion-fab class="navigator" [hidden]="!isStartRide" small right bottom color="primary" (click)="showNavigator()">
+    <button ion-fab>
+      <ion-icon name="locate"></ion-icon>
+    </button> </ion-fab>
 
 
-    <!-- to show requested rider's info -->
-    <div class="card-box" *ngIf="rideRequest">
-        <ion-card class="text-black">
-            <ion-card-header>
-                <small float-left class="text-light">Passanger Info</small>
-                <small float-right class="text-green" (click)="cancelRideRequest()">Decline</small>
-            </ion-card-header>
-            <ion-card-content>
-                <div class="passanger-info heading">
-                    <ion-list>
-                        <ion-item>
-                            <ion-avatar item-start>
-                                <img src="./assets/image/user.jpg">
-                            </ion-avatar>
-                            <h2 class="text-black">
-                                {{riderName}}
-                            </h2>
-                            <p class="text-black">4.7
-                                <span class="rateing">
-                                    <ion-icon name="star" class="text-green"></ion-icon>
-                                    <ion-icon name="star" class="text-green"></ion-icon>
-                                    <ion-icon name="star" class="text-green"></ion-icon>
-                                    <ion-icon name="star" class="text-green"></ion-icon>
-                                    <ion-icon name="star" class="text-green"></ion-icon>
-                                </span>
-                            </p>
-                        </ion-item>
-                    </ion-list>
-                </div>
-                <ion-row padding class="car-details">
-                    <ion-col>
-                        <small class="text-light">Pick up From</small>
-                        <strong class="text-black">{{userStartLoc}}</strong>
-                    </ion-col>
-                    <ion-col>
-                        <small class="text-light">Destination</small>
-                        <strong class="text-black">{{userEndLoc}}</strong>
-                    </ion-col>
-                </ion-row>
-                <ion-row>
-                    <span>Phone Number :</span> {{riderNumber}}
-                </ion-row>
-                <div text-center padding-left padding-right>
-                    <button ion-button full class="bg-green full" (click)="acceptRideRequest()"> ACCEPT <span class="time"></span></button>
-                </div>
-            </ion-card-content>
-        </ion-card>acceptRideRequest
-    </div>
+  <!-- to show requested rider's info -->
+  <div class="card-box" *ngIf="rideRequest">
+    <ion-card class="text-black">
+      <ion-card-header>
+        <small float-left class="text-light">Passanger Info</small>
+        <small float-right class="text-green" (click)="cancelRideRequest()">Decline</small>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="passanger-info heading">
+          <ion-list>
+            <ion-item>
+              <ion-avatar item-start>
+                <img src="{{riderImage}}">
+              </ion-avatar>
+              <h2 class="text-black">
+                {{riderName}}
+              </h2>
+              <p class="text-black">4.7
+                <span class="rateing">
+                  <ion-icon name="star" class="text-green"></ion-icon>
+                  <ion-icon name="star" class="text-green"></ion-icon>
+                  <ion-icon name="star" class="text-green"></ion-icon>
+                  <ion-icon name="star" class="text-green"></ion-icon>
+                  <ion-icon name="star" class="text-green"></ion-icon>
+                </span>
+              </p>
+            </ion-item>
+          </ion-list>
+        </div>
+        <ion-row padding class="car-details">
+          <ion-col>
+            <small class="text-light">Pick up From</small>
+            <strong class="text-black">{{userStartLoc}}</strong>
+          </ion-col>
+          <ion-col>
+            <small class="text-light">Destination</small>
+            <strong class="text-black">{{userEndLoc}}</strong>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <span>Phone Number :</span> {{riderNumber}}
+        </ion-row>
+        <div text-center padding-left padding-right>
+          <button ion-button full class="bg-green full" (click)="acceptRideRequest()"> ACCEPT <span
+              class="time"></span></button>
+        </div>
+      </ion-card-content>
+    </ion-card>acceptRideRequest
+  </div>
 
 
 </ion-content>

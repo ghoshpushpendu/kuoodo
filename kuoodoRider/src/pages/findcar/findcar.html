@@ -147,7 +147,7 @@
             <div class="cab-type" *ngFor="let cab of cabTypes;let i = index" (click)="selectCar(i,cab)">
               <div [ngClass]="{'img-box': true, 'active': (i == selectedCar)}">
                 <!-- <img src="assets/imgs/car-1.png"> -->
-                <!-- <img src="assets/economy.png" src="{{'assets/'+cab.name+'.png'}}"> -->
+                <img src="assets/economy.png" src="{{'assets/'+cab.name+'.png'}}">
                 <ion-badge *ngIf="cab.duration" item-end class="bg-green">{{cab.duration}}</ion-badge>
                 <!-- loader starts -->
                 <svg *ngIf="!cab.duration" width="116px" height="116px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"

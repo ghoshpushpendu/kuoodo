@@ -21,25 +21,6 @@ export class TriphistoryPage {
 
   public imageBase = "http://mitapi.memeinfotech.com:5040/user/fileShow?imageId=";
 
-  public carTypes = [{
-    'amount': 5,
-    'type': 'standard'
-  }, {
-    'amount': 8,
-    'type': 'standard_plus'
-  }, {
-    'amount': 12,
-    'type': 'premium'
-  }, {
-    'amount': 15,
-    'type': 'premium_plus'
-  }, {
-    'amount': 10,
-    'type': 'sport'
-  }, {
-    'amount': 20,
-    'type': 'sport_plus'
-  }];
 
   constructor(
     public navCtrl: NavController,

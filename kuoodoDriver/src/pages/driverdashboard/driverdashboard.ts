@@ -147,6 +147,7 @@ export class DriverdashboardPage {
   riderNumber: any;
   autocancel: any;
   confirmalert: any;
+  riderImage: string;
 
 
   constructor(public navCtrl: NavController,
@@ -195,6 +196,7 @@ export class DriverdashboardPage {
         _base.distance = booking.distance;
         _base.riderName = booking.userId.firstName + ' ' + booking.userId.lastName;
         _base.riderNumber = booking.userId.phoneNumber;
+        _base.riderImage = (booking.userId.profileImage) ? "https://kuoodo.snapbase.online/user/fileShow?imageId=" + booking.userId.profileImage : "./assets/image/user.jpg";
 
         let end = new google.maps.LatLng(_base.userStartLatitude, _base.userStartLongitude);
         let start = new google.maps.LatLng(_base.startLatitude, _base.endLongitude);
@@ -253,6 +255,8 @@ export class DriverdashboardPage {
         }
       }
     });
+
+    _base.getCabTypes();
   }
 
   autoCancel() {
@@ -985,6 +989,24 @@ export class DriverdashboardPage {
         return Math.floor(hour) + ':' + '00' + lsec;
       }
     }
+  }
+
+  //  get cab types
+  getCabTypes() {
+    let _base = this;
+    let loading = this.loadingCtrl.create({ content: "Fetching car types" });
+    loading.present();
+    _base.appService.getCabTypes((error, data) => {
+      loading.dismiss();
+      if (error) {
+        console.log("Internet connection error , getting cab types");
+      } else {
+        if (data) {
+          console.log("All cab types", data.results);
+          _base.carTypes = data.results;
+        }
+      }
+    });
   }
 
 }

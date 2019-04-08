@@ -738,6 +738,61 @@ export class FindcarPage {
     });
   }
 
+  calculateAmount() {
+    let _base = this;
+    return new Promise(function (resolve, reject) {
+      let end = new google.maps.LatLng(_base.endingLatitude, _base.endingLongitude);
+      let start = new google.maps.LatLng(_base.startLatitude, _base.startLongitude);
+
+      var directionsService = new google.maps.DirectionsService();
+
+      var request = {
+        origin: start,
+        destination: end,
+        travelMode: google.maps.TravelMode.DRIVING
+      };
+
+      directionsService.route(request, function (response, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+          let distance = response.routes[0].legs[0].distance.value * 0.000621371;
+          let time = response.routes[0].legs[0].duration.value;
+          console.log("TIme take is :", time);
+          console.log(response.routes[0].legs[0]);
+          let minutes = parseFloat(_base.getPerMilePrice(_base.cartype.name).perMinutes);
+          let miles = parseFloat(_base.getPerMilePrice(_base.cartype.name).perMile);
+          let initial = parseFloat(_base.getCarInfo().initialCost);
+          let service = parseFloat(_base.getCarInfo().serviceFee);
+          let cost = initial + service + distance * miles + time * minutes;
+          resolve({
+            cost: cost
+          });
+        }
+      });
+    });
+  }
+
+  getPerMilePrice(carType: string) {
+    let _base = this;
+    for (let i = 0; i < _base.cabTypes.length; i++) {
+      if (_base.cabTypes[i].name == carType) {
+        return {
+          perMile: _base.cabTypes[i].perMile,
+          perMinutes: _base.cabTypes[i].perMinutes
+        }
+      }
+    }
+  }
+
+  getCarInfo() {
+    let _base = this;
+    let carType = this.cartype.name;
+    for (let i = 0; i <= _base.cabTypes.length; i++) {
+      if (_base.cabTypes[i].name = carType) {
+        return _base.cabTypes[i];
+      }
+    }
+  }
+
   //calculate and draw route
   calculateMaps(start, end) {
     this.directionsService.route({
@@ -1311,6 +1366,9 @@ export class FindcarPage {
     if (car.duration) {
       this.selectedCar = i;
       this.cartype = car;
+
+      this.calculateAmount();
+
     } else {
       console.log("No available");
       alert(car.name + this.string.notAvailable);

@@ -48,7 +48,7 @@ export class MyApp {
     if (driverId) {
       // _base.rootPage = "FindcarPage";
       if (sessionStorage.getItem("google") == "enabled") {
-        _base.rootPage = "FindcarPage"
+        _base.rootPage = "DriverdashboardPage"
       } else {
         get("https://maps.googleapis.com/maps/api/js?key=AIzaSyCAUo5wLQ1660_fFrymXUmCgPLaTwdXUgY&libraries=drawing,places,geometry,visualization", () => {
           //Google Maps library has been loaded...
@@ -65,6 +65,13 @@ export class MyApp {
     this.appService.userInfo.subscribe(function (user) {
       if (user) {
         _base.userName = user.firstName + ' ' + user.lastName;
+
+        console.log("USER ---", user, user.profileImage);
+
+        if (user.profileImage) {
+          console.log("Getting user profile image");
+          _base.userImage = "https://kuoodo.snapbase.online/user/fileShow?imageId=" + user.profileImage;
+        }
       }
     });
   }
