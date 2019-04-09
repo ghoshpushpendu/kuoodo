@@ -755,7 +755,7 @@ export class FindcarPage {
       directionsService.route(request, function (response, status) {
         if (status == google.maps.DirectionsStatus.OK) {
           let distance = response.routes[0].legs[0].distance.value * 0.000621371;
-          let time = response.routes[0].legs[0].duration.value;
+          let time = parseInt(response.routes[0].legs[0].duration.value) / 60;
           console.log("TIme take is :", time);
           console.log(response.routes[0].legs[0]);
           let minutes = parseFloat(_base.getPerMilePrice(_base.cartype.name).perMinutes);
@@ -1363,11 +1363,24 @@ export class FindcarPage {
 
   // select car
   selectCar(i, car) {
+    let _base = this;
     if (car.duration) {
       this.selectedCar = i;
       this.cartype = car;
-
-      this.calculateAmount();
+      let _base = this;
+      this.calculateAmount()
+        .then(function (success: any) {
+          console.log("Cost is :" + success.cost);
+          if (parseInt(_base.cartype.maximum) < success.cost) {
+            alert("This ride exceeds maximum ride cost");
+            _base.cartype = {};
+            _base.selectedCar = null;
+          } else if (parseInt(_base.cartype.minimum) > success.cost) {
+            alert("You will be charged minimum amount $" + this.cartype.minimum + "U.S.D")
+          } else {
+            alert("Car selected " + _base.cartype.name);
+          }
+        });
 
     } else {
       console.log("No available");
