@@ -853,7 +853,7 @@ export class DriverdashboardPage {
           let service = parseFloat(_base.getCarInfo().serviceFee);
           let cost = initial + service + distance * miles + time * minutes;
           resolve({
-            cost: cost
+            cost: (cost >= parseFloat(_base.getCarInfo().minimum)) ? cost : parseFloat(_base.getCarInfo().minimum)
           });
         }
       });
