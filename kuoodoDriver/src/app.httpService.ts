@@ -205,4 +205,22 @@ export class HttpService {
             .map((response: Response) => response.json())
             .catch((error: any) => Observable.throw(error.json() || `Server error`));
     };
+
+    public createBank(bank: any) {
+        return this.http.post(this.url + "bank/addaccount", bank, this.headerOptions)
+            .map((response: Response) => response.json())
+            .catch((error: any) => Observable.throw(error.json() || `Server error`));
+    }
+
+    public getBank(userID: String) {
+        return this.http.get(this.url + "bank/getaccount?userId=" + userID, this.headerOptions)
+            .map((response: Response) => response.json())
+            .catch((error: any) => Observable.throw(error.json() || `Server error`));
+    }
+
+    public deleteBank(userID: String) {
+        return this.http.post(this.url + "bank/delete", { userId: userID }, this.headerOptions)
+            .map((response: Response) => response.json())
+            .catch((error: any) => Observable.throw(error.json() || `Server error`));
+    }
 }

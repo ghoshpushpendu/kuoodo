@@ -22,7 +22,8 @@ export class MyApp {
   pages: Array<{ title: string, component: any }> = [
     { title: 'Profile', component: 'DriverprofilePage' },
     { title: 'Trip History', component: 'TriphistoryPage' },
-    { title: 'Car Documents', component: 'DocumentationPage' }
+    { title: 'Car Documents', component: 'DocumentationPage' },
+    { title: 'Transactions', component: 'TransactionsPage' }
   ];
   public userName = "username";
   public userImage = "https://openclipart.org/image/2400px/svg_to_png/190113/1389952697.png";
@@ -48,17 +49,17 @@ export class MyApp {
     if (driverId) {
       // _base.rootPage = "FindcarPage";
       if (sessionStorage.getItem("google") == "enabled") {
-        _base.rootPage = "DriverdashboardPage"
+        _base.rootPage = "TransactionsPage"
       } else {
         get("https://maps.googleapis.com/maps/api/js?key=AIzaSyCAUo5wLQ1660_fFrymXUmCgPLaTwdXUgY&libraries=drawing,places,geometry,visualization", () => {
           //Google Maps library has been loaded...
           console.log("Google maps library has been loaded");
           sessionStorage.setItem("google", "enabled");
-          _base.rootPage = "DriverdashboardPage"
+          _base.rootPage = "TransactionsPage"
         });
       }
     } else {
-      this.rootPage = "RegistrationPage";
+      this.rootPage = "TransactionsPage";
     }
 
     this.initializeApp();
@@ -86,7 +87,7 @@ export class MyApp {
 
 
   ngOnInit() {
-    this.rootPage = "RegistrationPage";
+    this.rootPage = "TransactionsPage";
   }
 
   openPage(page) {

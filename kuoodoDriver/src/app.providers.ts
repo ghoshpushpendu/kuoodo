@@ -237,4 +237,31 @@ export class AppService {
         });
     };
 
+    // create bank
+    public createBank(params, callback): any {
+        this.httpService.createBank(params).subscribe(data => {
+            callback(false, data);
+        }, error => {
+            callback(true, error || 'HTTP fail.');
+        });
+    }
+
+    // get bank account
+    public getBank(userID: String, callback) {
+        this.httpService.getBank(userID).subscribe(function (data) {
+            callback(false, data);
+        }, function (error) {
+            callback(true, error || 'HTTP fail.');
+        });
+    };
+
+    // Delete bank
+    public deleteBank(params, callback): any {
+        this.httpService.deleteBank(params).subscribe(data => {
+            callback(false, data);
+        }, error => {
+            callback(true, error || 'HTTP fail.');
+        });
+    }
+
 }

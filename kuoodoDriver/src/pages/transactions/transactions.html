@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Transactions</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-item>
+        <ion-label>Bank Name</ion-label>
+        <ion-input type="text" [(ngModel)]="bank.bankName" placeholder="">
+        </ion-input>
+      </ion-item>
+    </ion-row>
+    <ion-row>
+      <ion-item>
+        <ion-label>Account number</ion-label>
+        <ion-input type="number" [(ngModel)]="bank.accountNumber" placeholder=""></ion-input>
+      </ion-item>
+    </ion-row>
+    <ion-row>
+      <ion-item>
+        <ion-label>IFSC</ion-label>
+        <ion-input type="text" [(ngModel)]="bank.ifscCode" placeholder=""></ion-input>
+      </ion-item>
+    </ion-row>
+    <ion-row>
+      <ion-item>
+        <ion-label>Branch</ion-label>
+        <ion-input type="text" [(ngModel)]="bank.branch" placeholder=""></ion-input>
+      </ion-item>
+    </ion-row>
+    <ion-row>
+      <ion-item>
+        <ion-label>Holder's name</ion-label>
+        <ion-input type="text" [(ngModel)]="bank.accountHolder" placeholder=""></ion-input>
+      </ion-item>
+    </ion-row>
+
+  </ion-grid>
+  <button ion-button full (click)="addBank()">Add Account</button>
+
+  <ion-list *ngIf="currentBank._id">
+    <ion-list-header> Saved Bank Account </ion-list-header>
+    <ion-item>
+      <ion-icon name="card"></ion-icon> <span class="cardNumber">{{currentBank.accountNumber}}</span>
+      <ion-icon item-right name="trash" (click)="deleteBank()"></ion-icon>
+    </ion-item>
+  </ion-list>
+
+</ion-content>
