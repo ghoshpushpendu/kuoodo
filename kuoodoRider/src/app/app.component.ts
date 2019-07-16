@@ -80,7 +80,7 @@ export class MyApp {
       if (data) {
         _base.userName = data.firstName + " " + data.lastName;
         if (data.profileImage) {
-          _base.userImage = "https://kuoodo.snapbase.online/user/fileShow?imageId=" + data.profileImage;
+          _base.userImage = "http://ec2-52-8-64-114.us-west-1.compute.amazonaws.com:5040/user/fileShow?imageId=" + data.profileImage;
         }
       }
     });
@@ -149,7 +149,7 @@ export class MyApp {
       this.base = "http://127.0.0.1:3001/";
     }
     else {
-      this.base = 'https://kuoodo.snapbase.online/';
+      this.base = 'http://ec2-52-8-64-114.us-west-1.compute.amazonaws.com:5040/';
     }
 
   }

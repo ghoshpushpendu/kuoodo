@@ -9,7 +9,7 @@ import 'rxjs/add/operator/timeout';
 @Injectable()
 export class HttpService {
     //provide the base url
-    public url = 'https://kuoodo.snapbase.online/';
+    public url = 'http://ec2-52-8-64-114.us-west-1.compute.amazonaws.com:5040/';
 
     //request headers
     private headerOptions = new RequestOptions({

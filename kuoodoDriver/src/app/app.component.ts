@@ -49,17 +49,17 @@ export class MyApp {
     if (driverId) {
       // _base.rootPage = "FindcarPage";
       if (sessionStorage.getItem("google") == "enabled") {
-        _base.rootPage = "TransactionsPage"
+        _base.rootPage = "FindcarPage"
       } else {
         get("https://maps.googleapis.com/maps/api/js?key=AIzaSyCAUo5wLQ1660_fFrymXUmCgPLaTwdXUgY&libraries=drawing,places,geometry,visualization", () => {
           //Google Maps library has been loaded...
           console.log("Google maps library has been loaded");
           sessionStorage.setItem("google", "enabled");
-          _base.rootPage = "TransactionsPage"
+          _base.rootPage = "FindcarPage"
         });
       }
     } else {
-      this.rootPage = "TransactionsPage";
+      this.rootPage = "FindcarPage";
     }
 
     this.initializeApp();
@@ -71,7 +71,7 @@ export class MyApp {
 
         if (user.profileImage) {
           console.log("Getting user profile image");
-          _base.userImage = "https://kuoodo.snapbase.online/user/fileShow?imageId=" + user.profileImage;
+          _base.userImage = "http://ec2-52-8-64-114.us-west-1.compute.amazonaws.com:5040/user/fileShow?imageId=" + user.profileImage;
         }
       }
     });
@@ -87,7 +87,7 @@ export class MyApp {
 
 
   ngOnInit() {
-    this.rootPage = "TransactionsPage";
+    this.rootPage = "LoginPage";
   }
 
   openPage(page) {

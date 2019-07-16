@@ -206,3 +206,21 @@ a {
   left: 0 !important;
   position: fixed !important;
 }
+
+
+.loading-md .loading-wrapper {
+  opacity: 0 !important;
+}
+
+.loading-ios .loading-wrapper {
+  opacity: 0 !important;
+}
+
+
+ion-loading {
+  opacity: 0.2 !important;
+}
+
+.ion-backdrop {
+  opacity: 0.2 !important;
+}
