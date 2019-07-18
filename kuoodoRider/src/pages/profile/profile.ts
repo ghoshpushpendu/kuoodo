@@ -75,7 +75,7 @@ export class ProfilePage {
             this.user = data.user;
             this.imageId = data.user.profileImage;
             if (this.imageId) {
-              this.userImage = "http://ec2-52-8-64-114.us-west-1.compute.amazonaws.com:5040/user/fileShow?imageId=" + this.imageId;
+              this.userImage = "https://api.kuoodo.com/user/fileShow?imageId=" + this.imageId;
             }
           }
         }
@@ -119,7 +119,7 @@ export class ProfilePage {
           this.imageId = data.user.profileImage;
           this.rate = data.user.rating;
           if (this.imageId) {
-            this.userImage = "http://ec2-52-8-64-114.us-west-1.compute.amazonaws.com:5040/user/fileShow?imageId=" + this.imageId;
+            this.userImage = "https://api.kuoodo.com/user/fileShow?imageId=" + this.imageId;
           }
           // this.appService.updateUser(data.user);
           _base.events.publish('data', data.user);

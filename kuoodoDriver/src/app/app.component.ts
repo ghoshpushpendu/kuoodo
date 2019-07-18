@@ -71,7 +71,7 @@ export class MyApp {
 
         if (user.profileImage) {
           console.log("Getting user profile image");
-          _base.userImage = "http://ec2-52-8-64-114.us-west-1.compute.amazonaws.com:5040/user/fileShow?imageId=" + user.profileImage;
+          _base.userImage = "https://api.kuoodo.com/user/fileShow?imageId=" + user.profileImage;
         }
       }
     });

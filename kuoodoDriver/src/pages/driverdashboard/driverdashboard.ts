@@ -196,7 +196,7 @@ export class DriverdashboardPage {
         _base.distance = booking.distance;
         _base.riderName = booking.userId.firstName + ' ' + booking.userId.lastName;
         _base.riderNumber = booking.userId.phoneNumber;
-        _base.riderImage = (booking.userId.profileImage) ? "http://ec2-52-8-64-114.us-west-1.compute.amazonaws.com:5040/user/fileShow?imageId=" + booking.userId.profileImage : "./assets/image/user.jpg";
+        _base.riderImage = (booking.userId.profileImage) ? "https://api.kuoodo.com/user/fileShow?imageId=" + booking.userId.profileImage : "./assets/image/user.jpg";
 
         let end = new google.maps.LatLng(_base.userStartLatitude, _base.userStartLongitude);
         let start = new google.maps.LatLng(_base.startLatitude, _base.endLongitude);
