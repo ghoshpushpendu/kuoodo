@@ -41,9 +41,9 @@ export class MyApp {
 
   rootPage: any;
 
-  pages: Array<{ title: string, component: any }>;
+  pages: Array<{ title: string, component: any, icon: any }>;
 
-  public userImage = "https://openclipart.org/image/2400px/svg_to_png/190113/1389952697.png";
+  public userImage = "https://www.classifapp.com/wp-content/uploads/2017/09/avatar-placeholder.png";
   public userName = "";
   public deviceRegId: any;
   public bookingDetails: any;
@@ -140,9 +140,9 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: _base.string.profile, component: "ProfilePage" },
-      { title: _base.string.tripHistory, component: "TriphistoryPage" },
-      { title: _base.string.payments, component: "PaymentsPage" },
+      // { title: _base.string.profile, component: "ProfilePage" },
+      { title: _base.string.tripHistory, component: "TriphistoryPage", icon: 'fa fa-clock-o' },
+      { title: _base.string.payments, component: "PaymentsPage", icon: "fa fa-credit-card" },
     ];
 
     if (document.URL.includes('https://') || document.URL.includes('http://')) {

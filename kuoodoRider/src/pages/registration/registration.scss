@@ -7,6 +7,16 @@ page-registration {
             margin: 2.5rem auto;
         }
     }
+    .item-md.item-block .item-inner {
+        margin-right: 0em !important;
+    }
+    .item-md.item-block .item-inner {
+         padding-right: 0px !important;
+    }
+    .text-input-md {
+       
+        width: calc(100% - 6px - 6px);
+    }
     .border-bottom-none .list-md .item-block .item-inner {
         border-bottom: none !important;
     }
