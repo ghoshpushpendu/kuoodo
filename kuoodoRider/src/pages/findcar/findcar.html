@@ -6,11 +6,17 @@
     </button>
   </ion-fab>
 
-  <!-- <ion-buttons end>
-    <button ion-button icon-only (click)="chooseLanguage()">
-      <ion-icon name="globe"></ion-icon>
+  <ion-fab class="menubtn" top right>
+    <button ion-fab menuToggle>
+      <img src="assets/image/logo.png" class="logo">
     </button>
-  </ion-buttons> -->
+  </ion-fab>
+
+  <img src="https://cdn1.iconfinder.com/data/icons/Map-Markers-Icons-Demo-PNG/256/Map-Marker-Ball-Chartreuse.png"
+    class="screen-center" />
+
+
+
 
 
 
@@ -78,6 +84,8 @@
     </ion-card>
   </div>
 
+  <div id='vartical-line'></div>
+
 
   <ion-card class="shadow-black controls">
     <ion-card-content>
@@ -88,10 +96,11 @@
           </ion-col>
           <ion-col class="pad-0">
             <ion-item class="bg-white border-bottom">
-              <!-- <ion-label text-right>From</ion-label> -->
-              <ion-input type="text" class="location" disabled="true" placeholder="{{string.locationFrom}}" [(ngModel)]="startAddress"></ion-input>
-              <button ion-button class="locate-icon" clear *ngIf="!rideMode" type="button" item-right (click)="setCurrentLocation()">
-                <ion-icon name="locate"> </ion-icon>
+              <!-- <ion-label floating>from</ion-label> -->
+              <ion-input type="text" class="location" disabled="true" [(ngModel)]="startAddress"></ion-input>
+              <button ion-button class="locate-icon" clear *ngIf="!rideMode" type="button" item-right
+                (click)="setCurrentLocation()">
+                <!-- <ion-icon name="locate"> </ion-icon> -->
               </button>
             </ion-item>
           </ion-col>
@@ -102,8 +111,8 @@
           </ion-col>
           <ion-col class="pad-0">
             <ion-item class="bg-white" (tap)="showAddressModal()">
-              <!--  <ion-label text-right>To</ion-label> -->
-              <ion-input disabled="true" type="text" class="location" [(ngModel)]="endAddress" placeholder="{{string.locationTo}}"></ion-input>
+              <!-- <ion-label floating>to</ion-label> -->
+              <ion-input disabled="true" type="text" class="location" [(ngModel)]="endAddress"></ion-input>
               <ion-icon name="md-locate" class="text-black"></ion-icon>
             </ion-item>
           </ion-col>
@@ -150,38 +159,48 @@
                 <img src="assets/economy.png" src="{{'assets/'+cab.name+'.png'}}">
                 <ion-badge *ngIf="cab.duration" item-end class="bg-green">{{cab.duration}}</ion-badge>
                 <!-- loader starts -->
-                <svg *ngIf="!cab.duration" width="116px" height="116px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"
-                  preserveAspectRatio="xMidYMid" class="lds-ellipsis" style="background: none;">
+                <svg *ngIf="!cab.duration" width="116px" height="116px" xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="lds-ellipsis" style="background: none;">
                   <!--circle(cx="16",cy="50",r="10")-->
                   <circle cx="84" cy="50" r="0" fill="#5cd65c">
-                    <animate attributeName="r" values="10;0;0;0;0" keyTimes="0;0.25;0.5;0.75;1" keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1"
-                      calcMode="spline" dur="2.7s" repeatCount="indefinite" begin="0s"></animate>
-                    <animate attributeName="cx" values="84;84;84;84;84" keyTimes="0;0.25;0.5;0.75;1" keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1"
-                      calcMode="spline" dur="2.7s" repeatCount="indefinite" begin="0s"></animate>
+                    <animate attributeName="r" values="10;0;0;0;0" keyTimes="0;0.25;0.5;0.75;1"
+                      keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="2.7s"
+                      repeatCount="indefinite" begin="0s"></animate>
+                    <animate attributeName="cx" values="84;84;84;84;84" keyTimes="0;0.25;0.5;0.75;1"
+                      keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="2.7s"
+                      repeatCount="indefinite" begin="0s"></animate>
                   </circle>
                   <circle cx="16" cy="50" r="5.85813" fill="#5cd65c">
-                    <animate attributeName="r" values="0;10;10;10;0" keyTimes="0;0.25;0.5;0.75;1" keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1"
-                      calcMode="spline" dur="2.7s" repeatCount="indefinite" begin="-1.35s"></animate>
-                    <animate attributeName="cx" values="16;16;50;84;84" keyTimes="0;0.25;0.5;0.75;1" keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1"
-                      calcMode="spline" dur="2.7s" repeatCount="indefinite" begin="-1.35s"></animate>
+                    <animate attributeName="r" values="0;10;10;10;0" keyTimes="0;0.25;0.5;0.75;1"
+                      keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="2.7s"
+                      repeatCount="indefinite" begin="-1.35s"></animate>
+                    <animate attributeName="cx" values="16;16;50;84;84" keyTimes="0;0.25;0.5;0.75;1"
+                      keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="2.7s"
+                      repeatCount="indefinite" begin="-1.35s"></animate>
                   </circle>
                   <circle cx="84" cy="50" r="4.14187" fill="#5cd65c">
-                    <animate attributeName="r" values="0;10;10;10;0" keyTimes="0;0.25;0.5;0.75;1" keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1"
-                      calcMode="spline" dur="2.7s" repeatCount="indefinite" begin="-0.675s"></animate>
-                    <animate attributeName="cx" values="16;16;50;84;84" keyTimes="0;0.25;0.5;0.75;1" keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1"
-                      calcMode="spline" dur="2.7s" repeatCount="indefinite" begin="-0.675s"></animate>
+                    <animate attributeName="r" values="0;10;10;10;0" keyTimes="0;0.25;0.5;0.75;1"
+                      keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="2.7s"
+                      repeatCount="indefinite" begin="-0.675s"></animate>
+                    <animate attributeName="cx" values="16;16;50;84;84" keyTimes="0;0.25;0.5;0.75;1"
+                      keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="2.7s"
+                      repeatCount="indefinite" begin="-0.675s"></animate>
                   </circle>
                   <circle cx="69.9176" cy="50" r="10" fill="#5cd65c">
-                    <animate attributeName="r" values="0;10;10;10;0" keyTimes="0;0.25;0.5;0.75;1" keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1"
-                      calcMode="spline" dur="2.7s" repeatCount="indefinite" begin="0s"></animate>
-                    <animate attributeName="cx" values="16;16;50;84;84" keyTimes="0;0.25;0.5;0.75;1" keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1"
-                      calcMode="spline" dur="2.7s" repeatCount="indefinite" begin="0s"></animate>
+                    <animate attributeName="r" values="0;10;10;10;0" keyTimes="0;0.25;0.5;0.75;1"
+                      keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="2.7s"
+                      repeatCount="indefinite" begin="0s"></animate>
+                    <animate attributeName="cx" values="16;16;50;84;84" keyTimes="0;0.25;0.5;0.75;1"
+                      keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="2.7s"
+                      repeatCount="indefinite" begin="0s"></animate>
                   </circle>
                   <circle cx="35.9176" cy="50" r="10" fill="#5cd65c">
-                    <animate attributeName="r" values="0;0;10;10;10" keyTimes="0;0.25;0.5;0.75;1" keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1"
-                      calcMode="spline" dur="2.7s" repeatCount="indefinite" begin="0s"></animate>
-                    <animate attributeName="cx" values="16;16;16;50;84" keyTimes="0;0.25;0.5;0.75;1" keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1"
-                      calcMode="spline" dur="2.7s" repeatCount="indefinite" begin="0s"></animate>
+                    <animate attributeName="r" values="0;0;10;10;10" keyTimes="0;0.25;0.5;0.75;1"
+                      keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="2.7s"
+                      repeatCount="indefinite" begin="0s"></animate>
+                    <animate attributeName="cx" values="16;16;16;50;84" keyTimes="0;0.25;0.5;0.75;1"
+                      keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" calcMode="spline" dur="2.7s"
+                      repeatCount="indefinite" begin="0s"></animate>
                   </circle>
                 </svg>
                 <!-- loader ends -->

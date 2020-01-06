@@ -1,4 +1,13 @@
 page-findcar {
+
+  ion-fab[top] {
+    top: 0px;
+  }
+
+  .logo {
+    width: 70%;
+  }
+
   svg.lds-ellipsis {
     height: 25px;
     width: 50%;
@@ -18,7 +27,7 @@ page-findcar {
 
   .controls {
     position: fixed;
-    top: 60px;
+    top: 50px;
     left: 0px;
     right: 0px;
     z-index: 9999 !important;
@@ -546,6 +555,17 @@ page-findcar {
     z-index: 99999 !important;
   }
 
+  #vartical-line {
+    border-left: 1px dashed rgb(17, 19, 17);
+    height: 500px;
+    position: fixed;
+    z-index: 99999999;
+    left: 50%;
+    margin-left: -0.5px;
+    top: 150px;
+    bottom: 50%;
+  }
+
   .qrCode {
     position: fixed !important;
     right: 0px !important;
@@ -556,6 +576,16 @@ page-findcar {
     padding-top: 20% !important;
     padding-left: 100px !important;
     background-color: white !important;
+  }
+
+  .screen-center {
+    z-index: 99999999999999999999999999999999999999;
+    width: 40px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin: -40px 0px 0px -20px;
+    height: 40px;
   }
 
   .menubtn button {
@@ -971,7 +1001,7 @@ page-findcar {
   }
 
   .border-radius {
-    border-radius: 10px;
+    border-radius: 0px;
 
     .pad-0 {
       padding: 2px 0;
@@ -1003,24 +1033,24 @@ page-findcar {
     strong {
       border-radius: 50%;
       display: block;
-      height: 12px;
-      width: 12px;
+      height: 8px;
+      width: 8px;
       margin: auto;
       position: relative;
       z-index: 1;
 
-      &::after {
-        content: '';
-        position: absolute;
-        width: 1px;
-        height: 30px;
-        display: block;
-        margin: auto;
-        bottom: -33px;
-        background: #ccc;
-        left: 0;
-        right: 0;
-      }
+      // &::after {
+      //   content: '';
+      //   position: absolute;
+      //   width: 1px;
+      //   height: 30px;
+      //   display: block;
+      //   margin: auto;
+      //   bottom: -33px;
+      //   background: #ccc;
+      //   left: 0;
+      //   right: 0;
+      // }
 
       &.bg-yellow {
         &::after {

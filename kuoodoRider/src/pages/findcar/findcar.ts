@@ -396,7 +396,7 @@ export class FindcarPage {
     _base.getCards()
       .then(function (success: any) {
         if (success.cards.length == 0) {
-          alert(_base.string.paymentMethodError);
+          // alert(_base.string.paymentMethodError);
           // _base.navCtrl.push("PaymentsPage");
         } else {
           _base.cards = success.cards;
@@ -675,12 +675,12 @@ export class FindcarPage {
 
     var uluru = { lat: -25.344, lng: 131.036 };
     let options = {
-      zoom: 19,
+      zoom: 15,
       center: uluru,
       disableDefaultUI: true,
-      mapTypeId: 'terrain',
-      gestureHandling: 'none',
-      zoomControl: false,
+      // mapTypeId: 'roadmap',
+      // gestureHandling: 'cooperative',
+      zoomControl: true,
       styles: mapStyle
     };
     this.map = new google.maps.Map(document.getElementById('map'), options);
@@ -852,10 +852,28 @@ export class FindcarPage {
 
     let _base = this;
 
+    // var icon = {
+    //   // url: "https://lemi.travel/images/current.png",
+    //   // url: "https://cdn1.iconfinder.com/data/icons/Map-Markers-Icons-Demo-PNG/256/Map-Marker-Ball-Chartreuse.png", // url
+    //   scaledSize: new google.maps.Size(40, 40), // scaled size
+    //   origin: new google.maps.Point(0, 0), // origin
+    //   anchor: new google.maps.Point(20, 5) // anchor
+    // };
+
+    let icon = {
+      path: google.maps.SymbolPath.CIRCLE,
+      fillColor: 'white',
+      fillOpacity: 0.6,
+      strokeColor: '#00A',
+      strokeOpacity: 0,
+      strokeWeight: 0,
+      scale: 0
+    }
 
     let markarOptions = {
       position: loc,
-      icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+      // icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+      icon: icon,
       map: _base.map
     };
 

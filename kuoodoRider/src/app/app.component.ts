@@ -80,7 +80,7 @@ export class MyApp {
       if (data) {
         _base.userName = data.firstName + " " + data.lastName;
         if (data.profileImage) {
-          _base.userImage = "https://api.kuoodo.com/user/fileShow?imageId=" + data.profileImage;
+          _base.userImage = "http://ec2-52-8-64-114.us-west-1.compute.amazonaws.com:5040/user/fileShow?imageId=" + data.profileImage;
         }
       }
     });
@@ -197,9 +197,8 @@ export class MyApp {
             strings.setLanguage(data);
             console.log(_base.pages);
             _base.pages = [
-              { title: _base.string.profile, component: "ProfilePage" },
-              { title: _base.string.tripHistory, component: "TriphistoryPage" },
-              { title: _base.string.payments, component: "PaymentsPage" },
+              { title: _base.string.tripHistory, component: "TriphistoryPage", icon: 'fa fa-clock-o' },
+              { title: _base.string.payments, component: "PaymentsPage", icon: "fa fa-credit-card" },
             ];
           }
         }]

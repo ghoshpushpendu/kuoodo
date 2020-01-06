@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i');
 
 * {
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'times';
 }
 
 a {
@@ -27,7 +27,7 @@ a {
 }
 
 .bg-yellow {
-  background: #ffca28 !important;
+  background: red !important;
 }
 
 .bg-black {
@@ -99,9 +99,9 @@ a {
 /* header color */
 
 .header {
-  .toolbar-background {
-    background: #54b61e !important;
-  }
+  // .toolbar-background {
+  //   background: #54b61e !important;
+  // }
 
   button {
     ion-icon {
@@ -193,24 +193,31 @@ a {
   border-radius: 50%;
   padding: 5px !important;
   float: left;
-  margin: 0px 5px 5px 5px;  }
-.name{
+  margin: 0px 5px 5px 5px;
+}
+
+.name {
   padding-top: 0;
   line-height: 4px;
 }
-ion-header.header.header-md {
+
+ion-toolbar.toolbar.toolbar-md {
   padding: 10px 0;
   background: #54b61e36;
 }
+
 .back-button-text {
   display: none;
 }
-.list-md .item-block .item-inner{
+
+.list-md .item-block .item-inner {
   border-bottom: none;
 }
+
 button.item.item-block.item-md {
   font-size: 1.4rem;
 }
+
 .mymap {
   z-index: -1 !important;
   background: none !important;
@@ -223,18 +230,18 @@ button.item.item-block.item-md {
 
 
 .loading-md .loading-wrapper {
-  opacity: 0 !important;
+  // opacity: 0 !important;
 }
 
 .loading-ios .loading-wrapper {
-  opacity: 0 !important;
+  // opacity: 0 !important;
 }
 
 
 ion-loading {
-  opacity: 0.2 !important;
+  // opacity: 0.2 !important;
 }
 
 .ion-backdrop {
-  opacity: 0.2 !important;
+  // opacity: 0.2 !important;
 }

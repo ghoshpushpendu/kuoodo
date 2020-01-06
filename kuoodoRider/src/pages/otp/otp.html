@@ -1,93 +1,40 @@
 <!--
-  Generated template for the OtpPage page.
+  Generated template for the VerifyotpPage page.
 
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
-
-  <ion-navbar>
-
-  </ion-navbar>
-
-</ion-header>
 
 
-<ion-content class="bodycolor" padding>
-  <div class="contentsec">
-    <!-- <ion-item class="inputsec">
-        <ion-label stacked class="resendtxt">Enter OTP</ion-label>
-     
-      <ion-input type="password"></ion-input>
-    </ion-item>
-    -->
-    <ion-item class="inputsec1">
-      <ion-label stacked class="headlabel">{{string.enter}} OTP
+<ion-content padding class="animated 800s zoomIn delay-0.1s">
+  <div class="verifyContent">
+    <img src="assets/image/logo.png" id="touch">
+    <p class="verify">Verification</p>
+    <p class="subContent">Please enter the verification code we sent you to your phone number {{phoneNumber}}</p>
+    <div class="input">
+      <!-- <ion-input type="number" id="partitioned"  maxlength="4" [(ngModel)]="otp"></ion-input> -->
+      <div id="divOuter">
+        <div id="divInner">
+          <input id="partitioned" type="tel" maxlength="4" [(ngModel)]="otp" />
+        </div>
+      </div>
+      <!-- partitioned -->
 
-      </ion-label>
+    </div>
 
-      <ion-input type="number" name="otp" placeholder="O.T.P" [(ngModel)]="otp" (keyup)="cleanMessage()"></ion-input>
 
-    </ion-item>
-    <span class="error-message">
-      {{OTPmessage}}
-    </span>
-    <button ion-button class="verifybtn" (click)="verifyOTP()">{{string.verify}}</button>
-  </div>
-  <ion-grid>
-    <ion-row>
-      <ion-col col-8>
-
-        <p class="resendtxt">{{string.notGotOTP}} OTP?</p>
-      </ion-col>
-      <ion-col col-4>
-        <button ion-button class="resendbtn" (click)="resendOTP()">{{string.resend}}</button>
-
-      </ion-col>
-    </ion-row>
-
-    <ion-row>
-      <ion-col>
-        <p class="resendtxt">please use 8888 as your O.T.P</p>
-      </ion-col>
-    </ion-row>
-
-  </ion-grid>
-  <!-- <ion-grid>
-      <p class="resendtxt">Your Good Name</p>
+    <ion-grid class="buttonGrid">
       <ion-row>
-      <ion-col>
-        <ion-item class="inputsec">
-          <ion-label floating class="headlabel">First Name</ion-label>
-
-          <ion-input type="text" name="firstName" [(ngModel)]="firstName"></ion-input>
-        </ion-item>
-
+        <ion-col col-7>
+          <button ion-button class="verifyCode" (click)="verifyOTP()">Verify code</button>
         </ion-col>
-        <ion-col col-6>
-          <ion-item class="inputsec">
-            <ion-label floating class="headlabel">Last Name</ion-label>
-
-            <ion-input type="text" name="lastName" [(ngModel)]="lastName"></ion-input>
-          </ion-item>
-
+        <ion-col col-5>
+          <button ion-button class="resend" (click)="resendOTP()" outline>Resend</button>
         </ion-col>
       </ion-row>
-    </ion-grid> -->
-  <div class="f1">
-    <div class="footerhead">
-      <div class="footercontent">
-        <!-- <ion-fab>
-          <button ion-fab color="primary" class="button-circle button-next" [hidden]="showForm" (click)="registration()">
-            <ion-icon ios="ios-arrow-forward" md="md-arrow-forward"></ion-icon>
-          </button>
-        </ion-fab> -->
-        <img src="assets/image/car.png" class="carimg">
-        <p> {{string.agressMessage}}
-          <span class="highlight">{{string.termsAndConditions}}</span> {{string.and}}
-          <span class="highlight">{{string.privacyPolicy}}</span>
-        </p>
-      </div>
+    </ion-grid>
+    <div class="ftr">
+      <!-- <p>Having trouble with the verification ? <span>Get Support</span></p> -->
     </div>
   </div>
 </ion-content>

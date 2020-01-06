@@ -1,13 +1,4 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>{{string.signIn}}</ion-title>
-    <ion-buttons end>
-      <button ion-button icon-only (click)="chooseLanguage()">
-        <ion-icon name="globe"></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-navbar>
-</ion-header>
+
 
 <ion-content center>
   <!-- logo -->
@@ -16,22 +7,27 @@
   <div class="middlesec">
     <ion-list class="inputsec">
       <div class="nochoose">
-        <ion-label stacked class="headlabel">{{string.signInHelpText}}</ion-label>
+        <!-- <ion-label stacked class="headlabel">Phonenumber</ion-label> -->
       </div>
       <ion-grid class="selectgrid">
         <ion-row>
-          <ion-col col-1></ion-col>
-            <ion-col col-2 no-padding>
-                <ion-item style="    padding-left: 0;
-                text-align: center;">
-                
-                 <ion-input type="number" text-center name="phoneNumber" value="+91"></ion-input>
-                </ion-item>
-              </ion-col>
+          <ion-col col-2 no-padding>
+                          <img style="vertical-align: middle;
+                          width: 81%;
+                          margin-top: 22px;" src="https://cdn.countryflags.com/thumbs/united-states-of-america/flag-400.png" />
+
+          </ion-col>
+          <ion-col col-2 no-padding>
+            <ion-item style="padding-left: 0;text-align: center;">
+              <ion-input type="text" disabled="true" text-center name="phonenumber" [(ngModel)]="country"></ion-input>
+            </ion-item>
+          </ion-col>
           <ion-col col-8 no-padding>
             <ion-item>
-            
-             <ion-input type="number" name="phoneNumber" [(ngModel)]="phoneNumber" (keyup)="cleanPhoneNumberMessage()"></ion-input>
+
+              <ion-input type="number" placeholder="Phonenumber" autofocus name="phoneNumber" [(ngModel)]="phoneNumber"
+                (keyup)="cleanPhoneNumberMessage()">
+              </ion-input>
             </ion-item>
           </ion-col>
         </ion-row>
@@ -43,26 +39,30 @@
         {{phoneNumberMessage}}
       </span>
       <ion-item class="inputpassword" [hidden]="isPassword">
-        <ion-label stacked class="headlabel">{{string.enter+' '+string.password}}</ion-label>
-        <ion-input type="password" name="password" [(ngModel)]="password" (keyup)="cleanPasswordMessage()"></ion-input>
+        <!-- <ion-label stacked class="headlabel">Password</ion-label> -->
+        <ion-input type="password" placeholder="Password" name="password" [(ngModel)]="password"
+          (keyup)="cleanPasswordMessage()"></ion-input>
       </ion-item>
       <span class="error-message">
         {{passwordMessage}}
       </span>
       <p class="forgotPassword" (click)="otpscreen()">
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px"
-          y="0px" viewBox="0 0 54 54" style="enable-background:new 0 0 54 54;" xml:space="preserve" width="512px"
-          height="512px">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1"
+          x="0px" y="0px" viewBox="0 0 54 54" style="enable-background:new 0 0 54 54;" xml:space="preserve"
+          width="512px" height="512px">
           <g>
-            <path d="M43,20.113V14.5C43,6.505,35.822,0,27,0S11,6.505,11,14.5v5.613c-3.401,0.586-6,3.55-6,7.117v19.542   C5,50.757,8.243,54,12.229,54h29.542C45.757,54,49,50.757,49,46.771V27.229C49,23.663,46.401,20.699,43,20.113z M13,14.5   C13,7.607,19.28,2,27,2s14,5.607,14,12.5V20H13V14.5z M47,46.771C47,49.654,44.654,52,41.771,52H12.229C9.346,52,7,49.654,7,46.771   V27.229C7,24.346,9.346,22,12.229,22h29.542C44.654,22,47,24.346,47,27.229V46.771z"
+            <path
+              d="M43,20.113V14.5C43,6.505,35.822,0,27,0S11,6.505,11,14.5v5.613c-3.401,0.586-6,3.55-6,7.117v19.542   C5,50.757,8.243,54,12.229,54h29.542C45.757,54,49,50.757,49,46.771V27.229C49,23.663,46.401,20.699,43,20.113z M13,14.5   C13,7.607,19.28,2,27,2s14,5.607,14,12.5V20H13V14.5z M47,46.771C47,49.654,44.654,52,41.771,52H12.229C9.346,52,7,49.654,7,46.771   V27.229C7,24.346,9.346,22,12.229,22h29.542C44.654,22,47,24.346,47,27.229V46.771z"
               fill="#FFFFFF" />
-            <path d="M27,28c-2.206,0-4,1.794-4,4v6c0,2.206,1.794,4,4,4s4-1.794,4-4v-6C31,29.794,29.206,28,27,28z M29,38c0,1.103-0.897,2-2,2   s-2-0.897-2-2v-6c0-1.103,0.897-2,2-2s2,0.897,2,2V38z"
+            <path
+              d="M27,28c-2.206,0-4,1.794-4,4v6c0,2.206,1.794,4,4,4s4-1.794,4-4v-6C31,29.794,29.206,28,27,28z M29,38c0,1.103-0.897,2-2,2   s-2-0.897-2-2v-6c0-1.103,0.897-2,2-2s2,0.897,2,2V38z"
               fill="#FFFFFF" />
           </g>
 
         </svg> <span>{{string.forgot}} <strong class="text-green">{{string.password}} ?</strong></span></p>
       <ion-fab>
-        <button ion-fab color="primary" class="button-circle button-next" [hidden]="showForm" (click)="registrationAndLogin()">
+        <button ion-fab color="primary" class="button-circle button-next" [hidden]="showForm"
+          (click)="registrationAndLogin()">
           <ion-icon ios="ios-arrow-forward" md="md-arrow-forward"></ion-icon>
         </button>
       </ion-fab>

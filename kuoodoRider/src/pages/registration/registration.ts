@@ -19,13 +19,13 @@ export class RegistrationPage {
   facebookId: any;
   isLoginFb: any;
   loginId: any;
-  password: any;
+  password: any = 'password';
   isUserRegistered: any;
   passwordMessage: string = '';
   phoneNumberMessage: string = '';
   userId: any;
   countries: any = [];
-  country: string = "1";
+  country: String = "+1";
 
   loader: any;
 
@@ -44,7 +44,7 @@ export class RegistrationPage {
   message: any = '';
 
   id: any;
-  phoneNumber: any;
+  phoneNumber: any = 6297365494;
 
   public isPassword: boolean = true;
 
@@ -229,7 +229,7 @@ export class RegistrationPage {
       else if (data) {
         let _base = this;
 
-        console.log("login data",data.user)
+        console.log("login data", data.user)
 
         if (data.user._id == undefined || data.user._id == null) {
           _base.navCtrl.setRoot("RegistrationPage");
