@@ -556,16 +556,29 @@ page-findcar {
   }
 
   #vartical-line {
-    border-left: 1px dashed rgb(17, 19, 17);
-    height: 500px;
+    border-left: 1px dashed #111311;
+    height: calc(50vh - 144px);
     position: fixed;
-    z-index: 99999999;
+    z-index: 9999;
     left: 50%;
-    margin-left: -0.5px;
-    top: 150px;
+    top: 104px;
     bottom: 50%;
-  }
 
+  }
+  .triangle-down {
+    width: 0;
+    height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-top: 9px solid #e8e8e8;
+    position: fixed;
+    top: 98px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    z-index: 9999;
+
+  }
   .qrCode {
     position: fixed !important;
     right: 0px !important;
