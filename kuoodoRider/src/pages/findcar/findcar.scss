@@ -9,7 +9,7 @@ page-findcar {
   }
 
   svg.lds-ellipsis {
-    height: 25px;
+    height: 24px;
     width: 50%;
   }
 
@@ -756,7 +756,7 @@ page-findcar {
         display: block;
         padding-left: 16px;
         clear: both;
-        width: 110%;
+        width: 100%;
         padding-top: 10px;
 
         &::after {
@@ -767,12 +767,12 @@ page-findcar {
         }
 
         .cab-type {
-          width: 85px;
+          width: 77px;
           display: inline-block;
 
           .img-box {
-            width: 65px;
-            height: 65px;
+            width: 50px;
+            height: 50px;
             margin-bottom: 20px;
             text-align: center;
             margin: auto;
@@ -811,7 +811,7 @@ page-findcar {
 
           h4 {
             font-size: 1.1rem;
-            margin-top: 1rem;
+            margin-top:5px;
             font-weight: 500;
             line-height: 8px;
             letter-spacing: 1px;
@@ -938,7 +938,9 @@ page-findcar {
         }
       }
     }
-
+    .card-header-md {
+      padding: 8px 0 5px 0;
+  }
     .active-stage {
       padding-top: 18px;
 
