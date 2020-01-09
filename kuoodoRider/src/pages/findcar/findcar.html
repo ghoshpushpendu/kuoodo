@@ -12,7 +12,8 @@
     </button>
   </ion-fab>
 
-  <img src="https://cdn1.iconfinder.com/data/icons/Map-Markers-Icons-Demo-PNG/256/Map-Marker-Ball-Chartreuse.png"
+  <img *ngIf="!endAddress"
+    src="https://cdn1.iconfinder.com/data/icons/Map-Markers-Icons-Demo-PNG/256/Map-Marker-Ball-Chartreuse.png"
     class="screen-center" />
 
 
@@ -85,21 +86,21 @@
   </div>
 
 
-  
+
   <ion-card class="shadow-black controls">
-    <div id='vartical-line'></div>
-<!-- <hr > -->
+    <!-- <div id='vartical-line'></div> -->
+    <!-- <hr > -->
     <ion-card-content>
       <div class="shadow-black border-radius">
-        <ion-row >
+        <ion-row>
           <ion-col class="location-icon">
             <strong class="bg-green"></strong>
           </ion-col>
           <ion-col class="pad-0">
-            <ion-item class="bg-white border-bottom">
+            <ion-item class="bg-white border-bottom" (tap)="showAddressModal('start')">
               <!-- <ion-label floating>from</ion-label> -->
               <ion-input type="text" class="location" disabled="true" [(ngModel)]="startAddress"></ion-input>
-             
+
 
               <button ion-button class="locate-icon" clear *ngIf="!rideMode" type="button" item-right
                 (click)="setCurrentLocation()">
@@ -115,7 +116,7 @@
             <strong class="bg-yellow"></strong>
           </ion-col>
           <ion-col class="pad-0">
-            <ion-item class="bg-white" (tap)="showAddressModal()">
+            <ion-item class="bg-white" (tap)="showAddressModal('end')">
               <!-- <ion-label floating>to</ion-label> -->
               <ion-input disabled="true" type="text" class="location" [(ngModel)]="endAddress"></ion-input>
               <ion-icon name="md-locate" class="text-black"></ion-icon>

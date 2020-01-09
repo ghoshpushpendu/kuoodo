@@ -270,7 +270,7 @@ export class FindcarPage {
     this.stopSearch();
   }
 
-  showAddressModal() {
+  showAddressModal(str: String) {
     let _base = this;
     let modal = this.modalCtrl.create("AutocompletePage", {
       lat: _base.startLatitude,
@@ -279,11 +279,28 @@ export class FindcarPage {
 
     modal.onDidDismiss(data => {
       if (Object.keys(data).length != 0) {
-        _base.endAddress = data.location;
-        _base.endingLatitude = data.lat;
-        _base.endingLongitude = data.lng;
-        let loc = new google.maps.LatLng(_base.endingLatitude, _base.endingLongitude);
-        _base.createDestinationMarker(loc);
+        console.log("===============================", str)
+        if (str == 'start') {
+
+          this.startLatitude = data.lat;
+          this.startLongitude = data.lng;
+          _base.startAddress = data.location;
+          let loc = new google.maps.LatLng(data.lat, data.lng);
+          let endingLoc = new google.maps.LatLng(this.endingLatitude, this.endingLongitude)
+          this.createMarkar(loc, 0);
+
+          if (Object.getOwnPropertyNames(this.directionsService).length != 0) {
+            this.showRoute(loc, endingLoc);
+          }
+
+        } else if (str == 'end') {
+          _base.endAddress = data.location;
+          _base.endingLatitude = data.lat;
+          _base.endingLongitude = data.lng;
+          let loc = new google.maps.LatLng(_base.endingLatitude, _base.endingLongitude);
+          _base.createDestinationMarker(loc);
+        }
+
       } else {
         console.log("no data");
       }
@@ -936,18 +953,73 @@ export class FindcarPage {
   //   }, 50);
   // }
 
+  makeMarker(position, icon) {
+    console.log('=======================================================')
+    let sicon = {
+      url: "https://cdn1.iconfinder.com/data/icons/Map-Markers-Icons-Demo-PNG/256/Map-Marker-Ball-Chartreuse.png", // url
+      scaledSize: new google.maps.Size(40, 40), // scaled size
+      origin: new google.maps.Point(0, 0), // origin
+      anchor: new google.maps.Point(20, 40) // anchor
+    };
+
+    let eicon = {
+      url: "https://www.stickpng.com/assets/images/588891ecbc2fc2ef3a1860a4.png", // url
+      scaledSize: new google.maps.Size(40, 50), // scaled size
+      origin: new google.maps.Point(0, 0), // origin
+      anchor: new google.maps.Point(10, 45) // anchor
+    };
+    console.log(position, icon)
+    let _base = this;
+    new google.maps.Marker({
+      position: position,
+      map: _base.map,
+      icon: icon == 'start' ? sicon : eicon
+    });
+  }
+
   showRoute(origin, destination) {
+
+    //   // url: "https://lemi.travel/images/current.png",
+    //   // url: "https://cdn1.iconfinder.com/data/icons/Map-Markers-Icons-Demo-PNG/256/Map-Marker-Ball-Chartreuse.png", // url
+    //   scaledSize: new google.maps.Size(40, 40), // scaled size
+    //   origin: new google.maps.Point(0, 0), // origin
+    //   anchor: new google.maps.Point(20, 5) // anchor
+    var icons = {
+      start: new google.maps.MarkerImage(
+        // URL
+        'https://cdn1.iconfinder.com/data/icons/Map-Markers-Icons-Demo-PNG/256/Map-Marker-Ball-Chartreuse.png',
+        // (width,height)
+        new google.maps.Size(40, 30),
+        // The origin point (x,y)
+        new google.maps.Point(0, 0),
+        // The anchor point (x,y)
+        new google.maps.Point(20, 5)
+      ),
+      end: new google.maps.MarkerImage(
+        // URL
+        'https://cdn.imgbin.com/8/3/6/imgbin-drawing-pin-marker-pen-google-map-maker-google-maps-pushpin-AKt1BYE9dbp032r9yqAc7QCsG.jpg',
+        // (width,height)
+        new google.maps.Size(40, 40),
+        // The origin point (x,y)
+        new google.maps.Point(0, 0),
+        // The anchor point (x,y)
+        new google.maps.Point(20, 5)
+      )
+    };
 
     let _base = this;
     _base.directionsDisplay.setMap(null);
     _base.directionsDisplay = new google.maps.DirectionsRenderer({
       polylineOptions: {
         strokeColor: "black"
-      }
+      },
+      suppressMarkers: true
     });
     var directionsService = new google.maps.DirectionsService();
 
     _base.directionsDisplay.setMap(_base.map);
+    // _base.makeMarker(origin, icons.start)
+    _base.makeMarker(destination, icons.end)
     var request = {
       origin: origin,
       destination: destination,
@@ -958,6 +1030,12 @@ export class FindcarPage {
     directionsService.route(request, function (response, status) {
       console.log(response);
       if (status == google.maps.DirectionsStatus.OK) {
+
+
+        let leg = response.routes[0].legs[0];
+        _base.makeMarker(leg.start_location, 'start');
+        _base.makeMarker(leg.end_location, 'end');
+
         _base.directionsDisplay.setDirections(response);
         _base.directionsDisplay.setMap(_base.map);
         _base.distance = response.routes[0].legs[0].distance.text;
