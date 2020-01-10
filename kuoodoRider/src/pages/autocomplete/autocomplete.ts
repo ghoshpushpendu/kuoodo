@@ -16,6 +16,12 @@ export class AutocompletePage {
 
   public string: any = strings;
 
+  public output: any = {
+    lat: 0,
+    lng: 0,
+    address: ''
+  }
+
   latitude: number = 0;
   longitude: number = 0;
   geo: any
@@ -44,6 +50,8 @@ export class AutocompletePage {
 
     this.reziseMap()
     this.initMap(this.param.get('lat'), this.param.get('lng'))
+    this.autocomplete.query = 'fetching location ...'
+    this.getCenterLocation(this.param.get('lat'), this.param.get('lng'));
 
   }
 
@@ -54,6 +62,7 @@ export class AutocompletePage {
   chooseItem(item: any) {
     this.geo = item;
     this.geoCode(this.geo);//convert Address to lat and long
+    this.autocompleteItems = [];
   }
 
   updateSearch() {
@@ -84,6 +93,10 @@ export class AutocompletePage {
     });
   }
 
+  done() {
+    this.viewCtrl.dismiss(this.output);
+  }
+
   //convert Address string to lat and long
   geoCode(address: any) {
     let geocoder = new google.maps.Geocoder();
@@ -92,11 +105,45 @@ export class AutocompletePage {
       let latitude = results[0].geometry.location.lat();
       let longitude = results[0].geometry.location.lng();
       let location = address;
-      // _base.viewCtrl.dismiss({
-      //   lat: latitude,
-      //   lng: longitude,
-      //   location: location
-      // });
+      _base.output = {
+        lat: latitude,
+        lng: longitude,
+        address: location
+      }
+      _base.autocomplete.query = location;
+      _base.moveCamera(latitude, longitude)
+    });
+  }
+
+  moveCamera(lat: any, lng: any) {
+    let loc = new google.maps.LatLng({
+      lat: lat,
+      lng: lng
+    });
+    this.map.setCenter(loc, 14);
+  }
+
+
+  getCenterLocation(lat, lng) {
+    let _base = this;
+    var latlng = new google.maps.LatLng(lat, lng);
+    let geocoder = new google.maps.Geocoder;
+    geocoder.geocode({ 'location': latlng }, function (results, status) {
+      if (status === 'OK') {
+        if (results[0]) {
+          let address = results[0].formatted_address;
+          _base.output = {
+            lat: lat,
+            lng: lng,
+            address: address
+          }
+          _base.autocomplete.query = address;
+        } else {
+          console.log('No results found');
+        }
+      } else {
+        console.log('Geocoder failed due to: ' + status);
+      }
     });
   }
 
@@ -323,7 +370,11 @@ export class AutocompletePage {
     google.maps.event.addListener(_base.map, 'dragend', function () {
       // do something only the first time the map is loaded
       // _base.setCurrentLocation();
+      _base.autocomplete.query = 'fetching location ...';
       console.log(_base.map.getCenter())
+      let lat = _base.map.getCenter().lat();
+      let lng = _base.map.getCenter().lng();
+      _base.getCenterLocation(lat, lng)
     });
 
   }

@@ -159,7 +159,7 @@
       <ion-card-content>
         <div class="cab-scroll bg-white">
           <div class="cab-container">
-            <div class="cab-type" *ngFor="let cab of cabTypes;let i = index" (click)="selectCar(i,cab)">
+            <div class="cab-type" *ngFor="let cab of cabTypes;let i = index" (tap)="selectCar(i,cab)">
               <div [ngClass]="{'img-box': true, 'active': (i == selectedCar)}">
                 <!-- <img src="assets/imgs/car-1.png"> -->
                 <img src="assets/economy.png" src="{{'assets/'+cab.name+'.png'}}">

@@ -72,6 +72,8 @@ export class FindcarPage {
 
   public images: any = [1, 2, 3, 4, 5, 6];
 
+  originmarker: any = null;
+
 
   @ViewChild('map') mapElement: ElementRef;
 
@@ -284,7 +286,7 @@ export class FindcarPage {
 
           this.startLatitude = data.lat;
           this.startLongitude = data.lng;
-          _base.startAddress = data.location;
+          _base.startAddress = data.address;
           let loc = new google.maps.LatLng(data.lat, data.lng);
           let endingLoc = new google.maps.LatLng(this.endingLatitude, this.endingLongitude)
           this.createMarkar(loc, 0);
@@ -294,7 +296,7 @@ export class FindcarPage {
           }
 
         } else if (str == 'end') {
-          _base.endAddress = data.location;
+          _base.endAddress = data.address;
           _base.endingLatitude = data.lat;
           _base.endingLongitude = data.lng;
           let loc = new google.maps.LatLng(_base.endingLatitude, _base.endingLongitude);
@@ -696,7 +698,7 @@ export class FindcarPage {
       center: uluru,
       disableDefaultUI: true,
       // mapTypeId: 'roadmap',
-      // gestureHandling: 'cooperative',
+      gestureHandling: 'false',
       zoomControl: true,
       styles: mapStyle
     };
@@ -968,13 +970,27 @@ export class FindcarPage {
       origin: new google.maps.Point(0, 0), // origin
       anchor: new google.maps.Point(10, 45) // anchor
     };
-    console.log(position, icon)
     let _base = this;
-    new google.maps.Marker({
+    console.log(position, icon)
+    if (icon == 'start') {
+      if (_base.originmarker) {
+        _base.originmarker.setMap(null)
+      }
+    } else {
+      if (_base.destinationmarker) {
+        _base.destinationmarker.setMap(null);
+      }
+    }
+    let marker = new google.maps.Marker({
       position: position,
       map: _base.map,
       icon: icon == 'start' ? sicon : eicon
     });
+    if (icon == 'start') {
+      _base.originmarker = marker
+    } else {
+      _base.destinationmarker = marker;
+    }
   }
 
   showRoute(origin, destination) {
@@ -1480,7 +1496,7 @@ export class FindcarPage {
 
     } else {
       console.log("No available");
-      alert(car.name + this.string.notAvailable);
+      alert(car.name + ' car ' + this.string.notAvailable);
     }
   }
 
