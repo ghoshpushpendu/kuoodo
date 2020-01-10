@@ -1,14 +1,28 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>{{string.locationTo}}</ion-title>
-    <ion-searchbar [(ngModel)]="autocomplete.query" [showCancelButton]="true" (ionInput)="updateSearch()" (ionCancel)="dismiss()"></ion-searchbar>
-  </ion-toolbar>
+  <!-- <ion-toolbar> -->
+  <!-- <ion-title>{{string.locationTo}}</ion-title> -->
+  <ion-searchbar place="search location" [(ngModel)]="autocomplete.query" [showCancelButton]="true"
+    (ionInput)="updateSearch()" (ionCancel)="dismiss()"></ion-searchbar>
+  <!-- </ion-toolbar> -->
 </ion-header>
 
+
 <ion-content>
-  <ion-list>
+  <img *ngIf="!endAddress"
+    src="https://cdn1.iconfinder.com/data/icons/Map-Markers-Icons-Demo-PNG/256/Map-Marker-Ball-Chartreuse.png"
+    class="screen-center" />
+  <div #searchmap id="searchmap"></div>
+
+  <ion-list class="search-result">
     <ion-item *ngFor="let item of autocompleteItems" tappable (click)="chooseItem(item)">
       {{ item }}
     </ion-item>
   </ion-list>
+
+  <ion-fab bottom right>
+    <button ion-fab class="bg-green text-white">
+      <ion-icon ios="ios-arrow-dropright" md="md-arrow-dropright"></ion-icon>
+    </button>
+  </ion-fab>
+
 </ion-content>
