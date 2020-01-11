@@ -5,6 +5,10 @@ page-autocomplete {
     z-index: 1 !important;
   }
 
+  ion-searchbar {
+    padding: 0px !important;
+  }
+
   .search-result {
     position: absolute;
     top: 0px;

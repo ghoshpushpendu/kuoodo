@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header (tap)="removelocationstring()">
   <!-- <ion-toolbar> -->
   <!-- <ion-title>{{string.locationTo}}</ion-title> -->
   <ion-searchbar place="search location" [(ngModel)]="autocomplete.query" [showCancelButton]="true"

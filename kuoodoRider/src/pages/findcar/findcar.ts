@@ -1044,7 +1044,7 @@ export class FindcarPage {
 
     console.log(request);
     directionsService.route(request, function (response, status) {
-      console.log(response);
+      console.log("==========================================", response.routes[0].overview_path);
       if (status == google.maps.DirectionsStatus.OK) {
 
 
@@ -1058,11 +1058,30 @@ export class FindcarPage {
         let distance = response.routes[0].legs[0].distance.value;
         let duration = response.routes[0].legs[0].duration.value;
         _base.calculate(distance, duration);
+        _base.drawrouteanimation(response.routes[0].overview_path);
       } else {
         _base.endAddress = null;
         alert("");
       }
     });
+  }
+
+  drawrouteanimation(coords: any) {
+    // Define the LatLng coordinates for the polygon's path.
+    var triangleCoords = [coords[0], coords[coords.length-250]];
+
+    console.log("triagnle coords", triangleCoords)
+
+    // Construct the polygon.
+    var bermudaTriangle = new google.maps.Polygon({
+      paths: triangleCoords,
+      strokeColor: '#FF0000',
+      strokeOpacity: 0.8,
+      strokeWeight: 2,
+      // fillColor: '#FF0000',
+      fillOpacity: 0
+    });
+    bermudaTriangle.setMap(this.map);
   }
 
 

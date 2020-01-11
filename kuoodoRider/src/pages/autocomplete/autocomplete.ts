@@ -65,6 +65,10 @@ export class AutocompletePage {
     this.autocompleteItems = [];
   }
 
+  removelocationstring() {
+    this.autocomplete.query = '';
+  }
+
   updateSearch() {
 
     if (this.autocomplete.query == '') {
@@ -94,7 +98,11 @@ export class AutocompletePage {
   }
 
   done() {
-    this.viewCtrl.dismiss(this.output);
+    if (this.output.address == '') {
+      alert('Please point a location')
+    } else {
+      this.viewCtrl.dismiss(this.output);
+    }
   }
 
   //convert Address string to lat and long
