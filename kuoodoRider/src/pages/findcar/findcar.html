@@ -153,13 +153,13 @@
     </ion-card> -->
 
     <ion-card class="text-black" *ngIf="!rideMode">
-      <ion-card-header>
+      <!-- <ion-card-header>
         <span text-center class="mx-a">{{string.cabType}}</span>
-      </ion-card-header>
+      </ion-card-header> -->
       <ion-card-content>
-        <div class="cab-scroll bg-white">
-          <div class="cab-container">
-            <div class="cab-type" *ngFor="let cab of cabTypes;let i = index" (tap)="selectCar(i,cab)">
+        <ion-grid class="cab-scroll bg-white">
+          <ion-row class="cab-container">
+            <ion-col col-3 class="cab-type" *ngFor="let cab of cabTypes;let i = index" (tap)="selectCar(i,cab)">
               <div [ngClass]="{'img-box': true, 'active': (i == selectedCar)}">
                 <!-- <img src="assets/imgs/car-1.png"> -->
                 <img src="assets/economy.png" src="{{'assets/'+cab.name+'.png'}}">
@@ -213,9 +213,9 @@
               </div>
               <h4 class="text-black ">{{cab.name}}</h4>
               <small class="text-light " *ngIf="cab.cost">${{cab.cost}} - ${{cab.cost+5}}</small>
-            </div>
-          </div>
-        </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
         <ion-row padding-left padding-right>
 
           <ion-col col-12>

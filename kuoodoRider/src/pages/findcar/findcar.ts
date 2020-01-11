@@ -698,8 +698,8 @@ export class FindcarPage {
       center: uluru,
       disableDefaultUI: true,
       // mapTypeId: 'roadmap',
-      gestureHandling: 'false',
-      zoomControl: true,
+      gestureHandling: 'none',
+      zoomControl: false,
       styles: mapStyle
     };
     this.map = new google.maps.Map(document.getElementById('map'), options);

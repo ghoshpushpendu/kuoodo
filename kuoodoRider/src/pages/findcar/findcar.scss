@@ -565,6 +565,7 @@ page-findcar {
     bottom: 50%;
 
   }
+
   .triangle-down {
     width: 0;
     height: 0;
@@ -579,6 +580,7 @@ page-findcar {
     z-index: 9999;
 
   }
+
   .qrCode {
     position: fixed !important;
     right: 0px !important;
@@ -750,14 +752,15 @@ page-findcar {
 
     .cab-scroll {
       overflow-x: auto;
-      padding-bottom: 1rem;
+      // border-top: 1px dashed green;
+      // padding-bottom: 1rem;
 
       .cab-container {
-        display: block;
-        padding-left: 16px;
-        clear: both;
-        width: 100%;
-        padding-top: 10px;
+        // display: block;
+        // padding-left: 16px;
+        // clear: both;
+        // width: 100%;
+        // padding-top: 10px;
 
         &::after {
           clear: both;
@@ -776,13 +779,14 @@ page-findcar {
             margin-bottom: 20px;
             text-align: center;
             margin: auto;
-            opacity: 0.6;
+            opacity: 0.5;
 
             img {
               display: block;
               -webkit-filter: grayscale(100%);
               /* Safari 6.0 - 9.0 */
               filter: grayscale(100%);
+              // width: 40px;
             }
 
             .badge {
@@ -792,26 +796,26 @@ page-findcar {
 
           .img-box.active {
             // width: 100%;
-            max-width: 65px;
-            height: 65px;
+            // max-width: 65px;
+            // height: 65px;
             text-align: center;
             margin-bottom: 0;
-            opacity: 1.6;
+            opacity: 1;
 
             img {
               -webkit-filter: grayscale(0%);
               /* Safari 6.0 - 9.0 */
               filter: grayscale(0%); // box-shadow: 11px 12px 30px 0px #cccc;
               // border-radius: 50%;
-              background-color: #cbeacb;
-              border-radius: 16px;
-              padding: 5px;
+              // background-color: #cbeacb;
+              // border-radius: 5px;
+              // padding: 5px;
             }
           }
 
           h4 {
             font-size: 1.1rem;
-            margin-top:5px;
+            margin-top: 5px;
             font-weight: 500;
             line-height: 8px;
             letter-spacing: 1px;
@@ -938,9 +942,11 @@ page-findcar {
         }
       }
     }
+
     .card-header-md {
       padding: 8px 0 5px 0;
-  }
+    }
+
     .active-stage {
       padding-top: 18px;
 
@@ -1078,11 +1084,11 @@ page-findcar {
   .card-box {
     position: fixed;
     bottom: -11px;
-    width: calc(100% - 2rem);
-    left: 1rem;
+    // width: calc(100% - 2rem);
+    // left: 1rem;
 
     .card {
-      border-radius: 10px 10px 0 0 !important;
+      // border-radius: 10px 10px 0 0 !important;
     }
 
     small.text-light {
