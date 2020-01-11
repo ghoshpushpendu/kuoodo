@@ -73,6 +73,8 @@ export class FindcarPage {
   public images: any = [1, 2, 3, 4, 5, 6];
 
   originmarker: any = null;
+  public polygon: any = null;
+  public interval: any = null;
 
 
   @ViewChild('map') mapElement: ElementRef;
@@ -1027,7 +1029,7 @@ export class FindcarPage {
     _base.directionsDisplay.setMap(null);
     _base.directionsDisplay = new google.maps.DirectionsRenderer({
       polylineOptions: {
-        strokeColor: "black"
+        strokeColor: "grey"
       },
       suppressMarkers: true
     });
@@ -1068,20 +1070,38 @@ export class FindcarPage {
 
   drawrouteanimation(coords: any) {
     // Define the LatLng coordinates for the polygon's path.
-    var triangleCoords = [coords[0], coords[coords.length-250]];
 
-    console.log("triagnle coords", triangleCoords)
+    let length = coords.length;
+    let _base = this;
+    let count = 0;
+    if (_base.interval != null) {
+      clearInterval(_base.interval)
+    }
 
-    // Construct the polygon.
-    var bermudaTriangle = new google.maps.Polygon({
-      paths: triangleCoords,
-      strokeColor: '#FF0000',
-      strokeOpacity: 0.8,
-      strokeWeight: 2,
-      // fillColor: '#FF0000',
-      fillOpacity: 0
-    });
-    bermudaTriangle.setMap(this.map);
+    _base.interval = setInterval(function () {
+      let triangleCoords = [coords[count + 0], coords[count + 1], coords[count + 2], coords[count + 4], coords[count + 5], coords[count + 6], coords[count + 7], coords[count + 8], coords[count + 9], coords[count + 10]];
+      count = count + 10;
+      console.log("triagnle coords", triangleCoords)
+      if (count >= length - 10) {
+        count = 0;
+      } else {
+        if (_base.polygon != null) {
+          _base.polygon.setMap(null)
+        }
+        // Construct the polygon.
+        _base.polygon = new google.maps.Polygon({
+          paths: triangleCoords,
+          strokeColor: '#ff0000',
+          strokeOpacity: 1,
+          strokeWeight: 5,
+          // fillColor: '#FF0000',
+          fillOpacity: 0,
+          zIndex: 100
+        });
+        _base.polygon.setMap(_base.map);
+      }
+    }, 70)
+
   }
 
 
