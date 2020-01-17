@@ -92,9 +92,9 @@ export class RegistrationPage {
 
 
   chooseLanguage() {
-    console.log(localStorage.getItem("language"))
-    console.log(localStorage.getItem('language'));
-    console.log((localStorage.getItem("language").toString() == 'english') ? true : false);
+    
+    
+    
     let prompt = this.alertCtrl.create({
       title: 'Language',
       message: 'Select a language to continue.',
@@ -122,14 +122,14 @@ export class RegistrationPage {
         // {
         //   text: "Cancel",
         //   handler: data => {
-        //     console.log("cancel clicked");
+        //     
         //   }
         // },
         {
           text: "Continue",
           handler: data => {
             localStorage.removeItem("language");
-            console.log("search clicked", data);
+            
             localStorage.setItem("language", data);
             strings.setLanguage(data);
           }
@@ -178,8 +178,8 @@ export class RegistrationPage {
       phoneNumber: _base.appService.countryCode + phone
     }
 
-    console.log(this.string);
-    console.log(this.string.pleaseWait);
+    
+    
 
     //Loading message
     this.loadingMessage = this.string.pleaseWait + " ...";
@@ -229,7 +229,7 @@ export class RegistrationPage {
       else if (data) {
         let _base = this;
 
-        console.log("login data", data.user)
+        
 
         if (data.user._id == undefined || data.user._id == null) {
           _base.navCtrl.setRoot("RegistrationPage");
@@ -238,7 +238,7 @@ export class RegistrationPage {
         this.localStorageProvider.profileInformation(data.user._id);
         get("https://maps.googleapis.com/maps/api/js?key=AIzaSyCAUo5wLQ1660_fFrymXUmCgPLaTwdXUgY&libraries=drawing,places,geometry,visualization", () => {
           //Google Maps library has been loaded...
-          console.log("Google maps library has been loaded");
+          
           sessionStorage.setItem("google", "enabled");
           _base.navCtrl.setRoot("FindcarPage", {
             loginId: data.user._id

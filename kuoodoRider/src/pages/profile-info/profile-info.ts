@@ -55,13 +55,13 @@ export class ProfileInfoPage {
     this.getCountries();
     //getting providers name for facebook and Google
     this.providers = this.navParams.get("providers");
-    console.log("Getting providers name from nav params");
-    console.log(this.providers);
+    
+    
 
     //getting local as a provider name for normal registration
     this.provider = this.navParams.get("provider");
-    console.log("Getting provider name from nav params");
-    console.log(this.provider);
+    
+    
 
 
     // //current device ID
@@ -93,15 +93,15 @@ export class ProfileInfoPage {
     _base.appService.getCountries((error, data) => {
       //Dismiss the loader after getting response from server
       if (data) {
-        console.log("countries", data);
+        
         _base.countries = data;
-        // console.log("Countries", _base.countries);
+        // 
       }
     });
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ProfileInfoPage');
+    
     if (this.provider == "local") {
       if (this.checkPhoneNumber == true && this.isValid == true) {
         this.phoneNumber = this.phoneNumber;
@@ -154,12 +154,12 @@ export class ProfileInfoPage {
     if (isNaN(this.email)) {
       if (!(this.email.match(emailPattern))) {
         this.emailMessage = this.string.validEmail;
-        console.log('error for email', this.emailMessage);
+        
         return false;
       }
       else {
         this.emailMessage = '';
-        console.log('no error for email', this.emailMessage);
+        
       }
     }
   }
@@ -202,7 +202,7 @@ export class ProfileInfoPage {
           deviceId: this.deviceID
         }
         this.appService.userRegistration(data, (error, data) => {
-          console.log(data);
+          
 
           //Dismiss the loader
           this.loader.dismiss();
@@ -216,7 +216,7 @@ export class ProfileInfoPage {
               this.localStorageProvider.profileInformation(data.user._id);
               get("https://maps.googleapis.com/maps/api/js?key=AIzaSyCAUo5wLQ1660_fFrymXUmCgPLaTwdXUgY&libraries=drawing,places,geometry,visualization", () => {
                 //Google Maps library has been loaded...
-                console.log("Google maps library has been loaded");
+                
                 sessionStorage.setItem("google", "enabled");
                 this.navCtrl.setRoot("FindcarPage");
               });
@@ -253,7 +253,7 @@ export class ProfileInfoPage {
             //Dismiss the loader
             this.loader.dismiss();
 
-            console.log(data);
+            
 
             if (error) {
               if (data.error == true) {
@@ -320,7 +320,7 @@ export class ProfileInfoPage {
             //Dismiss the loader
             this.loader.dismiss();
 
-            console.log(data);
+            
 
             if (error) {
               if (data.error == true) {
@@ -330,10 +330,10 @@ export class ProfileInfoPage {
             }
             else {
               if (!data.error) {
-                console.log("Getting data after registration");
-                console.log(data);
+                
+                
                 this.id = data.otpDetails._id
-                console.log(this.id);
+                
                 if (this.id) {
                   this.navCtrl.setRoot("OtpPage", {
                     firstName: this.firstName,

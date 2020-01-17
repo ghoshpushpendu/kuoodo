@@ -127,34 +127,34 @@ export class FindcarPage {
 
     this.socket.on("accepted", (data) => {
       let userID = data.userId._id;
-      console.log(data);
-      console.log(data.userId);
-      console.log(data.userId._id);
-      console.log("Ride has been accepted", userID);
-      console.log("Current userID", _base.id);
+
+
+
+
+
       if (userID == _base.id) {
-        console.log("Vitore gachhe .......");
+
         _base.waitingLoader.dismiss();
         _base.showToast(_base.string.accepted);
-        console.log("ride request has been accepted");
+
         _base.rideMode = true;
 
         //subscribe to driver location update
         _base.socket.on(_base.driverId + "-location", (data) => {
-          console.log(data.lat);
-          console.log(data.lng);
+
+
           _base.showDriver(data.lat, data.lng);
 
         })
       } else {
-        console.log("Baire gachhe ! .....");
+
       }
     });
 
 
     this.socket.on("rejected", (data) => {
       let userID = data.userId._id;
-      // console.log("Ride has been rejected");
+      // 
       if (userID == _base.id) {
         _base.waitingLoader.dismiss();
         _base.showToast(_base.string.rejected);
@@ -166,7 +166,7 @@ export class FindcarPage {
 
     this.socket.on("arrived", (data) => {
       let userID = data.userId._id;
-      console.log("Driver has arrived");
+
       if (userID == _base.id) {
         _base.otp = _base.tempOtp;
         _base.arrival_status = "arrived";
@@ -177,12 +177,12 @@ export class FindcarPage {
 
     this.socket.on("start", (data) => {
       let userID = data.userId._id;
-      console.log("Ride has been started");
+
       if (userID == _base.id) {
         _base.otp = "";
         _base.showToast(_base.string.rideStarted);
         _base.socket.removeListener(_base.driverId + "-location", function () {
-          console.log("Driver current location request stopped");
+
         });
       }
     });
@@ -225,8 +225,8 @@ export class FindcarPage {
   }
 
   chooseLanguage() {
-    console.log(localStorage.getItem("language"))
-    console.log((localStorage.getItem("language").toString() == 'english') ? true : false);
+
+
     let prompt = this.alertCtrl.create({
       title: 'Language',
       message: 'Select a language to continue.',
@@ -254,14 +254,14 @@ export class FindcarPage {
         // {
         //   text: "Cancel",
         //   handler: data => {
-        //     console.log("cancel clicked");
+        //     
         //   }
         // },
         {
           text: "Continue",
           handler: data => {
             localStorage.removeItem("language");
-            console.log("search clicked", data);
+
             localStorage.setItem("language", data);
             strings.setLanguage(data);
           }
@@ -283,7 +283,7 @@ export class FindcarPage {
 
     modal.onDidDismiss(data => {
       if (Object.keys(data).length != 0) {
-        console.log("===============================", str)
+
         if (str == 'start') {
 
           this.startLatitude = data.lat;
@@ -306,7 +306,7 @@ export class FindcarPage {
         }
 
       } else {
-        console.log("no data");
+
       }
     });
     modal.present();
@@ -390,12 +390,12 @@ export class FindcarPage {
 
     this.appService.getProfile(this.id, (error, data) => {
       if (error) {
-        console.log("Error in fetching profile :", error);
+
       } else {
         if (data) {
           _base.appService.updateUser(data.user);
           _base.userData = data.user;
-          // console.log(data);
+          // 
         }
       }
     });
@@ -403,14 +403,14 @@ export class FindcarPage {
     //checking pending payments
     _base.getPendingPayments()
       .then(function (success: any) {
-        console.log("success - getting payments", success);
+
         if (success.result.length) {
           if (success.result[0].amount >= 0) {
             // _base.nav.push("PaymentsPage");
           }
         }
       }, function (error) {
-        console.log("error - getting payments", error);
+
       });
 
     //checking payment methods
@@ -427,19 +427,19 @@ export class FindcarPage {
         _base.showToast("can not get card");
       });
 
-    console.log("================================================================")
+
     _base.fetchCurrentRide()
       .then(function (response: any) {
         if (!response.error) {
-          console.log("Current ride details :", response);
+
           if (response.result.length != 0) {
             // alert("You are in a ride")
-            console.log(response);
+
             let booking = response.result[0];
           }
         }
       }, function (error: any) {
-        console.log("Ride fetch error is :", error);
+
       });
 
     if (sessionStorage.getItem("location") == "enabled") {
@@ -453,10 +453,10 @@ export class FindcarPage {
     let _base = this;
     if (data.status == 'Booked') {
       _base.showToast(_base.string.accepted);
-      console.log("ride request has been accepted");
+
       _base.rideMode = true;
       _base.driverId = data.driverId._id;
-      console.log("Ride in booked mode =============================", data);
+
 
       // setting address in address input fields
       _base.endAddress = data.endLocation;
@@ -475,8 +475,8 @@ export class FindcarPage {
 
       //subscribe to driver location update
       _base.socket.on(_base.driverId + "-location", (data) => {
-        console.log(data.lat);
-        console.log(data.lng);
+
+
         _base.showDriver(data.lat, data.lng);
         // endAddress
       })
@@ -696,12 +696,11 @@ export class FindcarPage {
 
     var uluru = { lat: -25.344, lng: 131.036 };
     let options = {
-      zoom: 15,
-      center: uluru,
-      disableDefaultUI: true,
-      // mapTypeId: 'roadmap',
-      gestureHandling: 'none',
+      zoom: 15, center: { lat: -25.344, lng: 131.036 }, 
+      mapTypeId: 'terrain', 
+      // gestureHandling: 'none',
       zoomControl: false,
+      disableDefaultUI: true,
       styles: mapStyle
     };
     this.map = new google.maps.Map(document.getElementById('map'), options);
@@ -715,7 +714,7 @@ export class FindcarPage {
 
   setCurrentLocation() {
     let _base = this;
-    console.log("map loaded");
+
 
     sessionStorage.setItem("location", "enabled");
 
@@ -724,7 +723,7 @@ export class FindcarPage {
     });
     loader.present();
     _base.getLocation().then((res) => {
-      // console.log(res);
+      // 
       this.response = res;
       this.startLatitude = res.coords.latitude;
       this.startLongitude = res.coords.longitude;
@@ -736,10 +735,10 @@ export class FindcarPage {
             let address = results[0].formatted_address;
             _base.startAddress = address;
           } else {
-            console.log('No results found');
+
           }
         } else {
-          console.log('Geocoder failed due to: ' + status);
+
         }
       });
 
@@ -777,8 +776,8 @@ export class FindcarPage {
         if (status == google.maps.DirectionsStatus.OK) {
           let distance = response.routes[0].legs[0].distance.value * 0.000621371;
           let time = parseInt(response.routes[0].legs[0].duration.value) / 60;
-          console.log("TIme take is :", time);
-          console.log(response.routes[0].legs[0]);
+
+
           let minutes = parseFloat(_base.getPerMilePrice(_base.cartype.name).perMinutes);
           let miles = parseFloat(_base.getPerMilePrice(_base.cartype.name).perMile);
           let initial = parseFloat(_base.getCarInfo().initialCost);
@@ -822,9 +821,9 @@ export class FindcarPage {
       travelMode: 'DRIVING'
     }, (response, status) => {
       if (status === 'OK') {
-        console.log(response);
+
       } else {
-        console.log('Directions request failed due to ' + status);
+
       }
     });
   }
@@ -958,7 +957,7 @@ export class FindcarPage {
   // }
 
   makeMarker(position, icon) {
-    console.log('=======================================================')
+
     let sicon = {
       url: "https://cdn1.iconfinder.com/data/icons/Map-Markers-Icons-Demo-PNG/256/Map-Marker-Ball-Chartreuse.png", // url
       scaledSize: new google.maps.Size(40, 40), // scaled size
@@ -973,7 +972,7 @@ export class FindcarPage {
       anchor: new google.maps.Point(10, 45) // anchor
     };
     let _base = this;
-    console.log(position, icon)
+
     if (icon == 'start') {
       if (_base.originmarker) {
         _base.originmarker.setMap(null)
@@ -1044,9 +1043,9 @@ export class FindcarPage {
       travelMode: google.maps.TravelMode.DRIVING
     };
 
-    console.log(request);
+
     directionsService.route(request, function (response, status) {
-      console.log("==========================================", response.routes[0].overview_path);
+
       if (status == google.maps.DirectionsStatus.OK) {
 
 
@@ -1081,7 +1080,7 @@ export class FindcarPage {
     _base.interval = setInterval(function () {
       let triangleCoords = [coords[count + 0], coords[count + 1], coords[count + 2], coords[count + 4], coords[count + 5], coords[count + 6], coords[count + 7], coords[count + 8], coords[count + 9], coords[count + 10]];
       count = count + 10;
-      console.log("triagnle coords", triangleCoords)
+
       if (count >= length - 10) {
         count = 0;
       } else {
@@ -1108,8 +1107,8 @@ export class FindcarPage {
   // calculate price between source and deistination
 
   calculate(distance, duration) {
-    console.log("distance", distance);
-    console.log("duration", duration);
+
+
     let mileDistance = distance * 0.000621371;
     let minuteDuration = duration / 60;
     let _base = this;
@@ -1129,7 +1128,7 @@ export class FindcarPage {
       }
       element.cost = Math.ceil(cost);
     });
-    console.log(this.cabTypes);
+
   }
 
 
@@ -1141,15 +1140,30 @@ export class FindcarPage {
   createMarkarOne(loc: any, driverDetails: any) {
     let _base = this;
 
+    var icon = {
+      url: "./assets/image.png?id=" + driverDetails._id,
+      // url: "https://cdn1.iconfinder.com/data/icons/Map-Markers-Icons-Demo-PNG/256/Map-Marker-Ball-Chartreuse.png", // url
+      scaledSize: new google.maps.Size(50, 50), // scaled size
+      origin: new google.maps.Point(0, 0), // origin
+      anchor: new google.maps.Point(25, 25) // anchor
+    };
+
     let markarOptions = {
       position: loc,
-      icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
-      map: _base.map
+      icon: icon,
+      map: _base.map,
+      title: driverDetails._id
     };
 
     let index = _base.getDriverIndex(driverDetails._id);
     if (index != -1) {
-      _base.nearestDrivers[index].marker.setPosition(loc);
+      let element = <HTMLElement>document.querySelector('img[src = "./assets/image.png?id=' + driverDetails._id + '"]');
+      if(element){
+        element.style.transform = "rotate(" + driverDetails.heading + "deg)";
+      }
+      setTimeout(function () {
+        _base.animatedMove(_base.nearestDrivers[index].marker, 1, _base.nearestDrivers[index].marker.position, loc)
+      }, 1000);
     } else {
 
       let marker = new google.maps.Marker(markarOptions);
@@ -1158,9 +1172,36 @@ export class FindcarPage {
         details: driverDetails,
         marker: marker
       });
+
+      setTimeout(function () {
+        let element = <HTMLElement>document.querySelector('img[src = "./assets/image.png?id=' + driverDetails._id + '"]');
+        if(element){
+          element.style.transitionDuration = "1s";
+        }
+      }, 500)
     }
   }
 
+  removeDriver(data) {
+    let _base = this;
+    return new Promise(function (resolve, reject) {
+      if (_base.nearestDrivers.length == 0) {
+        resolve(true);
+      } else {
+        for (let i = 0; i < _base.nearestDrivers.length; i++) {
+          let id = _base.nearestDrivers[i].id;
+          let index = _base.getNewDataDriverIndex(id, data);
+          if (index == -1) {
+            _base.nearestDrivers[i].marker.setMap(null);
+            _base.nearestDrivers.splice(i, 1);
+          }
+          if (i == _base.nearestDrivers.length - 1) {
+            resolve(true);
+          }
+        }
+      }
+    });
+  }
 
   /** get driver index **/
   getDriverIndex(driverID: any) {
@@ -1195,26 +1236,7 @@ export class FindcarPage {
     }
   }
 
-  removeDriver(data) {
-    let _base = this;
-    return new Promise(function (resolve, reject) {
-      if (_base.nearestDrivers.length == 0) {
-        resolve(true);
-      } else {
-        for (let i = 0; i < _base.nearestDrivers.length; i++) {
-          let id = _base.nearestDrivers[i].id;
-          let index = _base.getNewDataDriverIndex(id, data);
-          if (index == -1) {
-            _base.nearestDrivers[i].marker.setMap(null); // remove no existing driver
-            _base.nearestDrivers.splice(i, 1);
-          }
-          if (i == _base.nearestDrivers.length - 1) {
-            resolve(true);
-          }
-        }
-      }
-    });
-  }
+
 
   /*
   Driver booking
@@ -1272,12 +1294,12 @@ export class FindcarPage {
       bookLoader.dismiss();
 
       if (error) {
-        console.log(error);
+
         alert(_base.string.serverError);
       }
       else if (!data.error) {
 
-        console.log("Driver details =========>", data);
+
 
         _base.driverId = data.result.driverId._id;
         _base.phone = data.result.driverId.phoneNumber;
@@ -1288,8 +1310,8 @@ export class FindcarPage {
         localStorage.setItem("driverName", _base.drivername);
         let location = data.result.driverId.location;
 
-        console.log(_base.startLatitude, _base.startLongitude);
-        console.log(location[1], location[0]);
+
+
 
         _base.calculateBookedCab(location[1], location[0]);
 
@@ -1312,7 +1334,7 @@ export class FindcarPage {
     let _base = this;
     this.driverSearch = setInterval(function () {
       _base.searchDrivers();
-    }, 5000);
+    }, 3000);
   }
 
   stopSearch() {
@@ -1331,13 +1353,13 @@ export class FindcarPage {
     this.appService.searchDriver(data, (error, data) => {
 
       if (error) {
-        console.log(error);
+
       }
       else if (data) {
-        console.log("Drivers", data);
+
         if (data.error == true) {
-          this.message = data.message;
-          this.showToast('top');
+          // this.message = data.message;
+          // this.showToast('top');
         }
         else if (data.error == false) {
           if (data.driverDetails) {
@@ -1375,7 +1397,7 @@ export class FindcarPage {
       });
     }
     cars.forEach(element => {
-      console.log("element", element);
+
       let lng = element.location[0];
       let lat = element.location[1];
       let type = element.carType;
@@ -1394,18 +1416,18 @@ export class FindcarPage {
       directionsService.route(request, function (response, status) {
         if (status == google.maps.DirectionsStatus.OK) {
           let duration = response.routes[0].legs[0].duration.text;
-          console.log("Duration is :", duration);
+
           _base.cabTypes.map(element => {
             let name = element.name;
-            console.log(name, type);
+
             if (name == type) {
-              console.log(name, "==", type);
+
               distanceCars.push(name);
               if (element.duration && element.duration > duration) {
-                console.log("Condition 1");
+
                 element.duration = duration;
               } else if (!element.duration) {
-                console.log("Condition 2");
+
                 element.duration = duration;
               }
             }
@@ -1420,7 +1442,7 @@ export class FindcarPage {
               _base.cartype = null;
             }
           });
-          console.log("Cab types after adding duration", _base.cabTypes);
+
         }
       });
     });
@@ -1446,7 +1468,7 @@ export class FindcarPage {
         let distance = response.routes[0].legs[0].distance.value;
         _base.arrivingDistance = distance;
         _base.arrivingDuration = duration;
-        console.log("Cab types after adding duration", _base.cabTypes);
+
       }
     });
   }
@@ -1501,10 +1523,10 @@ export class FindcarPage {
     _base.appService.getCabTypes((error, data) => {
       loading.dismiss();
       if (error) {
-        console.log("Internet connection error , getting cab types");
+
       } else {
         if (data) {
-          console.log("All cab types", data.results);
+
           _base.cabTypes = data.results;
         }
       }
@@ -1521,7 +1543,7 @@ export class FindcarPage {
       let _base = this;
       this.calculateAmount()
         .then(function (success: any) {
-          console.log("Cost is :" + success.cost);
+
           if (parseInt(_base.cartype.maximum) < success.cost) {
             alert("This ride exceeds maximum ride cost");
             _base.cartype = {};
@@ -1534,7 +1556,7 @@ export class FindcarPage {
         });
 
     } else {
-      console.log("No available");
+
       alert(car.name + ' car ' + this.string.notAvailable);
     }
   }
@@ -1601,11 +1623,11 @@ export class FindcarPage {
     this.stripe.createCardToken(card)
       .then(token => {
         let tokenID = token.id;
-        console.log("Payment token :", token);
+
         _base.chargeCard(tokenID)
           .then(function (response: any) {
             loading.dismiss();
-            console.log("Payment response :", response);
+
             if (response.error) {
               alert(response.message);
             } else {
@@ -1614,14 +1636,14 @@ export class FindcarPage {
             }
           }, function (error) {
             loading.dismiss();
-            console.log("Error in payment", error);
+
             alert("Error processing payment");
             _base.navCtrl.push("RatingPage");
           });
       })
       .catch(error => {
         loading.dismiss();
-        console.log("Error processing payment", error);
+
         alert("Error processing the payment.");
         _base.navCtrl.push("RatingPage");
       });
@@ -1664,6 +1686,30 @@ export class FindcarPage {
         }
       });
     });
+  }
+
+  animatedMove(marker, t, current, moveto) {
+    var lat = current.lat();
+    var lng = current.lng();
+
+    var deltalat = (moveto.lat() - current.lat()) / 100;
+    var deltalng = (moveto.lng() - current.lng()) / 100;
+
+    var delay = 10 * t;
+    for (var i = 0; i < 100; i++) {
+      (function (ind) {
+        setTimeout(
+          function () {
+            var lat = marker.position.lat();
+            var lng = marker.position.lng();
+            lat += deltalat;
+            lng += deltalng;
+            let latlng = new google.maps.LatLng(lat, lng);
+            marker.setPosition(latlng);
+          }, delay * ind
+        );
+      })(i)
+    }
   }
 
 }

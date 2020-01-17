@@ -45,6 +45,7 @@ export class MyApp {
 
   public userImage = "https://www.classifapp.com/wp-content/uploads/2017/09/avatar-placeholder.png";
   public userName = "";
+  public phone: any;
   public deviceRegId: any;
   public bookingDetails: any;
   constructor(public platform: Platform,
@@ -79,6 +80,7 @@ export class MyApp {
     this.appService.userInfo.subscribe(data => {
       if (data) {
         _base.userName = data.firstName + " " + data.lastName;
+        _base.phone = data.phoneNumber
         if (data.profileImage) {
           _base.userImage = "http://ec2-52-8-64-114.us-west-1.compute.amazonaws.com:5040/user/fileShow?imageId=" + data.profileImage;
         }
@@ -88,9 +90,9 @@ export class MyApp {
     this.appService.bookingInfo
       .subscribe(function (success) {
         if (success) {
-          console.log("driver detailas from shared service :", success)
+          
           _base.bookingDetails = success;
-          console.log(_base.bookingDetails);
+          
         }
       }, function (error) {
 
@@ -110,24 +112,24 @@ export class MyApp {
           }
         }
       }, function (error) {
-        console.log('Error getting rating status', error);
+        
       });
 
     this.initializeApp();
 
     this.userId = this.localStorageProvider.getUserId();
 
-    console.log("user id", this.userId);
+    
     if (this.userId) {
-      console.log("Here");
+      
       // _base.rootPage = "FindcarPage";
       if (sessionStorage.getItem("google") == "enabled") {
         _base.rootPage = "FindcarPage"
       } else {
-        console.log("Here also");
+        
         get("https://maps.googleapis.com/maps/api/js?key=AIzaSyCAUo5wLQ1660_fFrymXUmCgPLaTwdXUgY&libraries=drawing,places,geometry,visualization", () => {
           //Google Maps library has been loaded...
-          console.log("Google maps library has been loaded");
+          
           sessionStorage.setItem("google", "enabled");
           _base.rootPage = "FindcarPage"
         });
@@ -156,8 +158,8 @@ export class MyApp {
 
   chooseLanguage() {
     let _base = this;
-    console.log(localStorage.getItem("language"))
-    console.log((localStorage.getItem("language").toString() == 'english') ? true : false);
+    
+    
     let prompt = this.alertCtrl.create({
       title: 'Language',
       message: 'Select a language to continue.',
@@ -185,17 +187,17 @@ export class MyApp {
         // {
         //   text: "Cancel",
         //   handler: data => {
-        //     console.log("cancel clicked");
+        //     
         //   }
         // },
         {
           text: "Continue",
           handler: data => {
             localStorage.removeItem("language");
-            console.log("search clicked", data);
+            
             localStorage.setItem("language", data);
             strings.setLanguage(data);
-            console.log(_base.pages);
+            
             _base.pages = [
               { title: _base.string.tripHistory, component: "TriphistoryPage", icon: 'fa fa-clock-o' },
               { title: _base.string.payments, component: "PaymentsPage", icon: "fa fa-credit-card" },
@@ -209,7 +211,7 @@ export class MyApp {
   ngOnInit() {
     let _base = this;
     _base.rootPage = "RegistrationPage";
-    console.log("language set", this.string);
+    
   }
 
   initializeApp() {
@@ -219,7 +221,7 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
       let language = this.platform.lang();
-      console.log("Mobile language is set to : ", language);
+      
     });
   }
 
@@ -239,7 +241,7 @@ export class MyApp {
   gettingdeviceId() {
     let _base = this;
     if (_base.device.uuid) {
-      console.log('Device UUID is: ' + _base.device.uuid);
+      
       localStorage.setItem("deviceID", _base.device.uuid);
     }
     else {
@@ -287,7 +289,7 @@ export class MyApp {
         } else {
           get("https://maps.googleapis.com/maps/api/js?key=AIzaSyCAUo5wLQ1660_fFrymXUmCgPLaTwdXUgY&libraries=drawing,places,geometry,visualization", () => {
             //Google Maps library has been loaded...
-            console.log("Google maps library has been loaded");
+            
             sessionStorage.setItem("google", "enabled");
             _base.rootPage = "FindcarPage"
           });

@@ -28,7 +28,7 @@ export class AppService {
     }
 
     changePaymentStatus(status: any) {
-        console.log('change payment status', status);
+        
         this.PaymentStutus.next(status);
     }
 
@@ -46,7 +46,7 @@ export class AppService {
     * **/
 
     public getProfile(userID: string, callback): any {
-        console.log("user Id in provider :", userID);
+        
         this.httpService.getUserInfo(userID).subscribe(data => {
             callback(false, data);
         }, error => {
@@ -64,8 +64,8 @@ export class AppService {
 
     //Verify user and send otp in providers for registration 
     public verifyUserAndSendOtp(params, callback): any {
-        console.log("Verify user and send otp in providers for registration");
-        console.log(params);
+        
+        
         this.httpService.verifyUserAndSendOtp(params).subscribe(data => {
             callback(false, data);
         }, error => {
@@ -75,8 +75,8 @@ export class AppService {
 
     //User registration in providers 
     public userRegistration(params, callback): any {
-        console.log("User registration in providers");
-        console.log(params);
+        
+        
         this.httpService.userRegistration(params).subscribe(data => {
             callback(false, data);
         }, error => {
@@ -86,8 +86,8 @@ export class AppService {
 
     //User login in providers 
     public userLogin(params, callback): any {
-        console.log("User login in providers");
-        console.log(params);
+        
+        
         this.httpService.userLogin(params).subscribe(data => {
             callback(false, data);
         }, error => {
@@ -106,8 +106,8 @@ export class AppService {
 
     //User social login in providers 
     public userSocialLogin(params, callback): any {
-        console.log("User social login in providers");
-        console.log(params);
+        
+        
         this.httpService.userSocialLogin(params).subscribe(data => {
             callback(false, data);
         }, error => {
@@ -117,8 +117,8 @@ export class AppService {
 
     //Verify otp in providers for registration 
     public verifyOtp(params, callback): any {
-        console.log("Verify otp in providers for registration");
-        console.log(params);
+        
+        
         this.httpService.verifyOtp(params).subscribe(data => {
             callback(false, data);
         }, error => {
@@ -128,8 +128,8 @@ export class AppService {
 
     //Search driver based on latitude and longitude 
     public searchDriver(params, callback): any {
-        console.log("Search driver based on latitude and longitude :");
-        console.log(params);
+        
+        
         this.httpService.searchDriver(params).subscribe(data => {
             callback(false, data);
         }, error => {
@@ -139,8 +139,8 @@ export class AppService {
 
     //Driver booking 
     public driverBooking(params, callback): any {
-        console.log("Driver booking in provider :");
-        console.log(params);
+        
+        
         this.httpService.driverBooking(params).subscribe(data => {
             callback(false, data);
         }, error => {
@@ -150,8 +150,8 @@ export class AppService {
 
     //Update User 
     public UpdateUser(params, callback): any {
-        console.log("Update User :");
-        console.log(params);
+        
+        
         this.httpService.UpdateUser(params).subscribe(data => {
             callback(false, data);
         }, error => {
@@ -178,8 +178,8 @@ export class AppService {
 
     //User history list
     public userHistory(params, callback): any {
-        console.log("User history in providers :");
-        console.log(params);
+        
+        
         this.httpService.userHistory(params).subscribe(data => {
             callback(false, data);
         }, error => {

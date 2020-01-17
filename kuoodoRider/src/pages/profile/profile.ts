@@ -52,8 +52,8 @@ export class ProfilePage {
     */
 
     this.id = this.localStorageProvider.getUserId();
-    console.log("Getting Id in Profile page :");
-    console.log(this.id);
+    
+    
 
     /*
     Profile information 
@@ -67,15 +67,15 @@ export class ProfilePage {
       this.appService.getProfile(this.id, (error, data) => {
         loader.dismiss();
         if (error) {
-          console.log("Error in fetching profile :", error);
+          
         } else {
           if (data) {
-            console.log("Profile information :");
-            console.log(data);
+            
+            
             this.user = data.user;
             this.imageId = data.user.profileImage;
             if (this.imageId) {
-              this.userImage = "https://api.kuoodo.com/user/fileShow?imageId=" + this.imageId;
+              this.userImage = this.httpService.url + "user/fileShow?imageId=" + this.imageId;
             }
           }
         }
@@ -105,12 +105,12 @@ export class ProfilePage {
       this.user._id = this.id;
       this.appService.UpdateUser(this.user, (error, data) => {
         if (error) {
-          console.log("Update user data error :");
-          console.log(error);
+          
+          
         }
         else if (data) {
-          console.log("Update user data :");
-          console.log(data);
+          
+          
 
           this.username = data.user.firstName + " " + data.user.lastName;
           this.email = data.user.email;
@@ -126,6 +126,7 @@ export class ProfilePage {
           this.isUsername = true;
           this.isEmail = true;
           this.isLocation = true;
+          this.navCtrl.pop();
         }
       });
     }
@@ -160,7 +161,7 @@ export class ProfilePage {
           .subscribe(
             data => {
               if (data) {
-                console.log(data);
+                
                 let imageid = data.upload._id;
                 _base.user.profileImage = imageid;
                 _base.submit();

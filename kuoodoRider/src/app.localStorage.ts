@@ -29,8 +29,8 @@ export class LocalStorageProvider {
        Set provider name after Facebook registration
    */
     fbProviderName(data) {
-        console.log("Set provider name in local storage");
-        console.log(data);
+        
+        
         localStorage.setItem('fbProviderName', data.user.providers);
     }
 
@@ -46,8 +46,8 @@ export class LocalStorageProvider {
        Set Facebook uId 
    */
     fbUid(data) {
-        console.log("Set facebook uId in local storage");
-        console.log(data);
+        
+        
         localStorage.setItem('fbUid', data.user.uId);
     }
 
@@ -63,8 +63,8 @@ export class LocalStorageProvider {
        Set provider name after google registration
    */
     gProviderName(data) {
-        console.log("Set provider name in local storage");
-        console.log(data);
+        
+        
         localStorage.setItem('gProviderName', data.user.providers);
     }
 
@@ -80,8 +80,8 @@ export class LocalStorageProvider {
        Set google uId 
     */
     gUid(data) {
-        console.log("Set google uId in local storage");
-        console.log(data);
+        
+        
         localStorage.setItem('gUid', data.user.uId);
     }
 
@@ -97,8 +97,8 @@ export class LocalStorageProvider {
         Set loginId for normail registration
     */
     loginInformation(data) {
-        console.log("Login information in local storage");
-        console.log(data);
+        
+        
         localStorage.setItem('userId', data.user._id);
     }
 
@@ -113,8 +113,8 @@ export class LocalStorageProvider {
         Set facebook Id for registration
     */
     facebookLoginInformation(data) {
-        console.log("Facebook login information in local storage");
-        console.log(data);
+        
+        
         localStorage.setItem('facebookId', data.user._id);
     }
 
@@ -130,8 +130,8 @@ export class LocalStorageProvider {
         Set google Id for registration
     */
     googleLoginInformation(data) {
-        console.log("Google login information in local storage");
-        console.log(data);
+        
+        
         localStorage.setItem('googleId', data.user._id);
     }
 
@@ -147,8 +147,8 @@ export class LocalStorageProvider {
         Set id after completing facebook registration
     */
     facebookData(data) {
-        console.log("Set id after completing facebook registration");
-        console.log(data);
+        
+        
         localStorage.setItem('fbId', data.user._id);
     }
 
@@ -164,8 +164,8 @@ export class LocalStorageProvider {
         Set id after completing google registration
     */
     googleData(data) {
-        console.log("Set id after completing google registration");
-        console.log(data);
+        
+        
         localStorage.setItem('gId', data.user._id);
     }
 

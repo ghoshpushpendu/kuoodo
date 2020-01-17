@@ -1,7 +1,7 @@
 page-findcar {
 
-  ion-fab[top] {
-    top: 0px;
+  .menubtn {
+    top: 0px !important;
   }
 
   .logo {
@@ -503,11 +503,6 @@ page-findcar {
     background-color: transparent !important;
   }
 
-  #map {
-    height: 100% !important;
-    z-index: 100 !important;
-  }
-
   .card-md {
     margin: 0px !important;
     border-radius: 0px !important;
@@ -857,13 +852,15 @@ page-findcar {
   }
 
   #map {
-    width: 100%;
-    height: 100%;
+    position: absolute !important;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
   }
 
   .my-map {
     z-index: -1;
-    position: absolute;
   }
 
   .bg-img {

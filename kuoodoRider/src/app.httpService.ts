@@ -21,8 +21,8 @@ export class HttpService {
 
     //Verify user and Send OTP for registration in http service
     public verifyUserAndSendOtp(params) {
-        console.log("verify user and send otp for registration");
-        console.log(params);
+        
+        
         return this.http.post(this.url + "user/verifyUser", JSON.stringify(params), this.headerOptions)
             .map((response: Response) => response.json())
             .catch((error: any) => Observable.throw(error.json() || `Server error`));
@@ -30,8 +30,8 @@ export class HttpService {
 
     //User registration in http service
     public userRegistration(params) {
-        console.log("User registration in http service");
-        console.log(params);
+        
+        
         return this.http.post(this.url + "user/registration", JSON.stringify(params), this.headerOptions)
             .map((response: Response) => response.json())
             .catch((error: any) => Observable.throw(error.json() || `Server error`));
@@ -45,8 +45,8 @@ export class HttpService {
 
     //User login in http service
     public userLogin(params) {
-        console.log("User login in http service");
-        console.log(params);
+        
+        
         return this.http.post(this.url + "user/login", JSON.stringify(params), this.headerOptions)
             .map((response: Response) => response.json())
             .catch((error: any) => Observable.throw(error.json() || `Server error`));
@@ -54,7 +54,7 @@ export class HttpService {
 
     //User social login in http service
     public userSocialLogin(params) {
-        console.log(params);
+        
         return this.http.post(this.url + "user/socialLogin", params, this.headerOptions)
             .map((response: Response) => response.json())
             .catch((error: any) => Observable.throw(error.json() || `Server error`));
@@ -62,8 +62,8 @@ export class HttpService {
 
     //Verify OTP for registration in http service
     public verifyOtp(params) {
-        console.log("Verify otp for registration");
-        console.log(params);
+        
+        
         return this.http.post(this.url + "user/verifyOTP", JSON.stringify(params), this.headerOptions)
             .map((response: Response) => response.json())
             .catch((error: any) => Observable.throw(error.json() || `Server error`));
@@ -71,8 +71,8 @@ export class HttpService {
 
     //Search driver based on latitude and longitude in http service
     public searchDriver(params) {
-        console.log("Search driver based on latitude and longitude in http service");
-        console.log(params);
+        
+        
         return this.http.post(this.url + "user/search", JSON.stringify(params), this.headerOptions)
             .map((response: Response) => response.json())
             .catch((error: any) => Observable.throw(error.json() || `Server error`));
@@ -80,8 +80,8 @@ export class HttpService {
 
     //Driver booking 
     public driverBooking(params) {
-        console.log("Driver booking  in http service");
-        console.log(params);
+        
+        
         return this.http.post(this.url + "booking/create", JSON.stringify(params), this.headerOptions)
             .map((response: Response) => response.json())
             .catch((error: any) => Observable.throw(error.json() || `Server error`));
@@ -95,7 +95,7 @@ export class HttpService {
      * 
      * **/
     public getUserInfo(userID: string) {
-        console.log("user Id in http :", userID);
+        
         return this.http.get(this.url + "user/getDetails?_id=" + userID, this.headerOptions)
             .map((response: Response) => response.json())
             .catch((error: any) => Observable.throw(error.json() || `Server error`));
@@ -119,8 +119,8 @@ export class HttpService {
 
     //Uers Update 
     public UpdateUser(params) {
-        console.log("Uers Update :");
-        console.log(params);
+        
+        
         return this.http.put(this.url + "user/update", JSON.stringify(params), this.headerOptions)
             .map((response: Response) => response.json())
             .catch((error: any) => Observable.throw(error.json() || `Server error`));
@@ -156,14 +156,14 @@ export class HttpService {
 
     // APIS for FORGOT Password
     public sendFOTP(phone) {
-        console.log(phone.phone);
+        
         return this.http.post(this.url + "user/forgotPassword", { phoneNumber: phone.phone }, this.headerOptions)
             .map((response: Response) => response.json())
             .catch((error: any) => Observable.throw(error.json() || `Server error`));
     }
 
     public verifyFOTP(phone, code) {
-        console.log(code);
+        
         return this.http.post(this.url + "user/verifyforForgotPassword", { phoneNumber: phone.phone, code: code }, this.headerOptions)
             .map((response: Response) => response.json())
             .catch((error: any) => Observable.throw(error.json() || `Server error`));

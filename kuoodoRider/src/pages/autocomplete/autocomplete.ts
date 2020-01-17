@@ -39,10 +39,10 @@ export class AutocompletePage {
   }
 
   ionViewDidLoad() {
-    console.log(this.param.get('lat'));
-    console.log(this.param.get('lng'));
+    
+    
     let elem = <HTMLInputElement>document.querySelector('ion-searchbar');
-    console.log(elem)
+    
     if (elem) {
       elem.click();
     }
@@ -147,10 +147,10 @@ export class AutocompletePage {
           }
           _base.autocomplete.query = address;
         } else {
-          console.log('No results found');
+          
         }
       } else {
-        console.log('Geocoder failed due to: ' + status);
+        
       }
     });
   }
@@ -372,14 +372,14 @@ export class AutocompletePage {
     };
     this.map = new google.maps.Map(document.getElementById('searchmap'), options);
 
-    console.log("===================================================================")
-    console.log(this.map)
+    
+    
 
     google.maps.event.addListener(_base.map, 'dragend', function () {
       // do something only the first time the map is loaded
       // _base.setCurrentLocation();
       _base.autocomplete.query = 'fetching location ...';
-      console.log(_base.map.getCenter())
+      
       let lat = _base.map.getCenter().lat();
       let lng = _base.map.getCenter().lng();
       _base.getCenterLocation(lat, lng)
