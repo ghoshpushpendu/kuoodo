@@ -18,82 +18,62 @@
     <div class="inputsec">
       <ion-list>
         <ion-item padding-right>
-          <ion-label floating class="headlabel">Mobile Number without country code</ion-label>
-          <ion-input type="number" required name="phoneNumber" [(ngModel)]="phoneNumber"
+          <ion-label>
+            <img style="width:25px" src="https://cdn.countryflags.com/thumbs/united-states-of-america/flag-400.png" />
+            ( +1 )
+          </ion-label>
+          <ion-input type="number" placeholder="phone" name="phoneNumber" [(ngModel)]="phoneNumber"
             (keyup)="phoneNumberCleanMessage()"></ion-input>
         </ion-item>
-      </ion-list>
-      <ion-list>
         <ion-item padding-right>
-          <ion-label floating class="headlabel">Password</ion-label>
-          <ion-input type="password" required name="password" [(ngModel)]="password" (keyup)="passwordCleanMessage()">
+          <ion-input type="password" placeholder="password" name="password" [(ngModel)]="password"
+            (keyup)="passwordCleanMessage()">
           </ion-input>
         </ion-item>
-        <span class="error-message">
-          {{passwordMessage}}
-        </span>
-      </ion-list>
-      <ion-list>
         <ion-item padding-right>
-          <ion-label floating class="headlabel">Confirm password</ion-label>
+          <!-- <ion-label floating class="headlabel">Confirm password</ion-label> -->
 
-          <ion-input type="password" required name="confirmPassword" [(ngModel)]="confirmPassword"
+          <ion-input type="password" placeholder="confirm password" name="confirmPassword" [(ngModel)]="confirmPassword"
             (keyup)="confirmPasswordCleanMessage()" (keyup)="passwordValidation()"></ion-input>
         </ion-item>
-        <span class="error-message">
-          {{confirmPasswordMessage}}
-        </span>
-      </ion-list>
-      <ion-list>
         <ion-item padding-right>
-          <ion-label floating class="headlabel">Address</ion-label>
-          <ion-input type="text" required name="address" [(ngModel)]="address.address" (keyup)="locationCleanMessage()">
+          <!-- <ion-label floating class="headlabel">Address</ion-label> -->
+          <ion-input type="text" placeholder="full address" name="address" [(ngModel)]="address.address"
+            (keyup)="locationCleanMessage()">
           </ion-input>
         </ion-item>
-      </ion-list>
 
-      <ion-list>
         <ion-item padding-right>
-          <ion-label floating class="headlabel">Country</ion-label>
-          <ion-input type="text" required [(ngModel)]="address.country"></ion-input>
+          <!-- <ion-label floating class="headlabel">Country</ion-label> -->
+          <ion-input type="text" placeholder="country" [(ngModel)]="address.country"></ion-input>
         </ion-item>
-      </ion-list>
 
-      <ion-list>
-        <ion-item padding-right>
-          <ion-label floating class="headlabel">Zip Code</ion-label>
-          <ion-input type="text" required [(ngModel)]="address.zipCode"></ion-input>
-        </ion-item>
-      </ion-list>
+      <ion-item padding-right>
+        <!-- <ion-label floating class="headlabel">Zip Code</ion-label> -->
+        <ion-input type="text" placeholder="zip code" [(ngModel)]="address.zipCode"></ion-input>
+      </ion-item>
 
-      <ion-list>
-        <ion-item padding-right>
-          <ion-label floating class="headlabel">Tax ID</ion-label>
-          <ion-input type="text" required [(ngModel)]="taxId"></ion-input>
-        </ion-item>
-      </ion-list>
+      <ion-item padding-right>
+        <!-- <ion-label floating class="headlabel">Tax ID</ion-label> -->
+        <ion-input type="text" placeholder="tax id" [(ngModel)]="taxId"></ion-input>
+      </ion-item>
 
-      <ion-list>
-        <ion-item padding-right>
-          <ion-label floating class="headlabel">Car Name</ion-label>
-          <ion-input type="text" required [(ngModel)]="car.carName"></ion-input>
-        </ion-item>
-      </ion-list>
+      <ion-item padding-right>
+        <!-- <ion-label floating class="headlabel">Car Name</ion-label> -->
+        <ion-input type="text" placeholder="car name" [(ngModel)]="car.carName"></ion-input>
+      </ion-item>
 
-      <ion-list>
-        <ion-item padding-right>
-          <ion-label floating class="headlabel">Car Number</ion-label>
-          <ion-input type="text" required [(ngModel)]="car.carNumber"></ion-input>
-        </ion-item>
-      </ion-list>
+      <ion-item padding-right>
+        <!-- <ion-label floating class="headlabel">Car Number</ion-label> -->
+        <ion-input type="text" placeholder="car number" [(ngModel)]="car.carNumber"></ion-input>
+      </ion-item>
 
-      <ion-list>
-        <ion-item padding-right>
-          <ion-label class="headlabel">Car Type</ion-label>
-          <ion-select [(ngModel)]="car.carType" multiple="false">
-            <ion-option *ngFor="let option of carTypes" value="{{option.name}}">{{ option.name }}</ion-option>
-          </ion-select>
-        </ion-item>
+      <ion-item padding-right>
+        <ion-label class="headlabel">Car Type</ion-label>
+        <ion-select [(ngModel)]="car.carType" multiple="false">
+          <ion-option *ngFor="let option of carTypes" value="{{option.name}}">{{ option.name }}</ion-option>
+        </ion-select>
+      </ion-item>
       </ion-list>
 
     </div>

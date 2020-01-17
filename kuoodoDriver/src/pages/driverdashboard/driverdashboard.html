@@ -2,10 +2,11 @@
   <ng2-slim-loading-bar color="blue" height="4px"></ng2-slim-loading-bar>
 
   <div class="status">
-    <ion-item>
-      <ion-label>You are : {{(status)?'online':'offline'}}</ion-label>
-      <ion-toggle float-left color="primary" [(ngModel)]="status" (ionChange)="changeStatus()"></ion-toggle>
-    </ion-item>
+    <!-- <ion-item> -->
+    <!-- <ion-label>You are : {{(status)?'online':'offline'}}</ion-label> -->
+    <ion-toggle ion-toggle-text="online;offline" float-left color="secondary" [(ngModel)]="status"
+      (ionChange)="changeStatus()"></ion-toggle>
+    <!-- </ion-item> -->
   </div>
   <ion-fab class="menubtn" left top> <button ion-fab menuToggle>
       <ion-icon ios="ios-menu" md="md-menu"></ion-icon>
@@ -43,15 +44,16 @@
               <h2 class="text-black">
                 {{riderName}}
               </h2>
-              <p class="text-black">4.7
-                <span class="rateing">
+              <h4 class="text-black">
+                {{riderNumber}}
+                <!-- <span class="rateing">
                   <ion-icon name="star" class="text-green"></ion-icon>
                   <ion-icon name="star" class="text-green"></ion-icon>
                   <ion-icon name="star" class="text-green"></ion-icon>
                   <ion-icon name="star" class="text-green"></ion-icon>
                   <ion-icon name="star" class="text-green"></ion-icon>
-                </span>
-              </p>
+                </span> -->
+              </h4>
             </ion-item>
           </ion-list>
         </div>
@@ -66,7 +68,7 @@
           </ion-col>
         </ion-row>
         <ion-row>
-          <span>Phone Number :</span> {{riderNumber}}
+          <!-- <span>Phone Number :</span> {{riderNumber}} -->
         </ion-row>
         <div text-center padding-left padding-right>
           <button ion-button full class="bg-green full" (click)="acceptRideRequest()"> ACCEPT <span

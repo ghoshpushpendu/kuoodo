@@ -429,4 +429,10 @@ export class DocumentsPage {
     toast.present(toast);
   }
 
+  open(id) {
+    let element = (<HTMLInputElement>document.getElementById(id))
+    console.log(element)
+    element.click();
+  }
+
 }

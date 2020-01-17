@@ -196,7 +196,7 @@ export class DriverdashboardPage {
         _base.distance = booking.distance;
         _base.riderName = booking.userId.firstName + ' ' + booking.userId.lastName;
         _base.riderNumber = booking.userId.phoneNumber;
-        _base.riderImage = (booking.userId.profileImage) ? "https://api.kuoodo.com/user/fileShow?imageId=" + booking.userId.profileImage : "./assets/image/user.jpg";
+        _base.riderImage = (booking.userId.profileImage) ? _base.httpservice.url + "user/fileShow?imageId=" + booking.userId.profileImage : "./assets/image/user.jpg";
 
         let end = new google.maps.LatLng(_base.userStartLatitude, _base.userStartLongitude);
         let start = new google.maps.LatLng(_base.startLatitude, _base.endLongitude);
@@ -473,9 +473,207 @@ export class DriverdashboardPage {
 
   initMap() {
     let _base = this;
+
+    let mapStyle = [
+      {
+        "elementType": "geometry",
+        "stylers": [
+          {
+            "color": "#f5f5f5"
+          }
+        ]
+      },
+      {
+        "elementType": "labels.icon",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      },
+      {
+        "elementType": "labels.text.fill",
+        "stylers": [
+          {
+            "color": "#616161"
+          }
+        ]
+      },
+      {
+        "elementType": "labels.text.stroke",
+        "stylers": [
+          {
+            "color": "#f5f5f5"
+          }
+        ]
+      },
+      {
+        "featureType": "administrative",
+        "elementType": "geometry",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      },
+      {
+        "featureType": "administrative.land_parcel",
+        "elementType": "labels.text.fill",
+        "stylers": [
+          {
+            "color": "#bdbdbd"
+          }
+        ]
+      },
+      {
+        "featureType": "poi",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      },
+      {
+        "featureType": "poi",
+        "elementType": "geometry",
+        "stylers": [
+          {
+            "color": "#eeeeee"
+          }
+        ]
+      },
+      {
+        "featureType": "poi",
+        "elementType": "labels.text.fill",
+        "stylers": [
+          {
+            "color": "#757575"
+          }
+        ]
+      },
+      {
+        "featureType": "poi.park",
+        "elementType": "geometry",
+        "stylers": [
+          {
+            "color": "#e5e5e5"
+          }
+        ]
+      },
+      {
+        "featureType": "poi.park",
+        "elementType": "labels.text.fill",
+        "stylers": [
+          {
+            "color": "#9e9e9e"
+          }
+        ]
+      },
+      {
+        "featureType": "road",
+        "elementType": "geometry",
+        "stylers": [
+          {
+            "color": "#ffffff"
+          }
+        ]
+      },
+      {
+        "featureType": "road",
+        "elementType": "labels.icon",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      },
+      {
+        "featureType": "road.arterial",
+        "elementType": "labels.text.fill",
+        "stylers": [
+          {
+            "color": "#757575"
+          }
+        ]
+      },
+      {
+        "featureType": "road.highway",
+        "elementType": "geometry",
+        "stylers": [
+          {
+            "color": "#dadada"
+          }
+        ]
+      },
+      {
+        "featureType": "road.highway",
+        "elementType": "labels.text.fill",
+        "stylers": [
+          {
+            "color": "#616161"
+          }
+        ]
+      },
+      {
+        "featureType": "road.local",
+        "elementType": "labels.text.fill",
+        "stylers": [
+          {
+            "color": "#9e9e9e"
+          }
+        ]
+      },
+      {
+        "featureType": "transit",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      },
+      {
+        "featureType": "transit.line",
+        "elementType": "geometry",
+        "stylers": [
+          {
+            "color": "#e5e5e5"
+          }
+        ]
+      },
+      {
+        "featureType": "transit.station",
+        "elementType": "geometry",
+        "stylers": [
+          {
+            "color": "#eeeeee"
+          }
+        ]
+      },
+      {
+        "featureType": "water",
+        "elementType": "geometry",
+        "stylers": [
+          {
+            "color": "#c9c9c9"
+          }
+        ]
+      },
+      {
+        "featureType": "water",
+        "elementType": "labels.text.fill",
+        "stylers": [
+          {
+            "color": "#9e9e9e"
+          }
+        ]
+      }
+    ];
+
     let options = {
-      zoom: 19, center: { lat: -25.344, lng: 131.036 }, disableDefaultUI: true, mapTypeId: 'terrain', gestureHandling: 'none',
-      zoomControl: false
+      zoom: 15, center: { lat: -25.344, lng: 131.036 }, mapTypeId: 'terrain', gestureHandling: 'none',
+      zoomControl: false,
+      disableDefaultUI: true,
+      styles: mapStyle
     };
     _base.map = new google.maps.Map(document.getElementById('map'), options);
 
@@ -529,25 +727,36 @@ export class DriverdashboardPage {
 
     let _base = this;
 
+    // var icon = {
+    //   url: "https://lemi.travel/images/current.png", // url
+    //   scaledSize: new google.maps.Size(50, 50), // scaled size
+    //   origin: new google.maps.Point(0, 0), // origin
+    //   anchor: new google.maps.Point(0, 0) // anchor
+    // };
+
+    // console
+
     var icon = {
-      url: "https://hoodmaps.com/assets/self-map-marker.png", // url
-      scaledSize: new google.maps.Size(50, 50), // scaled size
+      url: "https://lemi.travel/images/current.png",
+      // url: "https://cdn1.iconfinder.com/data/icons/Map-Markers-Icons-Demo-PNG/256/Map-Marker-Ball-Chartreuse.png", // url
+      scaledSize: new google.maps.Size(60, 60), // scaled size
       origin: new google.maps.Point(0, 0), // origin
-      anchor: new google.maps.Point(0, 0) // anchor
+      anchor: new google.maps.Point(30, 30) // anchor
     };
 
-    let markarOptions = {
-      position: loc,
-      icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
-      map: _base.map
-    };
 
     if (_base.marker) {
       _base.moveCamera(loc);
       _base.marker.setPosition(loc);
     } else {
       _base.moveCamera(loc);
-      _base.marker = new google.maps.Marker(markarOptions);
+      _base.marker = new google.maps.Marker({
+        position: loc,
+        map: this.map,
+        icon: icon,
+        animation: 'drop'
+      });
+      console.log(_base.marker, "--------------------")
     }
   }
 
@@ -587,9 +796,9 @@ export class DriverdashboardPage {
           "latitude": locationData.latitude,
           "longitude": locationData.longitude
         },
-        // "accuracy": locationData.accuracy,
-        // "heading": (locationData.heading) ? locationData.heading : 0,
-        // "speed": (locationData.speed) ? locationData.speed : 0
+        "accuracy": locationData.accuracy,
+        "heading": (locationData.heading) ? locationData.heading : 0,
+        "speed": (locationData.speed) ? locationData.speed : 0
       }
 
       this.appService.driverLocation(data, (error, data) => {
@@ -921,7 +1130,7 @@ export class DriverdashboardPage {
   showToast(message: string) {
     let toast = this.toastCtrl.create({
       message: message,
-      duration: 3000,
+      duration: 1000,
       position: 'top'
     });
     toast.present(toast);

@@ -13,37 +13,45 @@
 <ion-content center>
   <div class="middlesec">
     <div class="inputsec">
-      <div class="docsec">
+      <div class="docsec" (tap)="open('drivingLicense')">
+        <h4><b>driving license</b></h4>
+        (tap here to upload)
         <img [src]="url" *ngIf="url != ''" />
-        <ion-item no-padding>
-          <ion-label stacked padding-top class="headlabel">Driving License</ion-label>
-
-          <ion-input type="file" (change)="drivingLicense($event)" [disabled]="checkdrivingLicense">{{DLFileName}}
-          </ion-input>
+        <ion-item>
+          <input id="drivingLicense" accept="image/*" style="display:none" type="file"
+            (change)="drivingLicense($event)" />
         </ion-item>
       </div>
-      <div class="docsec">
+      <div class="docsec" (tap)="open('vehicleInsurance')">
+        <h4><b>vehicle insurance</b> </h4>
+        (tap here to upload)
         <img [src]="urlOne" *ngIf="urlOne != ''" />
-        <ion-item no-padding>
-          <ion-label stacked padding-top class="headlabel">Vehicle Insurance</ion-label>
+        <ion-item>
+          <!-- <ion-label stacked padding-top class="headlabel">Vehicle Insurance</ion-label> -->
 
-          <ion-input type="file" (change)="vehicleInsurance($event)" [disabled]="checkvehicleInsurance"></ion-input>
+          <input type="file" accept="image/*" style="display:none" id="vehicleInsurance"
+            (change)="vehicleInsurance($event)" />
         </ion-item>
       </div>
-      <div class="docsec">
+      <div class="docsec" (tap)="open('vehicleRegistration')">
+        <h4><b>vehicle registration</b> </h4>
+        (tap here to upload)
         <img [src]="urlTwo" *ngIf="urlTwo != ''" />
-        <ion-item no-padding>
-          <ion-label stacked padding-top class="headlabel">Vehicle Registration</ion-label>
+        <ion-item>
+          <!-- <ion-label stacked padding-top class="headlabel">Vehicle Registration</ion-label> -->
           <!-- <ion-icon name="add" item-end></ion-icon> -->
-          <ion-input type="file" (change)="vehicleRegistration($event)" [disabled]="checkvehicleRegistration">
-          </ion-input>
+          <input type="file" accept="image/*" style="display:none" id="vehicleRegistration"
+            (change)="vehicleRegistration($event)" />
         </ion-item>
       </div>
-      <div class="docsec">
+      <div class="docsec" (tap)="open('vehiclePermit')">
+        <h4><b>Vehicle Permit</b> </h4>
+        (tap here to upload)
         <img [src]="urlThree" *ngIf="urlThree != ''" />
-        <ion-item no-padding>
-          <ion-label stacked padding-top class="headlabel">Vehicle Permit</ion-label>
-          <ion-input type="file" (change)="vehiclePermit($event)" [disabled]="checkvehiclePermit"></ion-input>
+        <ion-item>
+          <!-- <ion-label stacked padding-top class="headlabel">Vehicle Permit</ion-label> -->
+          <input style="display:none" accept="image/*" id="vehiclePermit" type="file"
+            (change)="vehiclePermit($event)" />
 
         </ion-item>
       </div>

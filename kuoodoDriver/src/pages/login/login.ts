@@ -25,8 +25,8 @@ export class LoginPage {
   loadingMessage: any;
   passwordMessage: any = '';
   phoneNumberMessage: any = '';
-  password: any;
-  phoneNumber: any;
+  password: any = 'password';
+  phoneNumber: any = 7047434141;
   countrycode: any = "+1";
 
   constructor(private nav: NavController,
@@ -121,7 +121,7 @@ export class LoginPage {
   */
   loading() {
     this.loader = this.loadingCtrl.create({
-      spinner: 'bubbles',
+      // spinner: 'bubbles',
       content: this.loadingMessage
     });
   }
