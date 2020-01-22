@@ -453,6 +453,14 @@ export class DocumentationPage {
         _base.urlThree = data.user.vehiclePermit ? this.httpService.url + "user/fileShow?imageId=" + _base.vehiclePermitImageId : '';
       }
     });
+
+  }
+
+
+  open(id) {
+    let element = (<HTMLInputElement>document.getElementById(id))
+    console.log(element)
+    element.click();
   }
 
 }

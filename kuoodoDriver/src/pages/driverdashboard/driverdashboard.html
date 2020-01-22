@@ -2,37 +2,23 @@
   <ng2-slim-loading-bar color="blue" height="4px"></ng2-slim-loading-bar>
 
   <div class="status">
-    <!-- <ion-item> -->
-    <!-- <ion-label>You are : {{(status)?'online':'offline'}}</ion-label> -->
     <ion-toggle ion-toggle-text="online;offline" float-left color="secondary" [(ngModel)]="status"
       (ionChange)="changeStatus()"></ion-toggle>
-    <!-- </ion-item> -->
   </div>
   <ion-fab class="menubtn" left top> <button ion-fab menuToggle>
       <ion-icon ios="ios-menu" md="md-menu"></ion-icon>
     </button> </ion-fab>
   <div #map id="map"> </div>
-  <div class="footersec" [hidden]="!isStartRide">
-    <button ion-button full text-center class="acceptbtn" *ngIf="!notArrived" (click)="arrived()"> Arrived
-    </button>
-    <button ion-button text-center class="acceptbtn" *ngIf="!IsStartRideHidden" (click)="presentPrompt()">Start
-      Ride </button>
-    <button ion-button text-center class="acceptbtn" *ngIf="!IsEndRideHidden" (click)="endRide()">End Ride </button>
-  </div>
   <audio id="ringtone" loop>
     <source src="assets/audio/ringtone.mp3" type="audio/ogg"> </audio>
-  <ion-fab class="navigator" [hidden]="!isStartRide" small right bottom color="primary" (click)="showNavigator()">
-    <button ion-fab>
-      <ion-icon name="locate"></ion-icon>
-    </button> </ion-fab>
 
 
   <!-- to show requested rider's info -->
-  <div class="card-box" *ngIf="rideRequest">
+  <div class="card-box" *ngIf="rideStatus != 'idle'">
     <ion-card class="text-black">
       <ion-card-header>
         <small float-left class="text-light">Passanger Info</small>
-        <small float-right class="text-green" (click)="cancelRideRequest()">Decline</small>
+        <small float-right class="text-red" *ngIf="rideStatus != 'ride'" (click)="cancelRideRequest()">Decline</small>
       </ion-card-header>
       <ion-card-content>
         <div class="passanger-info heading">
@@ -42,10 +28,10 @@
                 <img src="{{riderImage}}">
               </ion-avatar>
               <h2 class="text-black">
-                {{riderName}}
+                {{riderName}} <strong class="text-green">({{arrivingDuration}} away)</strong>
               </h2>
               <h4 class="text-black">
-                {{riderNumber}}
+                {{riderNumber}} <span>(tap to call)</span>
                 <!-- <span class="rateing">
                   <ion-icon name="star" class="text-green"></ion-icon>
                   <ion-icon name="star" class="text-green"></ion-icon>
@@ -59,23 +45,32 @@
         </div>
         <ion-row padding class="car-details">
           <ion-col>
-            <small class="text-light">Pick up From</small>
-            <strong class="text-black">{{userStartLoc}}</strong>
+            <strong class="text-black">From : </strong>
+            <small class="text-light">{{userStartLoc}}</small>
           </ion-col>
           <ion-col>
-            <small class="text-light">Destination</small>
-            <strong class="text-black">{{userEndLoc}}</strong>
+            <strong class="text-blackt">To : </strong>
+            <small class="text-light">{{userEndLoc}}</small>
           </ion-col>
         </ion-row>
         <ion-row>
-          <!-- <span>Phone Number :</span> {{riderNumber}} -->
+          <span class="distance"> {{distance}} ride. </span>
         </ion-row>
         <div text-center padding-left padding-right>
-          <button ion-button full class="bg-green full" (click)="acceptRideRequest()"> ACCEPT <span
-              class="time"></span></button>
+          <button ion-button full class="bg-green full" *ngIf="rideStatus == 'request'" (click)="acceptRideRequest()">
+            Accept <span class="time"></span></button>
+          <button ion-button full text-center class="bg-green full" *ngIf="rideStatus == 'arrive'" (click)="arrived()">
+            Arrived <span class="time"></span>
+          </button>
+          <button ion-button text-center class="bg-green full" *ngIf="rideStatus == 'pick_up'"
+            (click)="presentPrompt()">Start<span class="time"></span>
+            Ride </button>
+          <button ion-button text-center class="bg-green full" *ngIf="rideStatus == 'ride'" (click)="endRide()">End<span
+              class="time"></span>
+          </button>
         </div>
       </ion-card-content>
-    </ion-card>acceptRideRequest
+    </ion-card>
   </div>
 
 

@@ -14,6 +14,10 @@ page-driverdashboard {
     background: #28CC62;
   }
 
+  .car-details {
+    padding-top: 0px !important
+  }
+
   .toolbar-title-md {
     color: #ffffff;
   }
@@ -336,6 +340,13 @@ page-driverdashboard {
     ion-card-content {
       padding: 0 5px 5px !important;
     }
+  }
+
+  .distance {
+    padding-left: 20px;
+    padding-bottom: 5px;
+    color: red;
+    font-weight: 800;
   }
 
   .card-box {

@@ -1,8 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i');
 
 * {
-  // font-family: 'Montserrat', sans-serif;
-  font-family: 'Times New Roman'
+  font-family: 'times';
 }
 
 a {
@@ -28,7 +27,7 @@ a {
 }
 
 .bg-yellow {
-  background: #ffca28 !important;
+  background: red !important;
 }
 
 .bg-black {
@@ -77,15 +76,8 @@ a {
   border-radius: 5px !important;
 }
 
-.avatar {
-  vertical-align: middle;
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-}
-
 .shadow-green {
-  box-shadow: 0px 14px 25px rgba(84, 182, 30, 0.6)
+  box-shadow: 1px 0px 14px rgba(84, 182, 30, 0.6);
 }
 
 .shadow-blue {
@@ -107,9 +99,9 @@ a {
 /* header color */
 
 .header {
-  .toolbar-background {
-    background: #54b61e !important;
-  }
+  // .toolbar-background {
+  //   background: #54b61e !important;
+  // }
 
   button {
     ion-icon {
@@ -193,8 +185,37 @@ a {
   display: none;
 }
 
+
+.avatar {
+  vertical-align: middle;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  padding: 5px !important;
+  float: left;
+  margin: 0px 5px 5px 5px;
+}
+
+.name {
+  padding-top: 0;
+  line-height: 4px;
+}
+
+ion-toolbar.toolbar.toolbar-md {
+  padding: 10px 0;
+  background: #54b61e36;
+}
+
 .back-button-text {
   display: none;
+}
+
+.list-md .item-block .item-inner {
+  border-bottom: none;
+}
+
+button.item.item-block.item-md {
+  font-size: 1.4rem;
 }
 
 .mymap {
@@ -205,4 +226,22 @@ a {
   top: 0 !important;
   left: 0 !important;
   position: fixed !important;
+}
+
+
+.loading-md .loading-wrapper {
+  // opacity: 0 !important;
+}
+
+.loading-ios .loading-wrapper {
+  // opacity: 0 !important;
+}
+
+
+ion-loading {
+  // opacity: 0.2 !important;
+}
+
+.ion-backdrop {
+  // opacity: 0.2 !important;
 }

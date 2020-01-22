@@ -21,6 +21,7 @@ declare var navigator;
 })
 export class DriverdashboardPage {
 
+  public rideStatus: any = "idle"; // idle , request , arrive , pick_up, ride
   //waiting loader
   public waitingLoader: any;
 
@@ -185,6 +186,7 @@ export class DriverdashboardPage {
       console.log("present toast", booking);
       if (driverID == _base.id) {
         console.log("present toast");
+        _base.rideStatus = 'request' // new ride sttaus
         _base.rideRequest = true;
         _base.userStartLatitude = booking.pickUpLocation.latitude;
         _base.userStartLongitude = booking.pickUpLocation.longitude;
@@ -196,7 +198,7 @@ export class DriverdashboardPage {
         _base.distance = booking.distance;
         _base.riderName = booking.userId.firstName + ' ' + booking.userId.lastName;
         _base.riderNumber = booking.userId.phoneNumber;
-        _base.riderImage = (booking.userId.profileImage) ? _base.httpservice.url + "user/fileShow?imageId=" + booking.userId.profileImage : "./assets/image/user.jpg";
+        _base.riderImage = (booking.userId.profileImage) ? _base.httpservice.url + "user/fileShow?imageId=" + booking.userId.profileImage + "&select=thumbnail" : "./assets/image/user.jpg";
 
         let end = new google.maps.LatLng(_base.userStartLatitude, _base.userStartLongitude);
         let start = new google.maps.LatLng(_base.startLatitude, _base.endLongitude);
@@ -220,8 +222,8 @@ export class DriverdashboardPage {
             _base.arrivingDistance = distance;
             _base.arrivingDuration = duration;
             _base.rideRequest = true;
-            _base.playRingtone();
-            _base.autoCancel();
+            // _base.playRingtone();
+            // _base.autoCancel();
           }
         });
       }
@@ -310,7 +312,7 @@ export class DriverdashboardPage {
   }
 
   acceptRideRequest() {
-    this.rideRequest = false;
+    this.rideRequest = true;
     this.pauseRingtone();
     this.acceptRide();
     this.completeLoading();
@@ -318,7 +320,7 @@ export class DriverdashboardPage {
   }
 
   cancelRideRequest() {
-    this.rideRequest = false;
+    this.rideRequest = true;
     this.pauseRingtone();
     this.cancelRide();
     this.completeLoading();
@@ -371,6 +373,7 @@ export class DriverdashboardPage {
         _base.IsStartRideHidden = true;
         _base.isStartRide = true;
         _base.notArrived = false;
+        _base.rideStatus = 'arrive'
 
         let start = new google.maps.LatLng(parseFloat(_base.startLatitude), parseFloat(_base.endLongitude));
         let end = new google.maps.LatLng(parseFloat(_base.userStartLatitude), parseFloat(_base.userStartLongitude));
@@ -410,6 +413,7 @@ export class DriverdashboardPage {
         if (error) {
           console.log(error);
         } else if (data) {
+          _base.rideStatus = 'idle'
           // _base.isAcceptRideHidden = true;
           // _base.alert.dismiss();
         }
@@ -831,6 +835,7 @@ export class DriverdashboardPage {
         if (data.error) {
           _base.showToast(data.message);
         } else {
+          _base.rideStatus = 'pick_up'
           _base.notArrived = true;
           _base.IsStartRideHidden = false;
           _base.IsEndRideHidden = true;
@@ -879,7 +884,7 @@ export class DriverdashboardPage {
         if (data.error) {
           _base.showToast(data.message);
         } else {
-
+          _base.rideStatus = 'ride'
           // start stop watch here
           _base.tstopwatch.start();
 
@@ -1103,9 +1108,10 @@ export class DriverdashboardPage {
             console.log("Error in Driver end ride :", error);
           }
           else if (data) {
-
+            _base.rideStatus = 'idle'
             console.log("Data in Driver end ride :", data);
             _base.isEndRide = true;
+            _base.rideRequest = false;
             _base.IsEndRideHidden = true;
             _base.IsStartRideHidden = true;
             _base.clearall();
@@ -1130,7 +1136,7 @@ export class DriverdashboardPage {
   showToast(message: string) {
     let toast = this.toastCtrl.create({
       message: message,
-      duration: 1000,
+      duration: 2000,
       position: 'top'
     });
     toast.present(toast);

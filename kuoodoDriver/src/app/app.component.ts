@@ -6,6 +6,7 @@ import { LocalStorageProvider } from '../app.localStorage';
 import { AppService } from './../app.providers';
 import { Network } from '@ionic-native/network';
 import { get } from 'scriptjs';
+import { HttpService } from './../app.httpService';
 
 declare var navigator;
 
@@ -19,13 +20,14 @@ export class MyApp {
 
   rootPage: any;
   id: any;
-  pages: Array<{ title: string, component: any }> = [
-    { title: 'Profile', component: 'DriverprofilePage' },
-    { title: 'Trip History', component: 'TriphistoryPage' },
-    { title: 'Car Documents', component: 'DocumentationPage' },
-    { title: 'Transactions', component: 'TransactionsPage' }
+  pages: Array<{ title: string, component: any, icon: any }> = [
+    // { title: 'Profile', component: 'DriverprofilePage', icon: 'person' },
+    { title: 'Trip History', component: 'TriphistoryPage', icon: 'time' },
+    { title: 'Car Documents', component: 'DocumentationPage', icon: 'document' },
+    // { title: 'Transactions', component: 'TransactionsPage', icon: '' }
   ];
   public userName = "username";
+  public phone = "";
   public userImage = "https://openclipart.org/image/2400px/svg_to_png/190113/1389952697.png";
 
   constructor(
@@ -36,6 +38,7 @@ export class MyApp {
     private appService: AppService,
     public events: Events,
     public toastCtrl: ToastController,
+    public httpservice: HttpService,
     public loadingCtrl: LoadingController,
     private network: Network) {
 
@@ -49,29 +52,29 @@ export class MyApp {
     if (driverId) {
       // _base.rootPage = "FindcarPage";
       if (sessionStorage.getItem("google") == "enabled") {
-        _base.rootPage = "FindcarPage"
+        _base.rootPage = "DriverdashboardPage"
       } else {
         get("https://maps.googleapis.com/maps/api/js?key=AIzaSyCAUo5wLQ1660_fFrymXUmCgPLaTwdXUgY&libraries=drawing,places,geometry,visualization", () => {
           //Google Maps library has been loaded...
           console.log("Google maps library has been loaded");
           sessionStorage.setItem("google", "enabled");
-          _base.rootPage = "FindcarPage"
+          _base.rootPage = "DriverdashboardPage"
         });
       }
     } else {
-      this.rootPage = "FindcarPage";
+      this.rootPage = "DriverdashboardPage";
     }
 
     this.initializeApp();
     this.appService.userInfo.subscribe(function (user) {
       if (user) {
         _base.userName = user.firstName + ' ' + user.lastName;
-
+        _base.phone = user.phoneNumber
         console.log("USER ---", user, user.profileImage);
 
         if (user.profileImage) {
           console.log("Getting user profile image");
-          _base.userImage = "https://api.kuoodo.com/user/fileShow?imageId=" + user.profileImage;
+          _base.userImage = _base.httpservice.url + "user/fileShow?imageId=" + user.profileImage + "&select=thumbnail";
         }
       }
     });

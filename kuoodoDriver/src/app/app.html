@@ -1,9 +1,14 @@
 <ion-menu [content]="content">
-  <ion-header>
+  <ion-header menuClose (click)="openPage({ title: 'Profile', component: 'DriverprofilePage', icon: 'person' })">
     <ion-toolbar>
       <div class="image">
         <img class="avatar" padding src="{{userImage}}">
-        <p margin-bottom>{{userName}}</p>
+        <div style="float:left">
+          <p class="name">{{userName}}</p>
+          <p class="name"><small>{{phone}}</small></p>
+        </div>
+
+
       </div>
 
     </ion-toolbar>
@@ -12,9 +17,14 @@
   <ion-content>
     <ion-list padding>
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+        <!-- <ion-icon name="arrow-forward" item-left color="dark"></ion-icon> -->
+        <ion-icon name={{p.icon}} item-left></ion-icon>
+
         {{p.title}}
       </button>
       <button menuClose ion-item (click)="logout(p)">
+        <ion-icon name="log-out" aria-hidden="true" item-left></ion-icon>
+
         Logout
       </button>
     </ion-list>
