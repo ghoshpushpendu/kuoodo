@@ -21,6 +21,7 @@ import * as io from "socket.io-client";
 })
 export class FindcarPage {
 
+  public rideStatus: any = "idle"; // request ,arrive , pick_up ,ride
   public string: any = strings;
   //waiting loader
   public waitingLoader: any;
@@ -75,6 +76,7 @@ export class FindcarPage {
   originmarker: any = null;
   public polygon: any = null;
   public interval: any = null;
+  public driverImage: any = "";
 
 
   @ViewChild('map') mapElement: ElementRef;
@@ -98,6 +100,8 @@ export class FindcarPage {
   //currently available drivers
   availableCars: any = [];
   cards: any;
+  driverPhone: any;
+  public accepted: boolean = false;
 
   constructor(public nav: NavController,
     public navCtrl: NavController,
@@ -138,11 +142,11 @@ export class FindcarPage {
         _base.showToast(_base.string.accepted);
 
         _base.rideMode = true;
+        _base.accepted = true;
+        _base.rideStatus = 'arrive'
 
         //subscribe to driver location update
         _base.socket.on(_base.driverId + "-location", (data) => {
-
-
           _base.showDriver(data.lat, data.lng);
 
         })
@@ -159,6 +163,8 @@ export class FindcarPage {
         _base.waitingLoader.dismiss();
         _base.showToast(_base.string.rejected);
         _base.rideMode = false;
+        _base.accepted = false;
+        _base.rideStatus = 'idle'
         _base.startSearch();
       }
     });
@@ -168,8 +174,8 @@ export class FindcarPage {
       let userID = data.userId._id;
 
       if (userID == _base.id) {
-        _base.otp = _base.tempOtp;
         _base.arrival_status = "arrived";
+        _base.rideStatus = 'pick_up'
         _base.showToast(_base.string.arrived);
         _base.showJourneyRoute();
       }
@@ -179,8 +185,8 @@ export class FindcarPage {
       let userID = data.userId._id;
 
       if (userID == _base.id) {
-        _base.otp = "";
         _base.showToast(_base.string.rideStarted);
+        _base.rideStatus = 'ride'
         _base.socket.removeListener(_base.driverId + "-location", function () {
 
         });
@@ -195,6 +201,7 @@ export class FindcarPage {
         // _base.clearTrip();
         let price = data.price;
         // this.attemptPayment();
+        _base.rideStatus = 'idle'
         _base.nav.push("RatingPage");
         _base.rideMode = false;
       }
@@ -417,7 +424,7 @@ export class FindcarPage {
     _base.getCards()
       .then(function (success: any) {
         if (success.cards.length == 0) {
-          // alert(_base.string.paymentMethodError);
+          // _base.showToast(_base.string.paymentMethodError);
           // _base.navCtrl.push("PaymentsPage");
         } else {
           _base.cards = success.cards;
@@ -433,7 +440,7 @@ export class FindcarPage {
         if (!response.error) {
 
           if (response.result.length != 0) {
-            // alert("You are in a ride")
+            // _base.showToast("You are in a ride")
 
             let booking = response.result[0];
           }
@@ -696,8 +703,8 @@ export class FindcarPage {
 
     var uluru = { lat: -25.344, lng: 131.036 };
     let options = {
-      zoom: 15, center: { lat: -25.344, lng: 131.036 }, 
-      mapTypeId: 'terrain', 
+      zoom: 15, center: { lat: -25.344, lng: 131.036 },
+      mapTypeId: 'terrain',
       // gestureHandling: 'none',
       zoomControl: false,
       disableDefaultUI: true,
@@ -1062,7 +1069,7 @@ export class FindcarPage {
         _base.drawrouteanimation(response.routes[0].overview_path);
       } else {
         _base.endAddress = null;
-        alert("");
+        _base.showToast("");
       }
     });
   }
@@ -1158,7 +1165,7 @@ export class FindcarPage {
     let index = _base.getDriverIndex(driverDetails._id);
     if (index != -1) {
       let element = <HTMLElement>document.querySelector('img[src = "./assets/image.png?id=' + driverDetails._id + '"]');
-      if(element){
+      if (element) {
         element.style.transform = "rotate(" + driverDetails.heading + "deg)";
       }
       setTimeout(function () {
@@ -1175,7 +1182,7 @@ export class FindcarPage {
 
       setTimeout(function () {
         let element = <HTMLElement>document.querySelector('img[src = "./assets/image.png?id=' + driverDetails._id + '"]');
-        if(element){
+        if (element) {
           element.style.transitionDuration = "1s";
         }
       }, 500)
@@ -1247,23 +1254,23 @@ export class FindcarPage {
     let _base = this;
 
     if (_base.startLatitude == null || _base.startLatitude == undefined) {
-      alert(_base.string.noPickUp);
+      _base.showToast(_base.string.noPickUp);
       return;
     }
     if (_base.startLongitude == null || _base.startLongitude == undefined) {
-      alert(_base.string.noPickUp);
+      _base.showToast(_base.string.noPickUp);
       return;
     }
     if (_base.endingLatitude == null || _base.endingLatitude == undefined) {
-      alert(_base.string.noDropOff);
+      _base.showToast(_base.string.noDropOff);
       return;
     }
     if (_base.endingLongitude == null || _base.endingLongitude == undefined) {
-      alert(_base.string.noDropOff);
+      _base.showToast(_base.string.noDropOff);
       return;
     }
     if (_base.selectedCar == null) {
-      alert(_base.string.selectCar);
+      _base.showToast(_base.string.selectCar);
       return;
     }
 
@@ -1295,7 +1302,7 @@ export class FindcarPage {
 
       if (error) {
 
-        alert(_base.string.serverError);
+        _base.showToast(_base.string.serverError);
       }
       else if (!data.error) {
 
@@ -1303,9 +1310,9 @@ export class FindcarPage {
 
         _base.driverId = data.result.driverId._id;
         _base.phone = data.result.driverId.phoneNumber;
-        _base.tempOtp = bookData.code;
-
-
+        _base.otp = bookData.code;
+        _base.driverPhone = data.result.driverId.phoneNumber;
+        _base.driverImage = data.result.driverId.profileImage ? _base.httpService.url + "user/fileShow?imageId=" + data.result.driverId.profileImage + "&select=thumbnail" : "https://www.classifapp.com/wp-content/uploads/2017/09/avatar-placeholder.png"
         _base.drivername = data.result.driverId.firstName + " " + data.result.driverId.lastName;
         localStorage.setItem("driverName", _base.drivername);
         let location = data.result.driverId.location;
@@ -1316,16 +1323,18 @@ export class FindcarPage {
         _base.calculateBookedCab(location[1], location[0]);
 
         _base.rideMode = true;
+        _base.accepted = false;
         _base.waitingLoader = _base.loadingCtrl.create({
           content: _base.string.driverConfirmation
         });
+        _base.rideStatus = 'request'
 
-        _base.waitingLoader.present();
+        // _base.waitingLoader.present();
         _base.stopSearch();
 
       } else if (data.error) {
         this.message = data.message;
-        alert(this.message);
+        _base.showToast(this.message);
       }
     });
   }
@@ -1545,19 +1554,19 @@ export class FindcarPage {
         .then(function (success: any) {
 
           if (parseInt(_base.cartype.maximum) < success.cost) {
-            alert("This ride exceeds maximum ride cost");
+            _base.showToast("This ride exceeds maximum ride cost");
             _base.cartype = {};
             _base.selectedCar = null;
           } else if (parseInt(_base.cartype.minimum) > success.cost) {
-            alert("You will be charged minimum amount $" + this.cartype.minimum + "U.S.D")
+            _base.showToast("You will be charged minimum amount $" + this.cartype.minimum + "U.S.D")
           } else {
-            alert("Car selected " + _base.cartype.name);
+            _base.showToast("Car selected " + _base.cartype.name);
           }
         });
 
     } else {
 
-      alert(car.name + ' car ' + this.string.notAvailable);
+      _base.showToast(car.name + ' car ' + this.string.notAvailable);
     }
   }
 
@@ -1629,22 +1638,22 @@ export class FindcarPage {
             loading.dismiss();
 
             if (response.error) {
-              alert(response.message);
+              _base.showToast(response.message);
             } else {
-              alert("Payment successfull");
+              _base.showToast("Payment successfull");
               _base.navCtrl.push("RatingPage");
             }
           }, function (error) {
             loading.dismiss();
 
-            alert("Error processing payment");
+            _base.showToast("Error processing payment");
             _base.navCtrl.push("RatingPage");
           });
       })
       .catch(error => {
         loading.dismiss();
 
-        alert("Error processing the payment.");
+        _base.showToast("Error processing the payment.");
         _base.navCtrl.push("RatingPage");
       });
   }

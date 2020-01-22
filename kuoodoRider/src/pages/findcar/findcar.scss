@@ -701,437 +701,432 @@ page-findcar {
     margin: 0px !important;
   }
 
-  .card-box {
-    position: fixed;
-    bottom: 0px;
-    width: 100%;
-    z-index: 9999;
 
-    .card {
-      border-radius: 0 !important;
-      width: 100%;
-      margin: 0 !important;
+  .cab-scroll {
+    overflow-x: auto;
+    // border-top: 1px dashed green;
+    // padding-bottom: 1rem;
+
+    .cab-container {
+      // display: block;
+      // padding-left: 16px;
+      // clear: both;
+      // width: 100%;
+      // padding-top: 10px;
+
+      &::after {
+        clear: both;
+        content: '';
+        display: block;
+        width: 100%;
+      }
+
+      .cab-type {
+        width: 77px;
+        display: inline-block;
+
+        .img-box {
+          width: 50px;
+          height: 50px;
+          margin-bottom: 20px;
+          text-align: center;
+          margin: auto;
+          opacity: 0.5;
+
+          img {
+            display: block;
+            -webkit-filter: grayscale(100%);
+            /* Safari 6.0 - 9.0 */
+            filter: grayscale(100%);
+            // width: 40px;
+          }
+
+          .badge {
+            display: inline-block;
+          }
+        }
+
+        .img-box.active {
+          // width: 100%;
+          // max-width: 65px;
+          // height: 65px;
+          text-align: center;
+          margin-bottom: 0;
+          opacity: 1;
+
+          img {
+            -webkit-filter: grayscale(0%);
+            /* Safari 6.0 - 9.0 */
+            filter: grayscale(0%); // box-shadow: 11px 12px 30px 0px #cccc;
+            // border-radius: 50%;
+            // background-color: #cbeacb;
+            // border-radius: 5px;
+            // padding: 5px;
+          }
+        }
+
+        h4 {
+          font-size: 1.1rem;
+          margin-top: 5px;
+          font-weight: 500;
+          line-height: 8px;
+          letter-spacing: 1px;
+          padding-left: .5rem;
+          text-align: center;
+        }
+
+        small {
+          padding-left: .5rem;
+        }
+      }
     }
 
-    small.text-light {
-      color: #626262 !important;
+    h2 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      padding-bottom: 4px;
     }
 
-    ion-card-content {
-      padding: 0 5px 5px !important;
+    p {
+      font-size: 1rem;
+    }
+  }
+}
+
+.mx-a,
+.mr-a {
+  margin-right: auto;
+}
+
+.mx-a,
+.ml-a {
+  margin-left: auto;
+}
+
+// external for location
+.scroll {
+  height: 100%
+}
+
+#map {
+  position: absolute !important;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+}
+
+.my-map {
+  z-index: -1;
+}
+
+.bg-img {
+  z-index: -1;
+  background: none;
+  position: fixed;
+}
+
+.header .toolbar-background {
+  background: transparent !important;
+}
+
+.header button ion-icon {
+  color: #000000 !important;
+}
+
+.header::after {
+  display: none;
+}
+
+.header-ios .toolbar-background-ios,
+.footer-ios .toolbar-background-ios {
+  border: none;
+}
+
+.border-bottom {
+  border-bottom: 1px solid #ccc !important;
+}
+
+.border-none {
+  border-bottom: none !important;
+}
+
+.card {
+  border-radius: 10px !important;
+
+  .card-content {
+    padding: 0 !important;
+  }
+
+  [col-10] {
+    padding: 0 !important;
+  }
+
+  .row {
+    align-items: center;
+
+    &.shadow-black {
+      box-shadow: 0px 18px 22px rgba(0, 0, 0, 0.06);
     }
   }
 
-  .card-box {
-    .card-header {
-      font-size: 1.2rem;
-      font-weight: 500;
-      text-align: center;
-      display: flex;
-      align-items: center;
+  .form {
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 1.6rem;
 
-      small {
-        font-size: 1.1rem;
-        display: flex;
-        align-items: center;
+    ion-item {
+      padding-left: 0 !important;
+      width: 100% !important;
 
-        .icon {
-          font-size: 1.5rem;
+      .item-inner {
+        padding-left: 0px;
+
+        ion-label {
+          font-size: 1.3rem;
+          font-size: 1.3rem;
+          width: 36px;
+          display: block;
         }
 
-        .icon[padding-right] {
-          padding-right: 5px !important;
+        .text-input {
+          font-size: 1.5rem !important;
+          font-weight: 500 !important;
         }
       }
     }
+  }
 
-    .cab-scroll {
-      overflow-x: auto;
-      // border-top: 1px dashed green;
-      // padding-bottom: 1rem;
+  .card-header-md {
+    padding: 8px 0 5px 0;
+  }
 
-      .cab-container {
-        // display: block;
-        // padding-left: 16px;
-        // clear: both;
-        // width: 100%;
-        // padding-top: 10px;
+  .active-stage {
+    padding-top: 18px;
 
-        &::after {
-          clear: both;
-          content: '';
-          display: block;
-          width: 100%;
-        }
+    span {
+      width: 20px;
+      display: block;
+      background: #fff;
+      margin: auto;
 
-        .cab-type {
-          width: 77px;
-          display: inline-block;
-
-          .img-box {
-            width: 50px;
-            height: 50px;
-            margin-bottom: 20px;
-            text-align: center;
-            margin: auto;
-            opacity: 0.5;
-
-            img {
-              display: block;
-              -webkit-filter: grayscale(100%);
-              /* Safari 6.0 - 9.0 */
-              filter: grayscale(100%);
-              // width: 40px;
-            }
-
-            .badge {
-              display: inline-block;
-            }
-          }
-
-          .img-box.active {
-            // width: 100%;
-            // max-width: 65px;
-            // height: 65px;
-            text-align: center;
-            margin-bottom: 0;
-            opacity: 1;
-
-            img {
-              -webkit-filter: grayscale(0%);
-              /* Safari 6.0 - 9.0 */
-              filter: grayscale(0%); // box-shadow: 11px 12px 30px 0px #cccc;
-              // border-radius: 50%;
-              // background-color: #cbeacb;
-              // border-radius: 5px;
-              // padding: 5px;
-            }
-          }
-
-          h4 {
-            font-size: 1.1rem;
-            margin-top: 5px;
-            font-weight: 500;
-            line-height: 8px;
-            letter-spacing: 1px;
-            padding-left: .5rem;
-            text-align: center;
-          }
-
-          small {
-            padding-left: .5rem;
-          }
-        }
+      strong {
+        margin: auto;
+        display: block;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
       }
 
-      h2 {
-        font-size: 1.4rem;
-        font-weight: 600;
-        padding-bottom: 4px;
+      &.col-1 {}
+
+      &.col-2 {
+        width: 1px;
+        height: 35px;
+        border-radius: 0;
+        padding: 2px 0;
+        margin: -0px 0 0px 9.81px;
+        background: #a0a0a0;
+      }
+
+      &.col-3 {}
+    }
+
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      width: 1px;
+      left: 0;
+      right: 0;
+      margin: auto;
+      height: 54px;
+      background: #ccc;
+      top: 26px;
+      z-index: 0;
+    }
+  }
+
+  .past-location {
+    .item {
+      background: none !important;
+
+      .label {
+        margin: 0 !important;
       }
 
       p {
-        font-size: 1rem;
+        font-size: 1.3rem;
+        font-weight: 500;
+      }
+
+      .item-inner {
+        height: 35px !important;
+
+        .input-wrapper {
+          height: 35px !important;
+        }
       }
     }
   }
+}
 
-  .mx-a,
-  .mr-a {
-    margin-right: auto;
+.item-block:first-child {
+  border-top: none !important;
+}
+
+.border-radius {
+  border-radius: 0px;
+
+  .pad-0 {
+    padding: 2px 0;
   }
 
-  .mx-a,
-  .ml-a {
-    margin-left: auto;
+  .item {
+    padding-left: 0 !important;
   }
 
-  // external for location
-  .scroll {
-    height: 100%
+  ion-label {
+    color: #dbdbdb !important;
+    width: 40px !important;
   }
 
-  #map {
-    position: absolute !important;
-    left: 0px;
-    right: 0px;
-    top: 0px;
-    bottom: 0px;
+  &.shadow-black {
+    box-shadow: 0px 3px 35px rgba(0, 0, 0, 0.2);
   }
 
-  .my-map {
-    z-index: -1;
-  }
-
-  .bg-img {
-    z-index: -1;
-    background: none;
-    position: fixed;
-  }
-
-  .header .toolbar-background {
-    background: transparent !important;
-  }
-
-  .header button ion-icon {
-    color: #000000 !important;
-  }
-
-  .header::after {
-    display: none;
-  }
-
-  .header-ios .toolbar-background-ios,
-  .footer-ios .toolbar-background-ios {
-    border: none;
-  }
-
-  .border-bottom {
-    border-bottom: 1px solid #ccc !important;
-  }
-
-  .border-none {
+  .item-inner {
     border-bottom: none !important;
+    box-shadow: none !important;
   }
+}
+
+.location-icon {
+  max-width: 40px;
+  text-align: center;
+
+  strong {
+    border-radius: 50%;
+    display: block;
+    height: 8px;
+    width: 8px;
+    margin: auto;
+    position: relative;
+    z-index: 1;
+
+    // &::after {
+    //   content: '';
+    //   position: absolute;
+    //   width: 1px;
+    //   height: 30px;
+    //   display: block;
+    //   margin: auto;
+    //   bottom: -33px;
+    //   background: #ccc;
+    //   left: 0;
+    //   right: 0;
+    // }
+
+    &.bg-yellow {
+      &::after {
+        display: none;
+      }
+    }
+  }
+}
+
+// rider info
+.card-box {
+  position: fixed;
+  bottom: 10px;
+  width: calc(100% - 2rem);
+  left: 1rem;
+  z-index: 999;
 
   .card {
-    border-radius: 10px !important;
-
-    .card-content {
-      padding: 0 !important;
-    }
-
-    [col-10] {
-      padding: 0 !important;
-    }
-
-    .row {
-      align-items: center;
-
-      &.shadow-black {
-        box-shadow: 0px 18px 22px rgba(0, 0, 0, 0.06);
-      }
-    }
-
-    .form {
-      border-radius: 10px;
-      overflow: hidden;
-      margin-bottom: 1.6rem;
-
-      ion-item {
-        padding-left: 0 !important;
-        width: 100% !important;
-
-        .item-inner {
-          padding-left: 0px;
-
-          ion-label {
-            font-size: 1.3rem;
-            font-size: 1.3rem;
-            width: 36px;
-            display: block;
-          }
-
-          .text-input {
-            font-size: 1.5rem !important;
-            font-weight: 500 !important;
-          }
-        }
-      }
-    }
-
-    .card-header-md {
-      padding: 8px 0 5px 0;
-    }
-
-    .active-stage {
-      padding-top: 18px;
-
-      span {
-        width: 20px;
-        display: block;
-        background: #fff;
-        margin: auto;
-
-        strong {
-          margin: auto;
-          display: block;
-          width: 10px;
-          height: 10px;
-          border-radius: 50%;
-        }
-
-        &.col-1 {}
-
-        &.col-2 {
-          width: 1px;
-          height: 35px;
-          border-radius: 0;
-          padding: 2px 0;
-          margin: -0px 0 0px 9.81px;
-          background: #a0a0a0;
-        }
-
-        &.col-3 {}
-      }
-
-      &::after {
-        content: '';
-        display: block;
-        position: absolute;
-        width: 1px;
-        left: 0;
-        right: 0;
-        margin: auto;
-        height: 54px;
-        background: #ccc;
-        top: 26px;
-        z-index: 0;
-      }
-    }
-
-    .past-location {
-      .item {
-        background: none !important;
-
-        .label {
-          margin: 0 !important;
-        }
-
-        p {
-          font-size: 1.3rem;
-          font-weight: 500;
-        }
-
-        .item-inner {
-          height: 35px !important;
-
-          .input-wrapper {
-            height: 35px !important;
-          }
-        }
-      }
-    }
+    border-radius: 10px 10px 0 0 !important;
   }
 
-  .item-block:first-child {
-    border-top: none !important;
+  small.text-light {
+    color: #626262 !important;
   }
 
-  .border-radius {
-    border-radius: 0px;
+  ion-card-header {
+    padding-left: 16px !important;
+    padding-top: 16px !important
+  }
 
-    .pad-0 {
-      padding: 2px 0;
+  ion-item {
+    padding-left: 16px !important
+  }
+
+  ion-card-content {
+    padding: 0 5px 5px !important;
+  }
+}
+
+.distance {
+  padding-left: 20px;
+  padding-bottom: 5px;
+  color: red;
+  font-weight: 800;
+}
+
+.card-box {
+  .passanger-info.heading {
+    background: transparent !important;
+    padding: 0 !important;
+
+    ion-avatar {
+      width: 45px !important;
+      height: 45px !important;
+      // border-radius: 50%;
     }
 
-    .item {
-      padding-left: 0 !important;
+    h2 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      padding-bottom: 4px;
     }
 
-    ion-label {
-      color: #dbdbdb !important;
-      width: 40px !important;
-    }
-
-    &.shadow-black {
-      box-shadow: 0px 3px 35px rgba(0, 0, 0, 0.2);
+    p {
+      font-size: 1rem;
     }
 
     .item-inner {
-      border-bottom: none !important;
-      box-shadow: none !important;
+      border-bottom: 0 !important;
+    }
+
+    img {
+      border-radius: 50% !important;
+    }
+
+    .item-block:last-child {
+      border: none !important;
     }
   }
 
-  .location-icon {
-    max-width: 40px;
+  .rateing {
+    padding-left: 4px;
+
+    ion-icon {
+      font-size: 1.3rem !important;
+      padding: 0 2px;
+    }
+  }
+
+  .call {
+    padding: 10px;
+    background-color: red;
     text-align: center;
-
-    strong {
-      border-radius: 50%;
-      display: block;
-      height: 8px;
-      width: 8px;
-      margin: auto;
-      position: relative;
-      z-index: 1;
-
-      // &::after {
-      //   content: '';
-      //   position: absolute;
-      //   width: 1px;
-      //   height: 30px;
-      //   display: block;
-      //   margin: auto;
-      //   bottom: -33px;
-      //   background: #ccc;
-      //   left: 0;
-      //   right: 0;
-      // }
-
-      &.bg-yellow {
-        &::after {
-          display: none;
-        }
-      }
-    }
+    border-radius: 50%;
   }
+}
 
-  .card-box {
-    position: fixed;
-    bottom: -11px;
-    // width: calc(100% - 2rem);
-    // left: 1rem;
 
-    .card {
-      // border-radius: 10px 10px 0 0 !important;
-    }
-
-    small.text-light {
-      color: #626262 !important;
-    }
-
-    ion-card-content {
-      padding: 0 5px 5px !important;
-    }
-  }
-
-  .card-box {
-    .menu.heading {
-      background: none !important;
-      padding: 0 !important;
-
-      ion-avatar {
-        width: 45px !important;
-        height: 45px !important;
-      }
-
-      h2 {
-        font-size: 1.4rem;
-        font-weight: 600;
-        padding-bottom: 4px;
-      }
-
-      p {
-        font-size: 1rem;
-      }
-    }
-
-    .rateing {
-      padding-left: 4px;
-
-      ion-icon {
-        font-size: 1.3rem !important;
-        padding: 0 2px;
-      }
-    }
-  }
-
-  .car-details {
-    small {
-      display: block;
-      margin-bottom: 3px;
-    }
+.car-details {
+  small {
+    display: block;
+    margin-bottom: 3px;
   }
 }

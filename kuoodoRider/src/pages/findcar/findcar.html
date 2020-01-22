@@ -18,47 +18,24 @@
 
 
 
-
-
-
-  <!-- <ion-card  class="driverInfo">
-    <ion-item>
-      <ion-avatar item-start>
-        <img src="https://openclipart.org/image/2400px/svg_to_png/190113/1389952697.png">
-      </ion-avatar>
-      <h2>{{drivername}}</h2>
-      <h2>{{phone}}</h2>
-      <h3>{{arrivingDistance}} Away</h3>
-      <h3> Time to arrive : {{arrivingDuration}} </h3>
-      <span item-end *ngIf="arrival_status == 'arriving'">
-        <ion-spinner name="bubbles"></ion-spinner>
-      </span>
-    </ion-item>
-  </ion-card> -->
-
-  <div class="card-box" *ngIf="rideMode">
+  <div class="card-box" *ngIf="rideStatus != 'idle'">
     <ion-card class="text-black">
       <ion-card-header>
-        <small float-left class="text-light">{{string.driverInfo}}</small>
-        <!-- <small float-right class="text-green">Cancel Ride</small> -->
+        <small float-left class="text-light">{{accepted?'Driver Info':'Waiting for driver response ...'}}</small>
+        <small float-right class="text-red"></small>
       </ion-card-header>
       <ion-card-content>
-        <div class="menu heading">
+        <div class="passanger-info heading">
           <ion-list>
             <ion-item>
               <ion-avatar item-start>
-                <img src="https://openclipart.org/image/2400px/svg_to_png/190113/1389952697.png">
+                <img src="{{driverImage}}">
               </ion-avatar>
               <h2 class="text-black">
-                {{drivername}}
-                <ion-icon float-right name="ios-arrow-forward"></ion-icon>
+                {{drivername}} <strong class="text-green">({{arrivingDuration}} away)</strong>
               </h2>
-
-              <div item-end *ngIf="arrival_status == 'arriving'">
-                <ion-spinner name="bubbles"></ion-spinner>
-              </div>
-
-              <!-- <p class="text-black">4.7
+              <h4 class="text-black">
+                <!-- {{driverPhone}} -->
                 <span class="rateing">
                   <ion-icon name="star" class="text-green"></ion-icon>
                   <ion-icon name="star" class="text-green"></ion-icon>
@@ -66,21 +43,21 @@
                   <ion-icon name="star" class="text-green"></ion-icon>
                   <ion-icon name="star" class="text-green"></ion-icon>
                 </span>
-              </p> -->
+              </h4>
+
+              <div item-end>
+                <ion-spinner *ngIf="rideStatus == 'request'" name="bubbles"></ion-spinner>
+                <ion-icon *ngIf="rideStatus == 'arrive'" class="call" name="call"></ion-icon>
+                <ion-icon *ngIf="rideStatus == 'pick_up'" class="call" name="call"></ion-icon>
+                <ion-icon *ngIf="rideStatus == 'ride'" class="call" name="navigate"></ion-icon>
+              </div>
+
             </ion-item>
           </ion-list>
         </div>
-        <ion-row padding class="car-details">
-          <ion-col>
-            <small class="text-light">{{string.driverDistance}}</small>
-            <strong class="text-black">{{arrivingDistance/1000}} K.M</strong>
-          </ion-col>
-          <ion-col>
-            <small class="text-light">{{string.timeToArrive}}</small>
-            <strong class="text-black">{{arrivingDuration}}</strong>
-          </ion-col>
+        <ion-row>
+          <span class="distance"> ride code : {{otp}} </span>
         </ion-row>
-
       </ion-card-content>
     </ion-card>
   </div>
@@ -88,8 +65,6 @@
 
 
   <ion-card class="shadow-black controls">
-    <!-- <div id='vartical-line'></div> -->
-    <!-- <hr > -->
     <ion-card-content>
       <div class="shadow-black border-radius">
         <ion-row>
@@ -98,16 +73,13 @@
           </ion-col>
           <ion-col class="pad-0">
             <ion-item class="bg-white border-bottom" (tap)="showAddressModal('start')">
-              <!-- <ion-label floating>from</ion-label> -->
               <ion-input type="text" class="location" disabled="true" [(ngModel)]="startAddress"></ion-input>
 
 
               <button ion-button class="locate-icon" clear *ngIf="!rideMode" type="button" item-right
                 (click)="setCurrentLocation()">
-                <!-- <ion-icon name="locate"> </ion-icon> -->
               </button>
             </ion-item>
-            <!-- <div class="triangle-down"></div> -->
 
           </ion-col>
         </ion-row>
@@ -117,7 +89,6 @@
           </ion-col>
           <ion-col class="pad-0">
             <ion-item class="bg-white" (tap)="showAddressModal('end')">
-              <!-- <ion-label floating>to</ion-label> -->
               <ion-input disabled="true" type="text" class="location" [(ngModel)]="endAddress"></ion-input>
               <ion-icon name="md-locate" class="text-black"></ion-icon>
             </ion-item>
@@ -129,11 +100,6 @@
 
   <div #map style="position:absolute !important" id="map"></div>
 
-  <div *ngIf="otp != ''" class="qrCode">
-    <h2>{{otp}}</h2>
-    <!-- <qr-code [value]="otp" [size]="200"></qr-code> -->
-    <p>{{string.otpMsg}}.</p>
-  </div>
 
 
 
@@ -141,21 +107,7 @@
   <!-- choose cab -->
   <div class="card-box">
 
-    <!-- <ion-card no-padding class="riding">
-      <ion-card-content>
-        <ion-list inset>
-          <ion-item>
-            <p item-left>You are currently riding </p>
-            <button item-right ion-button outline color="secondary">show</button>
-          </ion-item>
-        </ion-list>
-      </ion-card-content>
-    </ion-card> -->
-
-    <ion-card class="text-black" *ngIf="!rideMode">
-      <!-- <ion-card-header>
-        <span text-center class="mx-a">{{string.cabType}}</span>
-      </ion-card-header> -->
+    <ion-card class="text-black" *ngIf="rideStatus == 'idle'">
       <ion-card-content>
         <ion-grid class="cab-scroll bg-white">
           <ion-row class="cab-container">
@@ -219,8 +171,8 @@
         <ion-row padding-left padding-right>
 
           <ion-col col-12>
-            <button ion-button full *ngIf="!rideMode && nearestDrivers.length != 0" ion-button (click)="bookDriver()"
-              class="bg-green shadow-green full">{{string.bookBtn}}</button>
+            <button ion-button full *ngIf="rideStatus == 'idle' && nearestDrivers.length != 0" ion-button
+              (click)="bookDriver()" class="bg-green shadow-green full">{{string.bookBtn}}</button>
           </ion-col>
         </ion-row>
 
