@@ -19,7 +19,7 @@ export class RegistrationPage {
   facebookId: any;
   isLoginFb: any;
   loginId: any;
-  password: any = 'password';
+  password: any;
   isUserRegistered: any;
   passwordMessage: string = '';
   phoneNumberMessage: string = '';
@@ -44,7 +44,7 @@ export class RegistrationPage {
   message: any = '';
 
   id: any;
-  phoneNumber: any = 6297365494;
+  phoneNumber: any;
 
   public isPassword: boolean = true;
 

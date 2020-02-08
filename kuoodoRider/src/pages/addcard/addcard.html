@@ -1,43 +1,48 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>{{string.addcard}}</ion-title>
+    <ion-toolbar style="background-color:#54b61e !important">
+      <ion-title (click)="pop()">
+        <ion-icon ios="ios-arrow-round-back" md="md-arrow-round-back"></ion-icon> Add Card
+      </ion-title>
+    </ion-toolbar>
   </ion-navbar>
 </ion-header>
-<ion-content>
+<ion-content center text-center>
   <ion-grid>
     <ion-row>
       <ion-item>
-        <ion-input type="number" [(ngModel)]="card.number" placeholder="{{string.cardNumber}} i.e 4242424242424242"></ion-input>
+        <ion-input type="number" [(ngModel)]="card.number" placeholder="{{string.cardNumber}}">
+        </ion-input>
         <!-- <ion-icon item-right name="camera"> </ion-icon> -->
       </ion-item>
     </ion-row>
     <ion-row>
       <ion-col>
         <ion-item>
-          <ion-input type="number" [(ngModel)]="card.expmonth" placeholder="{{string.expMonth}} i.e 01"></ion-input>
+          <ion-input type="number" [(ngModel)]="card.expmonth" placeholder="Month - MM"></ion-input>
         </ion-item>
       </ion-col>
       <ion-col>
         <ion-item>
-          <ion-input type="number" [(ngModel)]="card.expyear" placeholder="{{string.expYear}} i.e 2027"></ion-input>
+          <ion-input type="number" [(ngModel)]="card.expyear" placeholder="Year - YYYY"></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-item>
-        <ion-input type="number" [(ngModel)]="card.cvv" placeholder="CVV i.e 012"></ion-input>
+        <ion-input type="number" [(ngModel)]="card.cvv" placeholder="CVV"></ion-input>
       </ion-item>
     </ion-row>
     <ion-row>
       <ion-item>
-        <ion-input type="text" [(ngModel)]="card.country" placeholder="{{string.country}} i.e U.S.A"></ion-input>
+        <ion-input type="text" [(ngModel)]="card.country" placeholder="Country"></ion-input>
       </ion-item>
     </ion-row>
     <ion-row>
       <ion-item>
-        <ion-input type="text" [(ngModel)]="card.name" placeholder="{{string.name}} i.e John Doe"></ion-input>
+        <ion-input type="text" [(ngModel)]="card.name" placeholder="Name on Card"></ion-input>
       </ion-item>
     </ion-row>
   </ion-grid>
-  <button ion-button full (click)="addCard()">{{string.addCard}}</button>
+  <button ion-button round outline (click)="addCard()">{{string.addCard}}</button>
 </ion-content>

@@ -127,7 +127,7 @@ export class PaymentsPage {
     loading.present();
     return new Promise(function (resolve, reject) {
       _base.appService.getPendingPayments(_base.userID, function (error, data) {
-        loading.dismiss();
+        // loading.dismiss();
         if (error) {
           reject(error);
         }
@@ -138,6 +138,10 @@ export class PaymentsPage {
         }
       });
     });
+  }
+
+  pop() {
+    this.navCtrl.pop()
   }
 
   makePayment() {

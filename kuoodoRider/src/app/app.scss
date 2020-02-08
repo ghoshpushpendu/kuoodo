@@ -207,7 +207,7 @@ ion-toolbar.toolbar.toolbar-md {
 }
 
 .back-button-text {
-  display: none;
+  display: noen;
 }
 
 .list-md .item-block .item-inner {
@@ -240,6 +240,7 @@ button.item.item-block.item-md {
 
 ion-loading {
   // opacity: 0.2 !important;
+  display: none;
 }
 
 .ion-backdrop {

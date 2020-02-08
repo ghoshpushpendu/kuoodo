@@ -5,14 +5,24 @@
   Ionic pages and navigation.
 -->
 
+<ion-header>
+  <ion-navbar>
+    <ion-toolbar style="background-color:#54b61e !important">
+      <ion-title (click)="pop()">
+        <ion-icon ios="ios-arrow-round-back" md="md-arrow-round-back"></ion-icon> Trip History
+      </ion-title>
+    </ion-toolbar>
+  </ion-navbar>
+</ion-header>
+
 
 <ion-content>
 
-  <ion-fab class="menubtn" left top (click)="pop()">
+  <!-- <ion-fab class="menubtn" left top (click)="pop()">
     <button ion-fab>
       <ion-icon ios="ios-arrow-round-back" md="md-arrow-round-back"></ion-icon>
     </button>
-  </ion-fab>
+  </ion-fab> -->
 
   <!-- each trip -->
   <!-- card  -->
@@ -23,7 +33,9 @@
         <ion-item no-padding class="name">
           <!-- profile img -->
           <ion-avatar item-start>
-            <img item-start src="https://openclipart.org/image/2400px/svg_to_png/190113/1389952697.png" />
+            <img *ngIf="!trip.userId.profileImage" item-start src="./assets/image/user.jpg" />
+            <img *ngIf="trip.userId.profileImage" item-start
+              src="{{httpService.url+'user/fileShow?imageId='+trip.driverId.profileImage+'&select=thumbnail'}}" />
           </ion-avatar>
           <!-- profile img -->
           <!-- date html -->
@@ -31,7 +43,8 @@
           <!-- date html -->
           <!-- profile name -->
           <p>{{trip.driverId.firstName +' '+trip.driverId.lastName}}</p>
-          <span>{{trip.driverId.carName}}</span>
+          <p style="    color: green !important;
+          font-size: 12px;">{{trip.driverId.carName}}({{trip.driverId.carType}})</p>
           <!-- profile name -->
         </ion-item>
       </ion-list>
@@ -41,14 +54,14 @@
       <!-- start time -->
       <div class="start" padding-left>
         <p no-margin>{{(trip.startTime)?trip.startTime.substring(15,25):''}}</p>
-        <span>{{trip.startLocation}}</span>
+        <span style="color:blue !important">{{trip.startLocation}}</span>
       </div>
       <!-- start time -->
 
       <!-- end time -->
       <div class="end" padding-left>
         <p no-margin>{{(trip.endTime)?trip.endTime.substring(15,25):''}}</p>
-        <span>{{trip.endLocation}}</span>
+        <span style="color:orange !important">{{trip.endLocation}}</span>
       </div>
       <!-- end time -->
     </ion-card-content>
@@ -59,10 +72,10 @@
         {{ trip.distance }}
         <!-- <span *ngIf="trip.distance">Mile</span> -->
       </p>
-      <p float-right>{{(trip.amount)?'$'+trip.amount:''}}</p>
+      <p float-right class={{trip.status}}>{{trip.status}}</p>
     </div>
 
-    <img class="stamp" src="assets/stamps/{{trip.stamp}}" />
+    <!-- <img class="stamp" src="assets/stamps/{{trip.stamp}}" /> -->
     <!-- footer card -->
     <!-- <ion-card-footer>
       Header

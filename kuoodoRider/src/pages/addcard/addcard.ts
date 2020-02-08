@@ -32,6 +32,10 @@ export class AddcardPage {
     this.stripe.setPublishableKey('pk_live_9AHmOl62GsyiArYPdxApwouk');
   }
 
+  pop() {
+    this.navCtrl.pop()
+  }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad AddcardPage');
     this.card.userId = this.localStorageProvider.getUserId();

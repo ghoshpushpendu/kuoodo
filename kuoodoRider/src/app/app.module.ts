@@ -11,6 +11,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { Device } from '@ionic-native/device';
 import { Network } from '@ionic-native/network';
 import { Stripe } from '@ionic-native/stripe';
+import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { Stripe } from '@ionic-native/stripe';
   ],
   providers: [
     StatusBar,
+    LaunchNavigator,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     LocalStorageProvider,

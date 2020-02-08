@@ -47,11 +47,11 @@
 
               <div item-end>
                 <ion-spinner *ngIf="rideStatus == 'request'" name="bubbles"></ion-spinner>
-                <ion-icon *ngIf="rideStatus == 'arrive'" class="call" name="call"></ion-icon>
-                <ion-icon *ngIf="rideStatus == 'pick_up'" class="call" name="call"></ion-icon>
-                <ion-icon *ngIf="rideStatus == 'ride'" class="call" name="navigate"></ion-icon>
+                <ion-icon *ngIf="rideStatus == 'arrive'" (tap)="call()" class="call" name="call"></ion-icon>
+                <ion-icon *ngIf="rideStatus == 'pick_up'" (tap)="call()" class="call" name="call"></ion-icon>
+                <ion-icon *ngIf="rideStatus == 'ride'" class="call" (tap)="openNavigator()" name="navigate"></ion-icon>
               </div>
-
+              <a style="display:none" id="call" href="tel:{{driverPhone}}"></a>
             </ion-item>
           </ion-list>
         </div>

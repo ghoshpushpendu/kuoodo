@@ -5,6 +5,7 @@ import { AlertController, LoadingController } from 'ionic-angular';
 import { HttpService } from '../../app.httpService';
 import { Stripe } from '@ionic-native/stripe';
 import { strings } from './../../lang';
+import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator';
 
 declare var google;
 
@@ -27,7 +28,7 @@ export class FindcarPage {
   public waitingLoader: any;
 
   public rideMode: boolean = false;
-
+  public currentDriver: any;
   map: any;
   message: any;
   public marker: any = null;
@@ -109,6 +110,7 @@ export class FindcarPage {
     public navParams: NavParams,
     private _geoLoc: Geolocation,
     private httpService: HttpService,
+    public launchNavigator: LaunchNavigator,
     private appService: AppService,
     private localStorageProvider: LocalStorageProvider,
     private alertCtrl: AlertController,
@@ -137,6 +139,11 @@ export class FindcarPage {
 
 
       if (userID == _base.id) {
+        _base.currentDriver = data.driverId;
+        let length = _base.nearestDrivers.length;
+        for (let i = 0; i <= length - 1; i++) {
+          _base.nearestDrivers[i].marker ? _base.nearestDrivers[i].marker.setMap(null) : null;
+        }
 
         _base.waitingLoader.dismiss();
         _base.showToast(_base.string.accepted);
@@ -147,8 +154,12 @@ export class FindcarPage {
 
         //subscribe to driver location update
         _base.socket.on(_base.driverId + "-location", (data) => {
-          _base.showDriver(data.lat, data.lng);
-
+          let loc = new google.maps.LatLng(data.lng, data.lat)
+          let driver = _base.currentDriver;
+          driver.heading = data.heading
+          driver.accuracy = data.accuracy;
+          driver.speed = data.speed;
+          _base.projectDriver(loc, _base.currentDriver);
         })
       } else {
 
@@ -177,7 +188,7 @@ export class FindcarPage {
         _base.arrival_status = "arrived";
         _base.rideStatus = 'pick_up'
         _base.showToast(_base.string.arrived);
-        _base.showJourneyRoute();
+        // _base.showJourneyRoute();
       }
     });
 
@@ -188,7 +199,7 @@ export class FindcarPage {
         _base.showToast(_base.string.rideStarted);
         _base.rideStatus = 'ride'
         _base.socket.removeListener(_base.driverId + "-location", function () {
-
+          _base.currentDriver.marker ? _base.currentDriver.marker.setMap(null) : null;
         });
       }
     });
@@ -198,12 +209,15 @@ export class FindcarPage {
       let driverID = data.driverId._id;
       if (userID == _base.id) {
         _base.showToast(_base.string.rideCompleted);
-        // _base.clearTrip();
         let price = data.price;
         // this.attemptPayment();
         _base.rideStatus = 'idle'
         _base.nav.push("RatingPage");
         _base.rideMode = false;
+        _base.endAddress = null;
+        _base.endingLatitude = null;
+        _base.endingLongitude = null;
+        _base.clearTrip();
       }
     });
 
@@ -339,9 +353,18 @@ export class FindcarPage {
     this.driverId = null;
     this.rideMode = false;
     this.arrival_status = "";
-    this.directionsDisplay.setMap(null);
-    this.destinationmarker.serMap(null);
-    this.getLocation();
+    this.directionsDisplay ? this.directionsDisplay.setMap(null) : null;
+    this.originmarker ? this.originmarker.setMap(null) : null;
+    this.destinationmarker ? this.destinationmarker.setMap(null) : null;
+    this.currentDriver.marker ? this.currentDriver.marker.setMap(null) : null;
+    this.polygon ? this.polygon.setMap(null) : null;
+    clearInterval(this.interval)
+    this.nearestDrivers = [];
+    this.cabTypes.map(element => {
+      delete element.duration;
+      delete element.cost;
+    });
+    this.setCurrentLocation();
   }
 
   checkRideStatus() {
@@ -413,6 +436,7 @@ export class FindcarPage {
 
         if (success.result.length) {
           if (success.result[0].amount >= 0) {
+            _base.showToast("You have pending payments")
             // _base.nav.push("PaymentsPage");
           }
         }
@@ -425,6 +449,7 @@ export class FindcarPage {
       .then(function (success: any) {
         if (success.cards.length == 0) {
           // _base.showToast(_base.string.paymentMethodError);
+          _base.showToast("Please add a debit/credit card to book ride")
           // _base.navCtrl.push("PaymentsPage");
         } else {
           _base.cards = success.cards;
@@ -1144,6 +1169,49 @@ export class FindcarPage {
   Marker creation on google map to show the available driver after search
   */
 
+  projectDriver(loc: any, driverDetails: any) {
+    let _base = this;
+    console.log(loc, driverDetails)
+
+    var icon = {
+      url: "./assets/image.png?id=" + driverDetails._id,
+      // url: "https://cdn1.iconfinder.com/data/icons/Map-Markers-Icons-Demo-PNG/256/Map-Marker-Ball-Chartreuse.png", // url
+      scaledSize: new google.maps.Size(50, 50), // scaled size
+      origin: new google.maps.Point(0, 0), // origin
+      anchor: new google.maps.Point(25, 25) // anchor
+    };
+
+    let markarOptions = {
+      position: loc,
+      icon: icon,
+      map: _base.map,
+      title: driverDetails._id
+    };
+
+    let marker = driverDetails.marker;
+    if (marker) {
+      let element = <HTMLElement>document.querySelector('img[src = "./assets/image.png?id=' + driverDetails._id + '"]');
+      if (element) {
+        element.style.transform = "rotate(" + driverDetails.heading + "deg)";
+      }
+      setTimeout(function () {
+        _base.animatedMove(driverDetails.marker, 1, driverDetails.marker.position, loc)
+      }, 1000);
+    } else {
+
+      let marker = new google.maps.Marker(markarOptions);
+      _base.currentDriver.marker = marker;
+
+      setTimeout(function () {
+        let element = <HTMLElement>document.querySelector('img[src = "./assets/image.png?id=' + driverDetails._id + '"]');
+        if (element) {
+          element.style.transitionDuration = "1s";
+        }
+      }, 500)
+    }
+  }
+
+
   createMarkarOne(loc: any, driverDetails: any) {
     let _base = this;
 
@@ -1243,8 +1311,41 @@ export class FindcarPage {
     }
   }
 
+  openNavigator() {
+    let _base = this;
+    let start = {
+      lat: parseFloat(_base.startLatitude),
+      lng: parseFloat(_base.startLongitude)
+    };
+    let end = {
+      lat: parseFloat(_base.endingLatitude),
+      lng: parseFloat(_base.endingLongitude)
+    }
+
+    _base.lunchNavigator(start, end);
+  }
+
+  lunchNavigator(start: any, end: any) {
 
 
+    let GStart = [start.lat, start.lng];
+    let GEnd = [end.lat, end.lng];
+    let options: LaunchNavigatorOptions = {
+      start: GStart,
+      transportMode: "driving"
+    };
+
+    this.launchNavigator.navigate(GEnd, options)
+      .then(
+        success => { },
+        error => { }
+      );
+  }
+
+  call() {
+    let element = <HTMLAnchorElement>document.getElementById("call")
+    element.click();
+  }
   /*
   Driver booking
   */
@@ -1487,9 +1588,9 @@ export class FindcarPage {
   */
   showToast(position: string) {
     let toast = this.toastCtrl.create({
-      message: this.message,
+      message: position,
       duration: 3000,
-      position: 'top'
+      position: 'bottom'
     });
 
     toast.present(toast);

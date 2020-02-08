@@ -4,7 +4,7 @@ import { LocalStorageProvider } from '../../app.localStorage';
 import { AppService } from '../../app.providers';
 import { LoadingController } from 'ionic-angular';
 import { strings } from './../../lang';
-
+import { HttpService } from '../../app.httpService';
 
 @IonicPage({ name: 'TriphistoryPage' })
 @Component({
@@ -28,6 +28,7 @@ export class TriphistoryPage {
     private localStorageProvider: LocalStorageProvider,
     private appService: AppService,
     public toastCtrl: ToastController,
+    public httpService: HttpService,
     public loadingCtrl: LoadingController) {
     this.userID = this.localStorageProvider.getUserId();
   }
@@ -51,17 +52,10 @@ export class TriphistoryPage {
         console.log(success.result);
         console.log("hmm user");
         _base.trips = success.result.map(function (trip) {
-          let status = trip.status;
-          let payment = trip.payment;
           trip.amount = parseInt(trip.amount);
-          if (status == 'Completed' && payment == 'Paid') {
-            trip.stamp = "paid.png";
-          } else if (status == 'Booked' || status == 'Commute') {
-            trip.stamp = "pending.jpg";
-          } else if (status = "Cancelled") {
-            trip.stamp = "cancelled.png";
-          }
           return trip;
+        }).slice(0, 20).filter(item => {
+          if (item.status) { return item }
         });
         if (success.result.length == 0) {
           _base.showToast(_base.string.noTrip);
