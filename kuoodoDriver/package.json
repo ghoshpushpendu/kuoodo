@@ -47,7 +47,7 @@
     "ng2-slim-loading-bar": "^4.0.0",
     "rxjs": "5.5.11",
     "scriptjs": "^2.5.9",
-    "socket.io-client": "^2.1.1",
+    "socket.io-client": "^2.5.0",
     "sw-toolbox": "3.6.0",
     "timer-stopwatch": "^0.2.0",
     "uk.co.workingedge.phonegap.plugin.launchnavigator": "^4.2.2",
